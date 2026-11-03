@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="images/Logo/Icon_passend.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Delluxe-Dellen GmbH – Lackfreie Dellenreparatur Eichenau bei München</title>
+  <meta name="description" content="Meisterbetrieb für lackfreie Dellenreparatur (PDR) in Eichenau bei München. Hagelschaden, Smart Repair, Leasingrückgabe. ★ 5.0 Google. Jetzt anfragen." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,300;0,6..96,400;0,6..96,500;1,6..96,300;1,6..96,400&family=Instrument+Sans:wght@300;400;500;600&display=swap&font-display=swap" rel="stylesheet" />
+
+  <!-- SEO: LocalBusiness Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutoRepair",
+    "@id": "https://www.delluxe-dellen.de/#business",
+    "name": "Delluxe-Dellen GmbH",
+    "description": "Meisterbetrieb für lackfreie Dellenreparatur (PDR) in Eichenau bei München",
+    "url": "https://www.delluxe-dellen.de",
+    "telephone": "+498141890855",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Ringstraße 19",
+      "addressLocality": "Eichenau",
+      "postalCode": "82223",
+      "addressRegion": "Bayern",
+      "addressCountry": "DE"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 48.174, "longitude": 11.254 },
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "80" },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Leistungen",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Lackfreie Dellenreparatur" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Hagelschaden-Reparatur" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Smart Repair" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Leasingrückgabe" } }
+      ]
+    }
+  }
+  </script>
+
+  <!-- SEO: FAQPage Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Was kostet eine Dellenreparatur beim Beulendoktor?", "acceptedAnswer": { "@type": "Answer", "text": "Kleine Dellen kosten 50–80 €, mittlere 80–150 €, Hagelschäden 300–1500 € je nach Umfang. PDR ist bis zu 70 % günstiger als konventionelle Lackierung." } },
+      { "@type": "Question", "name": "Übernimmt die Versicherung die Kosten für Hagelschäden?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, die Teilkaskoversicherung übernimmt in der Regel Hagelschäden vollständig. Kein Schadenfreiheitsrabatt-Verlust." } },
+      { "@type": "Question", "name": "Wie lange dauert eine Dellenreparatur?", "acceptedAnswer": { "@type": "Answer", "text": "Kleine Dellen: 1–3 Stunden. Umfangreiche Hagelschäden: 2–4 Tage." } },
+      { "@type": "Question", "name": "Kann jede Delle ohne Lackieren repariert werden?", "acceptedAnswer": { "@type": "Answer", "text": "In den meisten Fällen ja, solange der Originallack intakt ist. Ausnahmen: scharfkantige Dellen, überdehnte Stellen, Karosserierippen." } },
+      { "@type": "Question", "name": "Welche Gebiete rund um München bedient ihr?", "acceptedAnswer": { "@type": "Answer", "text": "Wir sind Meisterbetrieb in Eichenau und bedienen München, Germering, Puchheim, Fürstenfeldbruck, Starnberg und den gesamten Landkreis FFB (35 km Radius)." } }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --delluxe_green:        #6cd141;
+      --softgreen:            #dcffe8fa;
+      --softgreen_transparent50: #dcffe850;
+      --delluxe_black:        #0c0c0c;
+      --delluxe_black_transparent55:        #0c0c0c55;
+      --delluxe_black_transparent85:        #0c0c0c85;
+      --delluxe_black_transparentC0: #0c0c0cc0;
+      --delluxe_white:        #f5f5f2;
+      --gold:                 #f5c518;
+      --mediumgrey:           #444444;
+      --softgrey80:           #F5F5F2CC;
+      --softgrey70:           #F5F5F2B3;
+      --softgrey50:           #f5f5f28e;
+      --black_transparent20:  #00000033;
+      --white_transparent10:  #FFFFFF1A;
+      --white_transparent15:  #FFFFFF26;
+      
+      --max-width:          1240px;
+      --radius:             2px;
+      --card-gap:           24px;
+      --section-padding:    50px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--delluxe_black);
+      color: var(--delluxe_white);
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--delluxe_green); font-weight: 600;
+
+      margin-bottom: 16px;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
+      padding: 12px 18px; border-radius: 999px;
+      font-size: 15px; font-weight: 500;
+      font-family: 'Instrument Sans', sans-serif;
+      cursor: pointer; text-decoration: none; border: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn:hover { color: var(--delluxe_white); box-shadow: 0 3px 12px var(--white_transparent10); transform: translateY(-1px); }
+    .btn--green   { background: var(--softgreen); color: var(--delluxe_black); position: relative; }
+    .btn--green::before {
+      content: '';
+      position: absolute;
+      inset: 4px; /* Abstand nach außen */
+      border-radius: inherit; /* übernimmt den border-radius vom Elternelement */
+      border: 2px solid var(--delluxe_black);
+    }
+    .btn--green:hover { color: var(--delluxe_black)}
+    .btn--secondary { background: var(--black_transparent20); color: var(--softgreen); border: 1px solid var(--white_transparent15); backdrop-filter: blur(8px); } 
+    /* ════════════════════════════
+       NAVIGATION
+    ════════════════════════════ */
+    .navbar {
+      position: fixed; top: 0; left: 0; width: 100%;
+      height: 60px;
+      background: transparent;
+      transition: background 0.45s;
+      z-index: 200;
+    }
+    .navbar::after {
+      content: '';
+      position: absolute; inset: 0 0 -40px 0;
+      backdrop-filter: blur(10px) saturate(1.4);
+      mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+      opacity: 0; transition: opacity 0.55s ease;
+      pointer-events: none; z-index: -1;
+    }
+    .navbar.navbar--scrolled { background: linear-gradient(to bottom, var(--delluxe_black_transparent85) 0%, transparent 100%); }
+    .navbar.navbar--scrolled::after { opacity: 1; }
+
+    /* Desktop Navbar-Layout */
+    .navbar__inner {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: var(--max-width);
+      height: 60px; padding: 0 30px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .navbar__logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .navbar__links { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 32px; }
+    .navbar__links a { font-size: 15px; color: var(--softgrey70); text-decoration: none; transition: color 0.2s; }
+    .navbar__links a:hover { color: var(--delluxe_white); }
+    .navbar__right { display: flex; align-items: center; gap: 18px; flex-shrink: 0; }
+    .navbar__social { display: flex; align-items: center; gap: 14px; }
+    .navbar__social a { color: var(--softgrey70); text-decoration: none; transition: color 0.2s; display: flex; align-items: center; }
+    .navbar__social a:hover { color: var(--delluxe_white); }
+
+
+    /* ════════════════════════════
+       HERO
+    ════════════════════════════ */
+    .hero {
+      position: relative; height: 100vh; min-height: 640px;
+      display: flex; align-items: flex-end; overflow: hidden;
+    }
+    .hero__frame { position: absolute; inset: 0; overflow: hidden; }
+
+    /* KRITISCH: Niemals opacity:0 auf .hero__bg setzen!
+       Kombination von scale() + opacity-Animation erzeugt GPU-Compositing-Spalt. */
+    .hero__bg {
+      position: absolute; inset: 0;
+      background: var(--delluxe_black_transparent85) url('images/Dellenreparatur.webp') center/cover no-repeat;
+      transform: scale(1.06); /* Nicht ändern – verhindert weiße Ränder bei voller Viewport-Breite */
+    }
+    .hero__overlay {
+      position: absolute; inset: 0;
+      /* Radialer statt vertikaler linearer Verlauf, weil der lineare eine sichtbare Linie erzeugt */
+      background:
+        linear-gradient(to right, var(--delluxe_black) 0%, transparent 30%, transparent 70%, var(--delluxe_black) 100%),
+        radial-gradient(ellipse 150% 90% at center, transparent 0%, var(--delluxe_black) 50%);
+    }
+    .hero__content {
+      position: relative; z-index: 2;
+      width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 40px 100px;
+    }
+    .hero__content::before {
+      content: '';
+      position: absolute; inset: -80px 0px -40px -80px;
+      backdrop-filter: blur(8px) saturate(1.3);
+      mask-image: radial-gradient(ellipse 50% 70% at 30% 55%, var(--delluxe_black) 30%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 50% 70% at 30% 55%, var(--delluxe_black) 30%, transparent 75%);
+      pointer-events: none; z-index: -1;
+      background: var(--delluxe_black_transparentC0);
+    }
+    .hero__eyebrow {
+      display: block; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--delluxe_green); margin-bottom: 20px;
+      font-family: 'Instrument Sans', sans-serif; /* Browser-H1-Standard überschreiben */
+    }
+    .hero__title {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(48px, 7.5vw, 100px);
+      line-height: 0.9;
+      letter-spacing: -.05em;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    .hero__title-line1 { display: block; color: var(--delluxe_white);}
+    .hero__title-line2 {
+      display: block; font-style: italic;
+      background: linear-gradient(to right, var(--softgreen) 0%, var(--delluxe_green) 50%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero__subtitle { display: flex; align-items: center; gap: 15px; font-size: 15px; color: var(--softgrey70); }
+    .hero__subtitle-dot  { width: 3px; height: 3px; background: var(--mediumgrey); border-radius: 50%; flex-shrink: 0; }
+    .hero__subtitle-star { color: var(--gold); }
+    .mobile-only { display: none; }
+    @media (max-width: 480px) { .mobile-only { display: block; } }
+
+    /* ════════════════════════════
+       STATEMENT
+    ════════════════════════════ */
+    .statement { padding: var(--section-padding) 0; border-bottom: 1px solid var(--black_transparent20); }
+    .statement__inner { display: flex; flex-direction: column; align-items: center; gap: 40px; }
+    .statement__title {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(28px, 3.2vw, 44px);
+      font-weight: 300; line-height: 1.25; color: var(--delluxe_white);
+      max-width: var(--max-width); width: 100%; text-align: center;
+    }
+    .statement__title strong { font-weight: 600; }
+    .statement__title italic_green { font-style: italic; color: var(--delluxe_green); }
+
+    /* ════════════════════════════
+       LEISTUNGEN
+    ════════════════════════════ */
+    .services { padding: var(--section-padding) 0; }
+
+    .section-header { display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; }
+    .section-header .btn { align-self: flex-end; }
+    .section-title { font-family: 'Bodoni Moda', serif; font-weight: 300; font-size: clamp(32px, 3.8vw, 52px); line-height: 1.1; letter-spacing: -.05em; color: var(--delluxe_white); }
+    .section-text { font-size: 15px; color: var(--softgrey80); line-height: 1.75; margin-bottom: 16px; }
+    .subtitle { font-family: 'Bodoni Moda', serif; font-size: 30px; font-weight: 400; color: var(--delluxe_white); line-height: 1; margin-bottom: 16px;}
+
+    /* Hintergrundbild in den FAQ-Tab-Antworten */
+    .svc-slide__bg {
+      position: absolute; inset: 0;
+      /* Verlauf 2px höher als die Box, damit am unteren Rand keine helle Naht entsteht */
+      background-size: 100% calc(100% + 2px), cover; background-position: center; background-repeat: no-repeat;
+      transition: filter 0.4s, opacity 0.4s; z-index: 0;
+    }
+    /* Leichter horizontaler Verlauf: links dunkler, damit der Text besser lesbar ist */
+    .faq-tabs__answer .svc-slide__bg::after {
+      content: ''; position: absolute; inset: -1px; pointer-events: none;
+      background: linear-gradient(90deg, var(--delluxe_black) 5%, transparent 15%, transparent 85%, var(--delluxe_black) 95%);
+    }
+
+    /* ════════════════════════════
+       GALERIE / SLIDER
+    ════════════════════════════ */
+    .gallery { padding: var(--section-padding) 0; }
+    .gallery__header { margin-bottom: 40px; }
+
+
+    .slider { position: relative; overflow: hidden; visibility: hidden; }
+    .slider__track { display: flex; height: clamp(260px, 55vw, 480px); gap: var(--card-gap); will-change: transform; align-items: center; }
+    .slider__track.is-animating { transition: transform 0.6s cubic-bezier(0.4,0,0.2,1); }
+    .slider__slide { height: 80%; position: relative; flex-shrink: 0; border-radius: var(--radius); overflow: hidden; background: var(--delluxe_black); transition: filter 0.5s, opacity 0.5s, height 0.5s; filter: blur(8px); opacity: 0.45; }
+    .slider__slide.is-active { height: 100%; filter: blur(0); opacity: 1;}
+    .slider__image   { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+    .slider__overlay {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(180deg, var(--delluxe_black) 0%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 100%);
+    }
+
+    .slider__btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px;
+      background: var(--delluxe_black_transparent55); border: 1px solid var(--black_transparent20);
+      border-radius: 50%; color: var(--delluxe_white); font-size: 18px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; z-index: 10; backdrop-filter: blur(8px);
+    }
+    .slider__btn:hover { background: var(--delluxe_black_transparent85); }
+    .slider__btn--prev { left: 16px; }
+    .slider__btn--next { right: 16px; }
+
+    .slider__progress { display: block; height: 2px; background: var(--white_transparent10); margin-top: 16px; border-radius: 2px; overflow: hidden; }
+    .slider__progress-fill { height: 100%; width: 0; background: var(--softgreen); border-radius: 2px; transition: width 0.4s ease; }
+
+    .slider-dots { display: none; justify-content: center; gap: 8px; }
+    #reviewsDotsV2 { display: flex; }
+    .slider-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--white_transparent10); border: 1px solid var(--white_transparent15); cursor: pointer; transition: background 0.2s; }
+    .slider-dots .dot.active { background: var(--delluxe_green); border-color: var(--delluxe_green); }
+
+
+    /* ════════════════════════════
+       BEWERTUNGEN
+    ════════════════════════════ */
+    .reviews { padding: var(--section-padding) 0; }
+    .reviews__header { text-align: left; margin-bottom: 48px; }
+    .reviews__slider { position: relative; overflow: hidden; visibility: hidden; }
+    .reviews__track  { display: flex; gap: var(--card-gap); will-change: transform; }
+    .reviews__track.is-animating { transition: transform 0.6s cubic-bezier(0.4,0,0.2,1); }
+    .reviews__slide  { flex-shrink: 0; align-self: flex-start; transition: filter 0.5s, opacity 0.5s; filter: blur(8px); opacity: 0.45; }
+    .no-transition .reviews__slide,
+    .no-transition .slider__slide { transition: none; }
+    .no-transition .reviews__slide .review-card::before,
+    .no-transition .reviews__slide .review-card::after { transition: none !important; }
+    .reviews__slide.is-active { filter: blur(0); opacity: 1; }
+
+    .review-card { border-radius: var(--radius); padding: 32px; display: flex; flex-direction: column; gap: 16px; }
+    .review-card__meta   { display: flex; align-items: center; gap: 12px; margin-top: -36px; }
+    .review-card__stars  { color: var(--gold); font-size: 13px; letter-spacing: 2px; }
+    .review-card__source { font-size: 12px; color: #e5e5e250; }
+    .review-card__quote  { font-size: 15px; color: var(--softgrey70); line-height: 1.7; font-style: italic; }
+
+    .reviews .reviews__bg {
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 80%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, var(--delluxe_black) 0%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 100%),
+                  url('images/Reviews.webp') center / cover no-repeat;
+      border-radius: var(--radius);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .reviews .review-card {
+      height: 300px;
+      overflow: hidden;
+      position: relative;
+      justify-content: center;
+    }
+    .reviews .review-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, var(--delluxe_black) 0%, var(--delluxe_black_transparentC0) 50%, var(--delluxe_black) 100%);
+      opacity: 0;
+      transition: opacity 0.2s 0.2s;
+      z-index: 1;
+    }
+    .reviews .reviews__slide.is-active .review-card::before {
+      opacity: 1;
+    }
+    .reviews .review-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+    }
+    .reviews .reviews__slide.is-active .review-card::after {
+      opacity: 0.3;
+      scale: 1.1;
+      background: url('images/Reviews.webp') center / cover no-repeat fixed;
+      transition: opacity 0.3s 0.3s;
+    }
+    .reviews .review-card > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ════════════════════════════
+       FAQ
+    ════════════════════════════ */
+    .faq__header { margin-bottom: 48px; }
+    .faq__icon { width: 28px; height: 28px; border: 1px solid var(--white_transparent15); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; color: var(--softgrey70); transition: transform 0.3s, border-color 0.2s, color 0.2s; }
+
+    /* ── FAQ VARIANTE 6: Fullwidth zentriert (nur Mobile) ── */
+    .faq-mobile { display: none; padding: var(--section-padding) 0; text-align: center; }
+    .faq-mobile__header { margin-bottom: 48px; }
+    .faq-mobile__list { display: flex; flex-direction: column; }
+    .faq-mobile__item { width: 100%; text-align: center; }
+    .faq-mobile__item + .faq-mobile__item::before { content: ''; display: block; height: 1px; width: 90%; margin: 0 auto; background: var(--softgreen_transparent50); }
+    .faq-mobile__question { width: 100%; display: flex; align-items: center; justify-content: center; gap: 20px; padding: 20px 24px;
+      background: none;
+      border: none; outline: none;
+      font-family: 'Instrument Sans', sans-serif; font-size: 18px; color: var(--delluxe_white); font-weight: 500; cursor: pointer; transition: color 0.2s; }
+    .faq-mobile__question:hover .faq__icon { border-color: var(--delluxe_green); color: var(--delluxe_green); }
+    .faq-mobile__answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; padding: 0 28px; }
+    .faq-mobile__item.faq-mobile__item--open .faq-mobile__answer { max-height: 300px; padding: 0 28px 24px; }
+    .faq-mobile__answer p { font-size: 14px; color: var(--softgrey70); line-height: 1.75; padding-top: 16px; border-top: 1px solid var(--black_transparent20); }
+
+    /* ── FAQ VARIANTE 4: Mit Bild (nur Desktop) ── */
+    .faq { padding: var(--section-padding) 0; }
+    .faq__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .faq__list { display: flex; flex-direction: column; }
+    .faq__item { padding: 20px 24px; cursor: pointer; transition: background 0.2s; }
+    .faq__item + .faq__item { border-top: 1px solid var(--softgreen_transparent50); }
+    .faq__question { font-size: 16px; font-weight: 500; color: var(--softgrey70); transition: color 0.2s; }
+    .faq__item.is-active .faq__question { color: var(--delluxe_white); }
+    .faq__answer { font-size: 14px; color: var(--softgrey50); line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.3s, padding 0.3s; }
+    .faq__item.is-active .faq__answer { max-height: 200px; padding-top: 10px; color: var(--softgrey70); }
+    .faq__visual { position: sticky; top: 120px; border-radius: var(--radius); overflow: hidden; height: 400px; isolation: isolate; }
+    .faq__visual img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s; display: block; }
+    .faq__visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), linear-gradient(90deg, var(--delluxe_black) 0%, transparent 10%, transparent 90%, var(--delluxe_black) 100%); pointer-events: none; }
+
+    /* ── FAQ VARIANTE 5: Tab-Layout ── */
+    .faq-tabs { padding: var(--section-padding) 0; }
+    .faq-tabs__nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
+    .faq-tabs__tab { padding: 10px 20px; border-radius: 999px; border: 1px solid var(--white_transparent10); background: none; color: var(--softgrey70); font-size: 15px; font-family: 'Instrument Sans', sans-serif; cursor: pointer; transition: all 0.2s; }
+    .faq-tabs__tab:hover {color: var(--softgreen); box-shadow: 0 3px 12px var(--white_transparent10); transform: translateY(-1px);}
+    .faq-tabs__tab.is-active { background: var(--softgreen); color: var(--delluxe_black); border-color: transparent; font-weight: 600; position: relative; }
+    .faq-tabs__tab.is-active::before { content: ''; position: absolute; inset: 4px; border-radius: inherit; border: 2px solid var(--delluxe_black); }
+    .faq-tabs__panel { display: none; }
+    .faq-tabs__panel.is-active { display: block; }
+    .faq-tabs__answer { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; font-size: 16px; color: var(--softgrey80); line-height: 1.8; padding: 40px; border-radius: var(--radius); position: relative; overflow: hidden; }
+    .faq-tabs__answer > *:not(.svc-slide__bg) { position: relative; z-index: 1; }
+    .faq-tabs__answer .btn { align-self: flex-end; }
+
+    /* ════════════════════════════
+       CTA
+    ════════════════════════════ */
+    .cta { padding: var(--section-padding) 0; }
+    .cta__box {
+      padding: 60px 60px; text-align: center; position: relative; overflow: hidden;
+    }
+
+    /* ════════════════════════════
+       FOOTER
+    ════════════════════════════ */
+    .footer { background: var(--delluxe_black); border-top: 1px solid var(--black_transparent20); padding: 0 0 24px; }
+    .footer__table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    .footer__table th, .footer__table td { vertical-align: top; padding-right: 40px; }
+    .footer__table th:first-child, .footer__table td:first-child { width: 35%; }
+    .footer__table th { padding-bottom: 8px; font-weight: normal; text-align: left; vertical-align: bottom; }
+    .footer__table th .footer__col-title { margin-bottom: 0; }
+    .footer__col-title  { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mediumgrey); margin-bottom: 16px; }
+    .footer__links      { list-style: none; display: flex; flex-direction: column; font-size: 15px; color: var(--softgrey70); line-height: 1.75; }
+    .footer__links a    { color: inherit; text-decoration: none; transition: color 0.2s; }
+    .footer__links a:hover { color: var(--delluxe_white); }
+    .footer__bottom       { border-top: 1px solid var(--black_transparent20); padding-top: 36px; display: flex; align-items: center; justify-content: center; }
+    .footer__copyright    { font-size: 12px; color: var(--mediumgrey); }
+
+    /* ════════════════════════════
+       CTA FLOAT
+    ════════════════════════════ */
+    .cta-float { position: fixed; bottom: 36px; right: max(30px, calc((100vw - var(--max-width)) / 2)); z-index: 300; display: flex; flex-direction: row; align-items: center; gap: 10px; transition: bottom 0.3s ease, opacity 0.2s, transform 0.2s; }
+    .cta-float.scrollhide { transform: translateY(15%); }
+    .cta-float .btn--secondary { line-height: 16px; }
+
+    /* ════════════════════════════
+       MOBILE NAV
+    ════════════════════════════ */
+    .navbar__mobile-bar { display: none; }
+    .navbar__hamburger {
+      display: flex;
+      flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+      background: none; border: none; padding: 4px; cursor: pointer; width: 30px; height: 30px;
+    }
+    .navbar__hamburger .bar {
+      display: block; width: 20px; height: 1.5px;
+      background: var(--delluxe_white); border-radius: 2px;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .navbar__mobile-panel {
+      display: none;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 199;
+      backdrop-filter: blur(8px) saturate(1.4); -webkit-backdrop-filter: blur(10px) saturate(1.4);
+      max-height: 0; overflow: hidden; pointer-events: none;
+      transition: max-height 0.35s ease;
+    }
+    .navbar__mobile-panel.is-open { max-height: 500px; pointer-events: auto; }
+    .navbar__mobile-links { display: flex; flex-direction: column; padding: 80px 20px 0; }
+    .navbar__mobile-link {
+      font-size: 15px; font-weight: 500; color: var(--softgrey70); text-decoration: none;
+      padding: 8px 0; border-bottom: 1px solid var(--white_transparent10); transition: color 0.2s;
+    }
+    .navbar__mobile-link:last-child { border-bottom: none; }
+    .navbar__mobile-link:active { color: var(--delluxe_white); }
+
+    /* ════════════════════════════
+       RESPONSIVE
+    ════════════════════════════ */
+    @media (max-width: 1120px) {
+      .footer__table th, .footer__table td { display: block; width: 100% !important; padding-right: 0; }
+    }
+    @media (max-width: 820px) {
+      .container { padding: 0 20px; }
+      .navbar { height: auto; padding: 18px; transition: background 0.45s, transform 0.3s ease; }
+      .navbar::after { display: none; }
+      .navbar__inner { display: none; }
+      .navbar__mobile-bar {
+        display: flex; align-items: center; justify-content: space-between;
+        position: fixed; top: 18px; left: 0; right: 0; z-index: 201;
+        pointer-events: none;
+        transition: transform 0.3s ease;
+      }
+      .navbar__mobile-logo { display: none; pointer-events: auto; align-items: center; text-decoration: none; }
+      .navbar__mobile-bar.is-open .navbar__mobile-logo { display: flex; }
+      .navbar__mobile-icon { pointer-events: auto; display: flex; align-items: center; text-decoration: none;}
+      .navbar__mobile-bar.is-open .navbar__mobile-icon { display: none; }
+      .navbar__mobile-bar.is-open .navbar__mobile-pill-left {
+        background: transparent;
+        border-color: transparent;
+        backdrop-filter: none; -webkit-backdrop-filter: none;
+      }
+
+      /* Die Pill */
+      .navbar__mobile-pill {
+        display: flex; align-items: stretch;
+        pointer-events: auto;
+        margin-left: auto;
+      }
+      .navbar__mobile-pill-ghost {
+        display: flex; align-items: center;
+        padding: 8px 28px 8px 14px;
+        border: 1px solid var(--white_transparent15);
+        background: var(--black_transparent20);
+        backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+        border-radius: 999px 0 0 999px;
+        align-self: stretch;
+        margin-right: 6px;
+      }
+      .navbar__mobile-pill-left {
+        display: flex; align-items: center;
+        padding: 8px 14px;
+        background: var(--black_transparent20);
+        border: 1px solid var(--white_transparent15);
+        border-left: none;
+        backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+        border-radius: 0 999px 999px 0;
+        pointer-events: auto;
+      }
+      .navbar__mobile-pill-green {
+        display: flex; align-items: center;
+        padding: 4px 10px 4px 14px;
+        background: var(--softgreen);
+        border: 2px solid var(--delluxe_black);
+        border-right: none;
+        box-shadow: 0 0 0 2px var(--softgreen);
+        border-radius: 999px 0 0 999px;
+        margin: 2px 0 2px -24px;
+        position: relative; z-index: 1;
+      }
+
+      .navbar__mobile-social { display: flex; align-items: center; gap: 14px; }
+      .navbar__mobile-social a { color: var(--softgrey70); display: flex; align-items: center; transition: color 0.2s; }
+      .navbar__hamburger { padding: 0; }
+      .navbar__hamburger .bar { background: var(--delluxe_black); }
+
+      .navbar__mobile-bar.is-open .navbar__mobile-pill-ghost { display: none; }
+      .navbar__mobile-bar.is-open .navbar__hamburger .bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+      .navbar__mobile-bar.is-open .navbar__hamburger .bar:nth-child(2) { opacity: 0; }
+      .navbar__mobile-bar.is-open .navbar__hamburger .bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+      .navbar__mobile-panel { display: block; }
+      .navbar__mobile-bar.scrollhide { transform: translateY(-15%); }
+      .hero__title { font-size: clamp(52px, 14vw, 80px); }
+      .hero__subtitle {flex-wrap: wrap; gap: 3px 12px; font-size: clamp(11px, 3.2vw, 15px); }
+      .hero__subtitle span { white-space: nowrap; }
+      .statement__inner, .section-header { gap: 32px; }
+      .slider-dots { display: flex; margin-top: 16px; }
+      #reviewsDotsV2 { margin-top: 0; margin-bottom: 16px; }
+      .reviews .review-card { height: 600px; }
+      .reviews .reviews__bg { width: 100%; }
+      .reviews .reviews__slide.is-active .review-card::after { background-size: cover; }
+      .sustain-cards { display: flex !important; overflow-x: scroll; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin-top: 32px !important; gap: 0; }
+      .sustain-cards::-webkit-scrollbar { display: none; }
+      .sustain-card { flex: 0 0 85%; scroll-snap-align: center; border-right: none !important; border-top: 1px solid var(--softgreen_transparent50); border-bottom: 1px solid var(--softgreen_transparent50); padding: 24px !important; }
+      .cta__box { padding: 48px 24px; }
+      .subtitle { font-size: 22px; }
+      .faq-mobile { display: block; }
+      .faq { display: none; }
+      .slider__btn { display: none; }
+      .cta-float { left: 50%; right: auto; transform: translateX(-50%); bottom: 16px; }
+      .cta-float.scrollhide { transform: translateX(-50%) translateY(15%); }
+      .footer__bottom { flex-direction: column; align-items: flex-start; padding-top: 8px; }
+
+      .footer__table thead { display: block; margin-bottom: 8px; }
+      .footer__table thead tr { display: block; }
+      .footer__table thead th:not(:first-child) { display: none; }
+      .footer__table tbody { display: none; }
+      .footer__accordion { display: block; }
+      .footer__acc-trigger {
+        width: 100%; display: flex; align-items: center; justify-content: space-between;
+        background: none; border: none; border-top: 1px solid var(--black_transparent20);
+        padding: 4px 0; cursor: pointer;
+        font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mediumgrey);
+      }
+      .footer__acc-trigger::after { content: '+'; font-size: 16px; font-weight: 300; color: var(--mediumgrey); }
+      .footer__acc-trigger.open::after { content: '−'; }
+      .footer__acc-content { display: none; padding-bottom: 8px; }
+      .footer__acc-content.open { display: block; }
+    }
+
+    /* ════════════════════════════
+       SCHADEN-MODAL
+    ════════════════════════════ */
+    .schaden-modal {
+      position: fixed; inset: 0; z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      background: transparent;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .schaden-modal.is-open { opacity: 1; pointer-events: all; }
+
+    .schaden-modal__box {
+      background: var(--black_transparent20);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--white_transparent15);
+      border-radius: 16px;
+      padding: 40px 36px 36px;
+      width: 100%; max-width: 520px;
+      max-height: 90vh; overflow-y: auto;
+      position: relative;
+      transform: translateY(16px);
+      transition: transform 0.3s ease;
+    }
+    .schaden-modal.is-open .schaden-modal__box { transform: translateY(0); }
+
+    .schaden-modal__close {
+      position: absolute; top: 16px; right: 16px;
+      background: var(--black_transparent20); border: 1px solid var(--white_transparent15);
+      color: var(--softgrey70); border-radius: 50%;
+      width: 36px; height: 36px; font-size: 18px; line-height: 1;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: color 0.2s, background 0.2s;
+    }
+    .schaden-modal__close:hover { color: var(--delluxe_white); background: var(--white_transparent10); }
+
+    .schaden-modal__title {
+      font-size: 22px; font-weight: 700; color: var(--delluxe_white);
+      margin: 0 0 4px;
+    }
+    .schaden-modal__sub {
+      font-size: 14px; color: var(--softgrey50); margin: 0 0 28px;
+    }
+
+    .schaden-form { display: flex; flex-direction: column; gap: 14px; }
+
+    .schaden-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .schaden-form__group { display: flex; flex-direction: column; gap: 6px; }
+
+    .schaden-form__label {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.05em;
+      color: var(--softgrey50); text-transform: uppercase;
+    }
+
+    .schaden-form__input {
+      background: #1e1e1e; border: 1px solid #333;
+      border-radius: 8px; padding: 11px 14px;
+      font-size: 15px; color: var(--delluxe_white);
+      font-family: 'Instrument Sans', sans-serif;
+      outline: none; transition: border-color 0.2s;
+      width: 100%;
+    }
+    .schaden-form__input::placeholder { color: #555; }
+    .schaden-form__input:focus { border-color: var(--delluxe_green); }
+
+    .schaden-form__upload {
+      background: #1e1e1e; border: 1px dashed #444;
+      border-radius: 8px; padding: 20px 14px;
+      text-align: center; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .schaden-form__upload:hover { border-color: var(--delluxe_green); background: #202020; }
+    .schaden-form__upload input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .schaden-form__upload-icon { font-size: 28px; margin-bottom: 6px; }
+    .schaden-form__upload-text { font-size: 13px; color: var(--softgrey50); }
+    .schaden-form__upload-text strong { color: var(--softgrey70); }
+    .schaden-form__upload-names { margin-top: 8px; font-size: 12px; color: var(--softgrey70); }
+
+    .schaden-form__submit {
+      margin-top: 6px; width: 100%; justify-content: center;
+      font-size: 16px; padding: 14px;
+    }
+
+    .schaden-modal__box::-webkit-scrollbar { width: 6px; }
+    .schaden-modal__box::-webkit-scrollbar-track { background: transparent; }
+    .schaden-modal__box::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+    .schaden-modal__box::-webkit-scrollbar-thumb:hover { background: #444; }
+    .schaden-modal__box { scrollbar-width: thin; scrollbar-color: #333 transparent; }
+
+    @media (max-width: 520px) {
+      .schaden-modal__box { padding: 28px 20px 24px; }
+      .schaden-form__row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <header class="navbar" id="navbar">
+    <div class="navbar__inner">
+    <a class="navbar__logo" href="#">
+      <img src="images/Logo/logo-delluxe-dellen-gruen-weiss-passend.png" alt="Delluxe-Dellen GmbH Logo" height="36" />
+    </a>
+    <nav class="navbar__links" aria-label="Hauptnavigation">
+      <a href="#leistungen">Leistungen</a>
+      <a href="#nachhaltigkeit">Nachhaltigkeit</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="navbar__right">
+      <div class="navbar__social">
+        <a href="https://facebook.com" aria-label="Facebook" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://instagram.com" aria-label="Instagram" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://tiktok.com" aria-label="TikTok" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.01a8.16 8.16 0 0 0 4.77 1.52V7.07a4.85 4.85 0 0 1-1-.38z"/></svg>
+        </a>
+      </div>
+    </div>
+    </div>
+  </header>
+  <div class="navbar__mobile-bar" id="navMobileBar">
+    <div class="navbar__mobile-pill-left">
+      <a class="navbar__mobile-icon" href="#">
+        <img src="images/Logo/Icon_91px_hoch.png" alt="Delluxe-Dellen Icon" height="30" loading="lazy" />
+      </a>
+      <a class="navbar__mobile-logo" href="#">
+        <img src="images/Logo/logo-delluxe-dellen-gruen-weiss-passend.png" alt="Delluxe-Dellen GmbH Logo" height="30" />
+      </a>
+    </div>
+    <div class="navbar__mobile-pill">
+      <div class="navbar__mobile-pill-ghost">
+        <div class="navbar__mobile-social">
+          <a href="https://facebook.com" aria-label="Facebook" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://instagram.com" aria-label="Instagram" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://tiktok.com" aria-label="TikTok" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.01a8.16 8.16 0 0 0 4.77 1.52V7.07a4.85 4.85 0 0 1-1-.38z"/></svg></a>
+        </div>
+      </div>
+      <div class="navbar__mobile-pill-green">
+        <button class="navbar__hamburger" id="navHamburger" aria-label="Menü öffnen" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="navbar__mobile-panel" id="navMobilePanel" aria-hidden="true">
+    <nav class="navbar__mobile-links">
+      <a href="#leistungen" class="navbar__mobile-link">Leistungen</a>
+      <a href="#nachhaltigkeit" class="navbar__mobile-link">Nachhaltigkeit</a>
+      <a href="#galerie" class="navbar__mobile-link">Galerie</a>
+      <a href="#kontakt" class="navbar__mobile-link">Kontakt</a>
+    </nav>
+  </div>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero" aria-label="Hero">
+    <div class="hero__frame">
+      <div class="hero__bg"></div>
+      <div class="hero__overlay"></div>
+    </div>
+    <div class="hero__content">
+      <h1 class="hero__eyebrow">Beispielprojekt&nbsp;&middot;&nbsp;<br class="mobile-only">Stefanie Mehlich</h1>
+      <div class="hero__title">
+        <span class="hero__title-line1">Perfektion</span>
+        <span class="hero__title-line2">ist unsichtbar.</span>
+      </div>
+      <div class="hero__subtitle">
+        <span>Lackfreie <br class="mobile-only">Dellenreparatur</span>
+        <span class="hero__subtitle-dot"></span>
+        <span>Eichenau <br class="mobile-only">bei München</span>
+        <span class="hero__subtitle-dot"></span>
+        <span><span class="hero__subtitle-star">&#9733;</span> 4.9 <br class="mobile-only">auf Google</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ STATEMENT ═══ -->
+  <section class="statement">
+    <div class="container">
+      <div class="statement__inner">
+        <div class="reveal">
+          <span class="eyebrow" style="display: block; text-align: center;">Warum Delluxe-Dellen</span>
+          <h2 class="statement__title">
+            Ihr Originallack ist <strong>unersetzlich.</strong><br>
+            Konventionelle Reparaturen greifen in<br>Material und Oberfläche ein. Wir sind<br>die <italic_green>schonende Alternative.</italic_green>
+          </h2>
+          
+    </div>
+  </section>
+
+  <!-- ═══ LEISTUNGEN ═══ -->
+  <section class="faq-tabs" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow">Leistungen</span>
+          <h2 class="section-title">Lackfreie<br>Dellenreparatur<br>in München</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          <p class="section-text">Meisterbetrieb für PDR &ndash; klare Prozesse, hochwertige Werkzeuge und Präzision vom Einzelauftrag bis zum Hagelschaden.</p>
+        </div>
+      </div>
+      <div class="reveal">
+        <nav class="faq-tabs__nav">
+          <button class="faq-tabs__tab is-active" data-tab="st1">Lackfreie Dellenreparatur</button>
+          <button class="faq-tabs__tab" data-tab="st2">Hagelschaden</button>
+          <button class="faq-tabs__tab" data-tab="st3">Smart Repair</button>
+          <button class="faq-tabs__tab" data-tab="st4">Leasingrückgabe</button>
+          <button class="faq-tabs__tab" data-tab="st5">Hagelschaden II</button>
+          <button class="faq-tabs__tab" data-tab="st6">Smart Repair II</button>
+        </nav>
+        <div class="faq-tabs__panel is-active" id="st1">
+          <div class="faq-tabs__answer">
+            <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/1.webp');"></div>
+            <p class="section-text">PDR-Technik bewahrt den Originallack &ndash; ohne Schleifen, ohne Spachtel, ohne Neulackierung.</p>
+          </div>
+        </div>
+        <div class="faq-tabs__panel" id="st2">
+          <div class="faq-tabs__answer">
+            <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/2.webp');"></div>
+            <p class="section-text">Strukturierte Instandsetzung nach Hagelereignissen mit professioneller Versicherungsabwicklung.</p>
+          </div>
+        </div>
+        <div class="faq-tabs__panel" id="st3">
+          <div class="faq-tabs__answer">
+            <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/3.webp');"></div>
+            <p class="section-text">Gezielte Reparatur kleiner Schäden mit sauberem Finish und wirtschaftlichem Ergebnis.</p>
+          </div>
+        </div>
+        <div class="faq-tabs__panel" id="st4">
+          <div class="faq-tabs__answer">
+            <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/4.webp');"></div>
+            <p class="section-text">Optische Aufbereitung vor Rückgabe &ndash; Minderwerte und Nachzahlungen vermeiden.</p>
+          </div>
+        </div>
+        <div class="faq-tabs__panel" id="st5">
+          <div class="faq-tabs__answer">
+            <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/2.webp');"></div>
+            <p class="section-text">Strukturierte Instandsetzung nach Hagelereignissen mit professioneller Versicherungsabwicklung.</p>
+          </div>
+        </div>
+        <div class="faq-tabs__panel" id="st6">
+          <div class="faq-tabs__answer">
+            <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/3.webp');"></div>
+            <p class="section-text">Gezielte Reparatur kleiner Schäden mit sauberem Finish und wirtschaftlichem Ergebnis.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ GALERIE ═══ -->
+  <section class="gallery" id="galerie">
+    <div class="container">
+      <div class="gallery__header reveal">
+        <span class="eyebrow">Einblicke</span>
+        <h2 class="section-title">Unsere Werkstatt<br>in Eichenau</h2>
+      </div>
+      <div class="slider reveal">
+        <div class="slider__track" id="sliderTrack">
+          <div class="slider__slide">
+            <img class="slider__image" src="images/DiaShow/1.webp" alt="Dellenentfernung München – Delluxe-Dellen GmbH" loading="lazy" />
+            <div class="slider__overlay"></div>
+          </div>
+          <div class="slider__slide">
+            <img class="slider__image" src="images/DiaShow/2.webp" alt="Lackfreie Dellenreparatur Eichenau – Delluxe-Dellen" loading="lazy" />
+            <div class="slider__overlay"></div>
+          </div>
+          <div class="slider__slide">
+            <img class="slider__image" src="images/DiaShow/3.webp" alt="Dellenentfernung ohne Lackieren – PDR Meisterbetrieb" loading="lazy" />
+            <div class="slider__overlay"></div>
+          </div>
+          <div class="slider__slide">
+            <img class="slider__image" src="images/DiaShow/4.webp" alt="Mobiler Dellenservice München – Delluxe-Dellen" loading="lazy" />
+            <div class="slider__overlay"></div>
+          </div>
+        </div>
+        <button class="slider__btn slider__btn--prev" id="sliderPrev" aria-label="Vorheriges Bild">&#8249;</button>
+        <button class="slider__btn slider__btn--next" id="sliderNext" aria-label="Nächstes Bild">&#8250;</button>
+      </div>
+      <div class="slider__progress"><div class="slider__progress-fill" id="sliderProgressFill"></div></div>
+    </div>
+  </section>
+
+  <!-- ═══ Nachhaltigkeit neu ═══ -->
+  <section class="services" id="nachhaltigkeit">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow" style="color: var(--delluxe_green);">Green Repair <svg viewBox="0 0 24 36" width="10" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:5px;margin-bottom:2px;transform:rotate(35deg)"><path d="M12 2 C8 6 2 12 2 20 C2 24 6 27 12 27 C18 27 22 24 22 20 C22 12 16 6 12 2Z"/><path d="M12 27 Q11 22 12 15"/><path d="M12 27 Q11 31 10 34"/></svg></span>
+          <h2 class="section-title">Nachhaltige Dellenreparatur<br>ohne Lack</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          <p class="section-text">Lackfreie Reparatur, eigene PV-Anlage, elektrische Mobilität und transparente digitale Abwicklung.</p>
+        </div>
+      </div>
+
+      <!--Variante B-->
+      <div class="sustain-cards" id="sustainCards" style="display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 64px; text-align: center;">
+        <div class="sustain-card" style="padding: 32px 32px 32px 0; border-right: 1px solid var(--softgreen_transparent50);">
+          <div class="eyebrow">Photovoltaik</div>
+          <div class="subtitle">Eigene PV</div>
+          <div class="section-text">Solaranlage auf dem Dach</div>
+        </div>
+        <div class="sustain-card" style="padding: 32px; border-right: 1px solid var(--softgreen_transparent50);">
+          <div class="eyebrow">E-Flotte</div>
+          <div class="subtitle">100&nbsp;%</div>
+          <div class="section-text">elektrisch unterwegs</div>
+        </div>
+        <div class="sustain-card" style="padding: 32px; border-right: 1px solid var(--softgreen_transparent50);">
+          <div class="eyebrow">Abwicklung</div>
+          <div class="subtitle">digital</div>
+          <div class="section-text">transparent &amp; schnell</div>
+        </div>
+        <div class="sustain-card" style="padding: 32px 0 32px 32px;">
+          <div class="eyebrow">Prinzip</div>
+          <div class="subtitle">ohne Lack</div>
+          <div class="section-text">materialschonend</div>
+        </div>
+      </div>
+      <div class="slider-dots" id="sustainDots"></div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══ BEWERTUNGEN ═══ -->
+  <section class="reviews" id="bewertungen">
+    <div class="container">
+      <div class="reviews__header reveal">
+        <span class="eyebrow">Kundenstimmen</span>
+        <h2 class="section-title">Beulendoktor mit 4.9 auf Google</h2>
+      </div>
+
+      <div class="slider-dots" id="reviewsDotsV2"></div>
+      <div class="reviews__slider">
+        <div class="reviews__bg"></div>
+        <div class="reviews__track" id="reviewsTrackV2">
+          <div class="reviews__slide">
+            <div class="review-card">
+              <span class="eyebrow">Dominik Urbaniak</span>
+              <div class="review-card__meta">
+                <span class="review-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="review-card__source" data-review-date="2025-11"></span>
+              </div>
+              <p class="review-card__quote">Hatte mir eine blöde Delle am Kofferraum beim ausparken geholt. Ich habe mich aufgrund der Rezension vom Taxifahrer und der professionellen Website für Delluxe Dellen entschieden. Ich wurde super und transparent über die Schritte und Vorgehensweise informiert. Besonders gefallen hat mir, dass sich Zeit genommen wurde und alle möglichen Szenarien durchgegangen wurden. Dadurch habe ich mich sehr gut aufgehoben gefühlt. Das ganze drum herum war TOP - genau wie das Ergebnis.</p>
+            </div>
+          </div>
+          <div class="reviews__slide">
+            <div class="review-card">
+              <span class="eyebrow">Lucas Breinlinger</span>
+              <div class="review-card__meta">
+                <span class="review-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="review-card__source" data-review-date="2026-02"></span>
+              </div>
+              <p class="review-card__quote">Sehr professionell, sehr freundlich. Alle Zusagen inkl. Preis wurden eingehalten.
+                <br><br>Ich bin aufgrund zweier Dellen zu Dellen Deluxe gekommen. Eine wurde schon vorab von einem anderen Dienstleister bearbeitet, dieser konnte sie jedoch nicht restlos entfernen.
+Nach einem kurzem Besuch bei Dellen Deluxe sind beide Dellen glücklicherweise Geschichte.<br><br>Vielen Dank !</p>
+            </div>
+          </div>
+          <div class="reviews__slide">
+            <div class="review-card">
+              <span class="eyebrow">David Matzner</span>
+              <div class="review-card__meta">
+                <span class="review-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="review-card__source" data-review-date="2025-12"></span>
+              </div>
+              <p class="review-card__quote">Know-how und Perfektion vereint. Meine Anlaufstelle seit Jahren wenn es um kompetente Dellenreparatur geht. Ob Mega-Hagelschaden oder Parkrempler, ich wurde vom Ergebnis noch nie enttäuscht und freue mich auf lange weitere Zusammenarbeit!</p>
+            </div>
+          </div>
+          <div class="reviews__slide">
+            <div class="review-card">
+              <span class="eyebrow">Angi Stimmelmayr</span>
+              <div class="review-card__meta">
+                <span class="review-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="review-card__source" data-review-date="2025-09"></span>
+              </div>
+              <p class="review-card__quote">Super Arbeit, überaus freundlich und hilfsbereit!!!<br>
+War mit meinem 10 Jahre alten Golf bei Hr. Rizmann und seinem Mitarbeiter Andi.<br>
+Fahrzeug sollte wegen Verkauf gleich von mehreren Wehwehchen befreit werden. Parkdelle an der Türe, alte eingebrannte Vogelcodestellen am Lack, Ein bzw. Ausladespuren am Stoßfänger hinten, rostiger AHK-Kopf sowie ein alter Hagelschaden am Dach.
+Und nun zitiere ich die Worte des Käufers als er das Fahrezeug nach der Behandlung bei Delluxe Dellen GmbH bei mir abholte: Der steht ja da wie ein Neuwagen.
+Vielen Dank liebes Delluxe Dellen Team.<br>
+Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. Mehr kann man nicht sagen!!! Weiter so!!!</p>
+            </div>
+          </div>
+          <div class="reviews__slide">
+            <div class="review-card">
+              <span class="eyebrow">Yi Yu</span>
+              <div class="review-card__meta">
+                <span class="review-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="review-card__source" data-review-date="2025-04"></span>
+              </div>
+              <p class="review-card__quote">Kleine Delle an der Tür wurde schnell und professionell entfernt, danach ist die Delle perfekt verschwunden. Sehr freundliches Personal! Absolut zu empfehlen! Vorher besser immer anrufen um einen Termin zu bekommen, alles sehr unkompliziert gelaufen.</p>
+            </div>
+          </div>
+        </div>
+        <button class="slider__btn slider__btn--prev" id="reviewsPrevV2" aria-label="Vorherige Bewertung">&#8249;</button>
+        <button class="slider__btn slider__btn--next" id="reviewsNextV2" aria-label="Nächste Bewertung">&#8250;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ mobil ═══ -->
+  <section class="faq-mobile">
+    <div class="container">
+      <div class="faq-mobile__header reveal">
+        <span class="eyebrow">Häufige Fragen</span>
+        <h2 class="section-title">Was sie wissen sollten</h2>
+      </div>
+      <div class="faq-mobile__list reveal">
+        <div class="faq-mobile__item">
+          <button class="faq-mobile__question">Was kostet eine Dellenreparatur beim Beulendoktor?<span class="faq__icon">+</span></button>
+          <div class="faq-mobile__answer"><p>Kleine Dellen kosten 50&ndash;80&thinsp;&euro;, mittlere 80&ndash;150&thinsp;&euro;, Hagelschäden je nach Umfang 300&ndash;1.500&thinsp;&euro;. PDR ist bis zu 70&thinsp;% günstiger als konventionelle Lackierung &ndash; und der Originallack bleibt erhalten.</p></div>
+        </div>
+        <div class="faq-mobile__item">
+          <button class="faq-mobile__question">Übernimmt die Versicherung die Kosten für Hagelschäden?<span class="faq__icon">+</span></button>
+          <div class="faq-mobile__answer"><p>Ja. Die Teilkaskoversicherung übernimmt Hagelschäden in der Regel vollständig &ndash; ohne Verlust des Schadenfreiheitsrabattes. Wir unterstützen Sie bei der Abwicklung.</p></div>
+        </div>
+        <div class="faq-mobile__item">
+          <button class="faq-mobile__question">Wie lange dauert eine Dellenreparatur?<span class="faq__icon">+</span></button>
+          <div class="faq-mobile__answer"><p>Einzelne kleine Dellen sind in 1&ndash;3 Stunden behoben. Umfangreiche Hagelschäden benötigen je nach Fahrzeug 2&ndash;4 Tage. Sie erhalten in jedem Fall eine genaue Zeitangabe vor Beginn der Arbeiten.</p></div>
+        </div>
+        <div class="faq-mobile__item">
+          <button class="faq-mobile__question">Kann jede Delle ohne Lackieren repariert werden?<span class="faq__icon">+</span></button>
+          <div class="faq-mobile__answer"><p>In den meisten Fällen ja &ndash; vorausgesetzt, der Originallack ist intakt und das Metall nicht überdehnt. Ausnahmen: scharfkantige Dellen, Karosserierippen und bereits nacklackierte Stellen. Wir begutachten Ihr Fahrzeug kostenfrei.</p></div>
+        </div>
+        <div class="faq-mobile__item">
+          <button class="faq-mobile__question">Welche Gebiete rund um München bedient ihr?<span class="faq__icon">+</span></button>
+          <div class="faq-mobile__answer"><p>Unser Meisterbetrieb in Eichenau bedient München und den gesamten Münchner Westen: Germering, Puchheim, Fürstenfeldbruck, Starnberg und den Landkreis Fürstenfeldbruck im Umkreis von ca. 35&thinsp;km.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ Desktop ═══ -->
+  <section class="faq">
+    <div class="container">
+      <div class="faq__header reveal">
+        <span class="eyebrow">Häufige Fragen</span>
+        <h2 class="section-title">Was Sie wissen sollten</h2>
+      </div>
+      <div class="faq__inner reveal">
+        <div class="faq__list">
+          <div class="faq__item is-active" data-img="images/DiaShow/1.webp">
+            <div class="faq__question">Was kostet eine Dellenreparatur?</div>
+            <div class="faq__answer">Kleine Dellen kosten 50–80&thinsp;€, mittlere 80–150&thinsp;€, Hagelschäden je nach Umfang 300–1.500&thinsp;€.</div>
+          </div>
+          <div class="faq__item" data-img="images/DiaShow/2.webp">
+            <div class="faq__question">Übernimmt die Versicherung Hagelschäden?</div>
+            <div class="faq__answer">Ja. Die Teilkaskoversicherung übernimmt Hagelschäden vollständig – ohne Verlust des Schadenfreiheitsrabattes.</div>
+          </div>
+          <div class="faq__item" data-img="images/DiaShow/3.webp">
+            <div class="faq__question">Wie lange dauert eine Reparatur?</div>
+            <div class="faq__answer">Einzelne Dellen in 1–3 Stunden, Hagelschäden in 2–4 Tagen.</div>
+          </div>
+          <div class="faq__item" data-img="images/DiaShow/4.webp">
+            <div class="faq__question">Kann jede Delle ohne Lackieren repariert werden?</div>
+            <div class="faq__answer">In den meisten Fällen ja. Wir begutachten Ihr Fahrzeug kostenfrei.</div>
+          </div>
+          <div class="faq__item" data-img="images/DiaShow/1.webp">
+            <div class="faq__question">Welche Gebiete bedient ihr?</div>
+            <div class="faq__answer">München und den gesamten Münchner Westen im Umkreis von ca. 35&thinsp;km.</div>
+          </div>
+        </div>
+        <div class="faq__visual">
+          <img src="images/DiaShow/1.webp" id="faqImg" alt="FAQ Bild" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA / KONTAKT ═══ -->
+  <section class="cta" id="kontakt">
+    <div class="container">
+      <div class="cta__box reveal">
+        <span class="eyebrow">Foto senden, Angebot erhalten</span>
+        <h2 class="section-title" style="margin-bottom: 24px;">Beulendoktor anfragen</h2>
+        <p class="section-text"style="margin-bottom: 24px;">Foto senden, Angebot erhalten. Direkt per Telefon oder WhatsApp.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="container">
+      <table class="footer__table">
+        <thead>
+          <tr>
+            <th><a href="#" style="text-decoration:none"><img src="images/Logo/logo-delluxe-dellen-gruen-weiss-passend.png" alt="Delluxe-Dellen GmbH Logo" height="30" loading="lazy" /></a></th>
+            <th><div class="footer__col-title">Leistungen</div></th>
+            <th><div class="footer__col-title">Unternehmen</div></th>
+            <th><div class="footer__col-title">Standorte</div></th>
+            <th><div class="footer__col-title">Direktkontakt</div></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><p class="section-text" style="margin-bottom:0">Meisterbetrieb für lackfreie Dellenreparatur in Eichenau bei München<br>Ringstraße 19  ·  82223 Eichenau<br>08141 123 4567</p></td>
+            <td><ul class="footer__links">
+              <li>Dellenreparatur</li>
+              <li>Hagelschaden</li>
+              <li>Smart Repair</li>
+              <li>Leasingrückgabe</li>
+            </ul></td>
+            <td><ul class="footer__links">
+              <li><a href="#nachhaltigkeit">Nachhaltigkeit</a></li>
+              <li><a href="#galerie">Galerie</a></li>
+              <li><a href="#bewertungen">Bewertungen</a></li>
+              <li>Kontakt & Anfahrt</li>
+            </ul></td>
+            <td><ul class="footer__links">
+              <li>München</li>
+              <li>Starnberg</li>
+              <li>Fürstenfeldbruck</li>
+              <li>Augsburg</li>
+            </ul></td>
+            <td><ul class="footer__links">
+            <li>Telefon</li>
+            <li>WhatsApp</li>
+            <li>Impressum</li>
+            <li>Datenschutz</li>
+            </ul></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="footer__accordion" style="display:none">
+        <div>
+          <button class="footer__acc-trigger">Leistungen</button>
+          <div class="footer__acc-content"><ul class="footer__links">
+            <li>Dellenreparatur</li>
+            <li>Hagelschaden</li>
+            <li>Smart Repair</li>
+            <li>Leasingrückgabe</li>
+          </ul></div>
+        </div>
+        <div>
+          <button class="footer__acc-trigger">Unternehmen</button>
+          <div class="footer__acc-content"><ul class="footer__links">
+            <li><a href="#nachhaltigkeit">Nachhaltigkeit</a></li>
+            <li><a href="#galerie">Galerie</a></li>
+            <li><a href="#bewertungen">Bewertungen</a></li>
+            <li>Kontakt & Anfahrt</li>
+          </ul></div>
+        </div>
+        <div>
+          <button class="footer__acc-trigger">Standorte</button>
+          <div class="footer__acc-content"><ul class="footer__links">
+            <li>München</li>
+            <li>Starnberg</li>
+            <li>Fürstenfeldbruck</li>
+            <li>Augsburg</li>
+          </ul></div>
+        </div>
+        <div>
+          <button class="footer__acc-trigger">Direktkontakt</button>
+          <div class="footer__acc-content"><ul class="footer__links">
+            <li>Telefon</li>
+            <li>WhatsApp</li>
+            <li>Impressum</li>
+            <li>Datenschutz</li>
+          </ul></div>
+        </div>
+        <div style="border-top: 1px solid var(--black_transparent20); margin-top: 0;"></div>
+      </div>
+
+      <div class="footer__bottom">
+        <span class="footer__copyright">&copy; 2026 Beispielprojekt &middot; Stefanie Mehlich</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══ SCHADEN-MODAL ═══ -->
+  <div class="schaden-modal" id="schadenModal" role="dialog" aria-modal="true" aria-label="Schaden einreichen">
+    <div class="schaden-modal__box">
+      <button class="schaden-modal__close" id="schadenModalClose" aria-label="Schließen">&times;</button>
+      <h2 class="schaden-modal__title">Schaden checken</h2>
+      <p class="schaden-modal__sub">Wir melden uns innerhalb von 24 Stunden mit einem Angebot.</p>
+
+      <form class="schaden-form" id="schadenForm" novalidate>
+
+        <div class="schaden-form__row">
+          <div class="schaden-form__group">
+            <label class="schaden-form__label" for="sf-vorname">Vorname <span style="color:var(--delluxe_green)">*</span></label>
+            <input class="schaden-form__input" type="text" id="sf-vorname" name="vorname" placeholder="Karlie" required autocomplete="given-name">
+          </div>
+          <div class="schaden-form__group">
+            <label class="schaden-form__label" for="sf-name">Nachname <span style="color:var(--delluxe_green)">*</span></label>
+            <input class="schaden-form__input" type="text" id="sf-name" name="name" placeholder="Kunde" required autocomplete="family-name">
+          </div>
+        </div>
+
+        <div class="schaden-form__group">
+          <label class="schaden-form__label" for="sf-telefon">Telefonnummer <span style="color:var(--delluxe_green)">*</span></label>
+          <input class="schaden-form__input" type="tel" id="sf-telefon" name="telefon" placeholder="+49 176 12345678" required autocomplete="tel">
+        </div>
+
+        <div class="schaden-form__group">
+          <label class="schaden-form__label" for="sf-mail">E-Mail-Adresse </label>
+          <input class="schaden-form__input" type="email" id="sf-mail" name="mail" placeholder="karlie@beispiel.de" autocomplete="email">
+        </div>
+
+        <div class="schaden-form__group">
+          <label class="schaden-form__label" for="sf-adresse">Straße</label>
+          <input class="schaden-form__input" type="text" id="sf-strasse" name="adresse" placeholder="Musterstraße 1" autocomplete="street-address">
+        </div>
+        <div class="schaden-form__row">
+          <div class="schaden-form__group">
+            <label class="schaden-form__label" for="sf-plz">PLZ</label>
+            <input class="schaden-form__input" type="text" id="sf-plz" name="plz" placeholder="82223" autocomplete="street-address">
+          </div>
+          <div class="schaden-form__group">
+            <label class="schaden-form__label" for="sf-ort">Ort</label>
+            <input class="schaden-form__input" type="text" id="sf-ort" name="adresse" placeholder="Eichenau" autocomplete="street-address">
+          </div>
+        </div>
+
+        <div class="schaden-form__group">
+          <label class="schaden-form__label">Fotos &amp; Videos des Schadens</label>
+          <div class="schaden-form__upload" id="sfUploadArea">
+            <input type="file" id="sf-upload" name="dateien" accept="image/*,video/*" multiple>
+            <div class="schaden-form__upload-icon">📎</div>
+            <div class="schaden-form__upload-text"><strong>Dateien auswählen</strong> oder hier ablegen</div>
+            <div class="schaden-form__upload-text">mehrere Bilder &amp; Videos möglich</div>
+            <div class="schaden-form__upload-names" id="sfFileNames"></div>
+          </div>
+        </div>
+
+        <div class="schaden-form__group">
+          <label class="schaden-form__label" for="sf-mitteilung">Mitteilung</label>
+          <textarea class="schaden-form__input" id="sf-mitteilung" name="mitteilung" placeholder="Beschreiben Sie kurz den Schaden oder stellen Sie eine Frage …" rows="4" style="resize:vertical"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn--green schaden-form__submit">Anfrage absenden</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══ CTA FLOAT ═══ -->
+  <div class="cta-float">
+    <a href="https://wa.me/4917612345678" class="btn btn--secondary" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+    <button class="btn btn--green" style="white-space: nowrap;" id="schadenModalOpen">Schaden checken</button>
+  </div>
+
+  <script>
+    // Sustain Cards Dots (Mobile)
+    const sustainCards = document.getElementById('sustainCards');
+    const sustainDots = document.getElementById('sustainDots');
+    if (sustainCards && sustainDots) {
+      const cards = sustainCards.querySelectorAll('.sustain-card');
+      cards.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Karte ' + (i + 1));
+        dot.addEventListener('click', () => {
+          cards[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        });
+        sustainDots.appendChild(dot);
+      });
+      sustainCards.addEventListener('scroll', () => {
+        const center = sustainCards.scrollLeft + sustainCards.offsetWidth / 2;
+        let closest = 0, minDist = Infinity;
+        cards.forEach((card, i) => {
+          const dist = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
+          if (dist < minDist) { minDist = dist; closest = i; }
+        });
+        sustainDots.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === closest));
+      });
+      let scTouchStartX = 0;
+      sustainCards.addEventListener('touchstart', e => { scTouchStartX = e.touches[0].clientX; }, { passive: true });
+      sustainCards.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - scTouchStartX;
+        const center = sustainCards.scrollLeft + sustainCards.offsetWidth / 2;
+        let closest = 0, minDist = Infinity;
+        cards.forEach((card, i) => {
+          const dist = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
+          if (dist < minDist) { minDist = dist; closest = i; }
+        });
+        if (dx < -40 && closest === cards.length - 1) cards[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        if (dx > 40 && closest === 0) cards[cards.length - 1].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }, { passive: true });
+    }
+
+    // Nav: transparent → Glasmorphism beim Scrollen
+    const navbar = document.getElementById('navbar');
+
+    // Hero Parallax
+    const heroBg = document.querySelector('.hero__bg');
+    function updateParallax() {
+      const y = window.scrollY * 0.35;
+      heroBg.style.transform = `scale(1.06) translateY(${y}px)`;
+    }
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('navbar--scrolled', window.scrollY > 30);
+      updateParallax();
+    }, { passive: true });
+
+    // Mobile NavBar: Hamburger + Scroll-Hide
+    (function () {
+      const hamburger  = document.getElementById('navHamburger');
+      const panel      = document.getElementById('navMobilePanel');
+      const mobileBar  = document.getElementById('navMobileBar');
+      if (!hamburger || !panel) return;
+      const mq = window.matchMedia('(max-width: 820px)');
+
+      function openMenu() {
+        navbar.classList.add('navbar--open');
+        panel.classList.add('is-open');
+        if (mobileBar) mobileBar.classList.add('is-open');
+        panel.setAttribute('aria-hidden', 'false');
+        hamburger.setAttribute('aria-expanded', 'true');
+        hamburger.setAttribute('aria-label', 'Menü schließen');
+      }
+      function closeMenu() {
+        navbar.classList.remove('navbar--open');
+        panel.classList.remove('is-open');
+        if (mobileBar) mobileBar.classList.remove('is-open');
+        panel.setAttribute('aria-hidden', 'true');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Menü öffnen');
+      }
+
+      hamburger.addEventListener('click', () => {
+        navbar.classList.contains('navbar--open') ? closeMenu() : openMenu();
+      });
+      panel.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+      // Scroll-Hide (nur mobile)
+      let scrollTimer;
+      window.addEventListener('scroll', () => {
+        if (!mq.matches) return;
+        if (navbar.classList.contains('navbar--open')) closeMenu();
+        if (mobileBar) mobileBar.classList.add('scrollhide');
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          if (mobileBar) mobileBar.classList.remove('scrollhide');
+        }, 200);
+      }, { passive: true });
+    })();
+
+    // Scroll Reveal: Elemente einblenden wenn sichtbar
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Slider: Infinite Loop mit Auto-Play und Prev/Next
+    const isMobile = () => window.matchMedia('(max-width: 820px)').matches;
+
+    const sliderTrack = document.getElementById('sliderTrack');
+    const origSlides  = [...sliderTrack.children];
+    const slideCount  = origSlides.length;
+    const sliderProgressFill = document.getElementById('sliderProgressFill');
+
+    // Slides dreifach für beidseitigen nahtlosen Loop
+    origSlides.forEach(s => sliderTrack.insertBefore(s.cloneNode(true), sliderTrack.firstChild));
+    origSlides.forEach(s => sliderTrack.appendChild(s.cloneNode(true)));
+
+    let current = slideCount; // Startet in der duplizierten Mitte für beidseitigen Peek
+    let autoPlay;
+
+    const GAP = 24;
+    const SLIDE_RATIO = 0.8;
+
+    function sContainerW() { return sliderTrack.parentElement.offsetWidth; }
+    function sSlideElemW()  { return sContainerW() * SLIDE_RATIO; }
+    function sPeek()        { return (sContainerW() - sSlideElemW()) / 2; }
+    function slideWidth()   { return sSlideElemW() + GAP; }
+
+    function setSlideWidths() {
+      const w = sSlideElemW() + 'px';
+      [...sliderTrack.children].forEach(s => s.style.width = w);
+    }
+    setSlideWidths();
+    window.addEventListener('resize', () => { setSlideWidths(); goTo(current, false); });
+
+    function goTo(index, animate = true) {
+      if (animate) {
+        sliderTrack.classList.add('is-animating');
+      } else {
+        sliderTrack.classList.add('no-transition');
+        sliderTrack.classList.remove('is-animating');
+      }
+      current = index;
+      sliderTrack.style.transform = `translateX(${sPeek() - current * slideWidth()}px)`;
+      [...sliderTrack.children].forEach((s, i) => s.classList.toggle('is-active', i === current));
+      if (!animate) requestAnimationFrame(() => requestAnimationFrame(() => sliderTrack.classList.remove('no-transition')));
+      const realIdx = ((index - slideCount) % slideCount + slideCount) % slideCount;
+      if (sliderProgressFill) sliderProgressFill.style.width = ((realIdx + 1) / slideCount * 100) + '%';
+    }
+
+    function next() {
+      current++;
+      goTo(current);
+      if (current >= slideCount * 2) {
+        setTimeout(() => { goTo(slideCount, false); }, 620);
+      }
+    }
+
+    function prev() {
+      current--;
+      goTo(current);
+      if (current <= 0) {
+        setTimeout(() => { goTo(slideCount, false); }, 620);
+      }
+    }
+
+    function startAutoPlay() { if (!isMobile()) autoPlay = setInterval(next, 4000); }
+    function stopAutoPlay()  { clearInterval(autoPlay); }
+
+    sliderTrack.classList.add('no-transition');
+    goTo(slideCount, false);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      sliderTrack.classList.remove('no-transition');
+      sliderTrack.closest('.slider').style.visibility = 'visible';
+    }));
+    startAutoPlay();
+    window.addEventListener('resize', () => { isMobile() ? stopAutoPlay() : startAutoPlay(); }, { passive: true });
+
+    document.getElementById('sliderPrev').addEventListener('click', () => { stopAutoPlay(); prev(); startAutoPlay(); });
+    document.getElementById('sliderNext').addEventListener('click', () => { stopAutoPlay(); next(); startAutoPlay(); });
+
+    // Galerie: Touch-Swipe (mobile)
+    let sTouchX = 0;
+    sliderTrack.parentElement.addEventListener('touchstart', e => { sTouchX = e.touches[0].clientX; }, { passive: true });
+    sliderTrack.parentElement.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - sTouchX;
+      if (Math.abs(dx) > 40) { stopAutoPlay(); dx < 0 ? next() : prev(); }
+    }, { passive: true });
+
+    // Reviews: Zeitangabe berechnen
+    document.querySelectorAll('[data-review-date]').forEach(el => {
+      const [year, month] = el.dataset.reviewDate.split('-').map(Number);
+      const now = new Date();
+      const months = (now.getFullYear() - year) * 12 + (now.getMonth() + 1 - month);
+      if (months < 1) el.textContent = 'diesen Monat';
+      else if (months < 12) el.textContent = `vor ${months} Monat${months > 1 ? 'en' : ''}`;
+      else {
+        const years = Math.floor(months / 12);
+        el.textContent = `vor ${years} Jahr${years > 1 ? 'en' : ''}`;
+      }
+    });
+
+    // Reviews: Infinite Slider
+    const reviewsTrack = document.getElementById('reviewsTrackV2');
+    const origReviews  = [...reviewsTrack.children];
+    const reviewCount  = origReviews.length;
+
+    const rDotsEl = document.getElementById('reviewsDotsV2');
+    if (rDotsEl) {
+      origReviews.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        rDotsEl.appendChild(dot);
+      });
+    }
+
+    origReviews.forEach(s => reviewsTrack.insertBefore(s.cloneNode(true), reviewsTrack.firstChild));
+    origReviews.forEach(s => reviewsTrack.appendChild(s.cloneNode(true)));
+
+    let rCurrent = reviewCount;
+    let rAutoPlay;
+
+    function rContainerW() { return reviewsTrack.parentElement.offsetWidth; }
+    function rSlideRatio() { return window.matchMedia('(max-width: 820px)').matches ? 1 : SLIDE_RATIO; }
+    function rSlideElemW() { return rContainerW() * rSlideRatio(); }
+    function rPeek()       { return (rContainerW() - rSlideElemW()) / 2; }
+    function rSlideWidth() { return rSlideElemW() + GAP; }
+
+    function rSetWidths() {
+      const w = rSlideElemW() + 'px';
+      [...reviewsTrack.children].forEach(s => s.style.width = w);
+    }
+    rSetWidths();
+    window.addEventListener('resize', () => { rSetWidths(); rGoTo(rCurrent, false); });
+
+    function rGoTo(index, animate = true) {
+      if (animate) {
+        reviewsTrack.classList.add('is-animating');
+      } else {
+        reviewsTrack.classList.add('no-transition');
+        reviewsTrack.classList.remove('is-animating');
+      }
+      rCurrent = index;
+      reviewsTrack.style.transform = `translateX(${rPeek() - rCurrent * rSlideWidth()}px)`;
+      [...reviewsTrack.children].forEach((s, i) => s.classList.toggle('is-active', i === rCurrent));
+      if (!animate) requestAnimationFrame(() => requestAnimationFrame(() => reviewsTrack.classList.remove('no-transition')));
+      const rRealIdx = ((index - reviewCount) % reviewCount + reviewCount) % reviewCount;
+      if (rDotsEl) rDotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === rRealIdx));
+    }
+
+    function rNext() {
+      rCurrent++;
+      rGoTo(rCurrent);
+      if (rCurrent >= reviewCount * 2) setTimeout(() => rGoTo(reviewCount, false), 620);
+    }
+
+    function rPrev() {
+      rCurrent--;
+      rGoTo(rCurrent);
+      if (rCurrent <= 0) setTimeout(() => rGoTo(reviewCount, false), 620);
+    }
+
+    reviewsTrack.classList.add('no-transition');
+    rGoTo(reviewCount, false);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      reviewsTrack.classList.remove('no-transition');
+      reviewsTrack.closest('.reviews__slider').style.visibility = 'visible';
+    }));
+    rAutoPlay = setInterval(rNext, 5000);
+
+    document.getElementById('reviewsPrevV2').addEventListener('click', () => { clearInterval(rAutoPlay); rPrev(); rAutoPlay = setInterval(rNext, 5000); });
+    document.getElementById('reviewsNextV2').addEventListener('click', () => { clearInterval(rAutoPlay); rNext(); rAutoPlay = setInterval(rNext, 5000); });
+
+    let rTouchX = 0;
+    reviewsTrack.parentElement.addEventListener('touchstart', e => { rTouchX = e.touches[0].clientX; }, { passive: true });
+    reviewsTrack.parentElement.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - rTouchX;
+      if (Math.abs(dx) > 40) { clearInterval(rAutoPlay); dx < 0 ? rNext() : rPrev(); rAutoPlay = setInterval(rNext, 5000); }
+    }, { passive: true });
+
+    // Footer Akkordeon (Mobile)
+    const footerAcc = document.querySelector('.footer__accordion');
+    if (footerAcc) {
+      const mq = window.matchMedia('(max-width: 820px)');
+      function applyFooterAcc() {
+        footerAcc.style.display = mq.matches ? 'block' : 'none';
+      }
+      applyFooterAcc();
+      mq.addEventListener('change', applyFooterAcc);
+      footerAcc.querySelectorAll('.footer__acc-trigger').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const content = btn.nextElementSibling;
+          btn.classList.toggle('open');
+          content.classList.toggle('open');
+        });
+      });
+    }
+
+    // CTA-Float: über Footer schweben
+    (function () {
+      const floatBtn = document.querySelector('.cta-float');
+      const footer   = document.querySelector('.footer');
+      if (!floatBtn || !footer) return;
+      const mqMobile = window.matchMedia('(max-width: 820px)');
+      let floatScrollTimer;
+
+      function updateFloatPos() {
+        const footerTop     = footer.getBoundingClientRect().top;
+        const overlap       = window.innerHeight - footerTop;
+        const defaultBottom = mqMobile.matches ? 16 : 36;
+        //overlap 36 für Footer - variable Pixelangabe, damit es oben stehen bleibt, bevor der Footer ganz zu sehen ist
+        if (overlap > 16) {
+          floatBtn.style.bottom = (overlap + 48) + 'px';
+        } else {
+          floatBtn.style.bottom = defaultBottom + 'px';
+        }
+        floatBtn.classList.add('scrollhide');
+        clearTimeout(floatScrollTimer);
+        floatScrollTimer = setTimeout(() => floatBtn.classList.remove('scrollhide'), 200);
+      }
+      window.addEventListener('scroll', updateFloatPos, { passive: true });
+      updateFloatPos();
+    })();
+
+
+    // FAQ Variante 6: Fullwidth zentriert
+    document.querySelectorAll('.faq-mobile__question').forEach(button => {
+      button.addEventListener('click', () => {
+        const item   = button.closest('.faq-mobile__item');
+        const isOpen = item.classList.contains('faq-mobile__item--open');
+        document.querySelectorAll('.faq-mobile__item').forEach(i => i.classList.remove('faq-mobile__item--open'));
+        if (!isOpen) item.classList.add('faq-mobile__item--open');
+        const icon = button.querySelector('.faq__icon');
+        document.querySelectorAll('.faq-mobile__question .faq__icon').forEach(ic => ic.textContent = '+');
+        if (!isOpen) icon.textContent = '×';
+      });
+    });
+
+    // FAQ Variante 4: Mit Bild
+    const faqImg = document.getElementById('faqImg');
+    document.querySelectorAll('.faq__item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.faq__item').forEach(i => i.classList.remove('is-active'));
+        item.classList.add('is-active');
+        faqImg.style.opacity = '0';
+        setTimeout(() => { faqImg.src = item.dataset.img; faqImg.style.opacity = '1'; }, 300);
+      });
+    });
+
+    // ═══ SCHADEN MODAL ═══
+    (function () {
+      const modal     = document.getElementById('schadenModal');
+      const openBtn   = document.getElementById('schadenModalOpen');
+      const closeBtn  = document.getElementById('schadenModalClose');
+      const fileInput = document.getElementById('sf-upload');
+      const fileNames = document.getElementById('sfFileNames');
+
+      function openModal() {
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal() {
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+
+      if (openBtn) openBtn.addEventListener('click', openModal);
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
+
+      if (fileInput) {
+        fileInput.addEventListener('change', () => {
+          const names = [...fileInput.files].map(f => f.name).join(', ');
+          fileNames.textContent = names || '';
+        });
+      }
+
+      document.getElementById('schadenForm').addEventListener('submit', e => {
+        e.preventDefault();
+        // Hier später: FormData an Backend senden
+        alert('Danke! Wir melden uns bei Ihnen.');
+        closeModal();
+      });
+    })();
+
+    // Tabs (FAQ & Leistungen): jede Nav-Gruppe unabhängig
+    document.querySelectorAll('.faq-tabs__nav').forEach(nav => {
+      const container = nav.parentElement;
+      nav.querySelectorAll('.faq-tabs__tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          nav.querySelectorAll('.faq-tabs__tab').forEach(t => t.classList.remove('is-active'));
+          tab.classList.add('is-active');
+          container.querySelectorAll('.faq-tabs__panel').forEach(p => p.classList.remove('is-active'));
+          const panel = document.getElementById(tab.dataset.tab);
+          if (panel) panel.classList.add('is-active');
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
