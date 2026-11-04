@@ -115,6 +115,13 @@
       margin-bottom: 16px;
     }
 
+    .section-header { display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; }
+    .section-header .btn { align-self: flex-end; }
+    .section-title { font-family: 'Bodoni Moda', serif; font-weight: 300; font-size: clamp(32px, 3.8vw, 52px); line-height: 1.1; letter-spacing: -.05em; color: var(--delluxe_white); }
+    .section-text { font-size: 15px; color: var(--softgrey80); line-height: 1.75; margin-bottom: 16px; }
+    .subtitle { font-family: 'Bodoni Moda', serif; font-size: 30px; font-weight: 400; color: var(--delluxe_white); line-height: 1; margin-bottom: 16px;}
+
+
     /* ── SCROLL REVEAL ── */
     .reveal {
       opacity: 0;
@@ -180,7 +187,6 @@
     .navbar__social { display: flex; align-items: center; gap: 14px; }
     .navbar__social a { color: var(--softgrey70); text-decoration: none; transition: color 0.2s; display: flex; align-items: center; }
     .navbar__social a:hover { color: var(--delluxe_white); }
-
 
     /* ════════════════════════════
        HERO
@@ -260,17 +266,6 @@
     .statement__title strong { font-weight: 600; }
     .statement__title italic_green { font-style: italic; color: var(--delluxe_green); }
 
-    /* ════════════════════════════
-       LEISTUNGEN
-    ════════════════════════════ */
-    .services { padding: var(--section-padding) 0; }
-
-    .section-header { display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; }
-    .section-header .btn { align-self: flex-end; }
-    .section-title { font-family: 'Bodoni Moda', serif; font-weight: 300; font-size: clamp(32px, 3.8vw, 52px); line-height: 1.1; letter-spacing: -.05em; color: var(--delluxe_white); }
-    .section-text { font-size: 15px; color: var(--softgrey80); line-height: 1.75; margin-bottom: 16px; }
-    .subtitle { font-family: 'Bodoni Moda', serif; font-size: 30px; font-weight: 400; color: var(--delluxe_white); line-height: 1; margin-bottom: 16px;}
-
     /* Hintergrundbild in den FAQ-Tab-Antworten */
     .svc-slide__bg {
       position: absolute; inset: 0;
@@ -279,7 +274,7 @@
       transition: filter 0.4s, opacity 0.4s; z-index: 0;
     }
     /* Leichter horizontaler Verlauf: links dunkler, damit der Text besser lesbar ist */
-    .faq-tabs__answer .svc-slide__bg::after {
+    .services__answer .svc-slide__bg::after {
       content: ''; position: absolute; inset: -1px; pointer-events: none;
       background: linear-gradient(90deg, var(--delluxe_black) 5%, transparent 15%, transparent 85%, var(--delluxe_black) 95%);
     }
@@ -289,8 +284,6 @@
     ════════════════════════════ */
     .gallery { padding: var(--section-padding) 0; }
     .gallery__header { margin-bottom: 40px; }
-
-
     .slider { position: relative; overflow: hidden; visibility: hidden; }
     .slider__track { display: flex; height: clamp(260px, 55vw, 480px); gap: var(--card-gap); will-change: transform; align-items: center; }
     .slider__track.is-animating { transition: transform 0.6s cubic-bezier(0.4,0,0.2,1); }
@@ -321,7 +314,11 @@
     #reviewsDotsV2 { display: flex; }
     .slider-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--white_transparent10); border: 1px solid var(--white_transparent15); cursor: pointer; transition: background 0.2s; }
     .slider-dots .dot.active { background: var(--delluxe_green); border-color: var(--delluxe_green); }
-
+  
+    /* ════════════════════════════
+       NACHHALTIGKEIT
+    ════════════════════════════ */
+    .sustainability { padding: var(--section-padding) 0; }
 
     /* ════════════════════════════
        BEWERTUNGEN
@@ -399,7 +396,7 @@
     .faq__header { margin-bottom: 48px; }
     .faq__icon { width: 28px; height: 28px; border: 1px solid var(--white_transparent15); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; color: var(--softgrey70); transition: transform 0.3s, border-color 0.2s, color 0.2s; }
 
-    /* ── FAQ VARIANTE 6: Fullwidth zentriert (nur Mobile) ── */
+    /* ── FAQ mobile ── */
     .faq-mobile { display: none; padding: var(--section-padding) 0; text-align: center; }
     .faq-mobile__header { margin-bottom: 48px; }
     .faq-mobile__list { display: flex; flex-direction: column; }
@@ -414,7 +411,7 @@
     .faq-mobile__item.faq-mobile__item--open .faq-mobile__answer { max-height: 300px; padding: 0 28px 24px; }
     .faq-mobile__answer p { font-size: 14px; color: var(--softgrey70); line-height: 1.75; padding-top: 16px; border-top: 1px solid var(--black_transparent20); }
 
-    /* ── FAQ VARIANTE 4: Mit Bild (nur Desktop) ── */
+    /* ── FAQ Desktop ── */
     .faq { padding: var(--section-padding) 0; }
     .faq__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
     .faq__list { display: flex; flex-direction: column; }
@@ -428,18 +425,18 @@
     .faq__visual img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s; display: block; }
     .faq__visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), linear-gradient(90deg, var(--delluxe_black) 0%, transparent 10%, transparent 90%, var(--delluxe_black) 100%); pointer-events: none; }
 
-    /* ── FAQ VARIANTE 5: Tab-Layout ── */
-    .faq-tabs { padding: var(--section-padding) 0; }
-    .faq-tabs__nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
-    .faq-tabs__tab { padding: 10px 20px; border-radius: 999px; border: 1px solid var(--white_transparent10); background: none; color: var(--softgrey70); font-size: 15px; font-family: 'Instrument Sans', sans-serif; cursor: pointer; transition: all 0.2s; }
-    .faq-tabs__tab:hover {color: var(--softgreen); box-shadow: 0 3px 12px var(--white_transparent10); transform: translateY(-1px);}
-    .faq-tabs__tab.is-active { background: var(--softgreen); color: var(--delluxe_black); border-color: transparent; font-weight: 600; position: relative; }
-    .faq-tabs__tab.is-active::before { content: ''; position: absolute; inset: 4px; border-radius: inherit; border: 2px solid var(--delluxe_black); }
-    .faq-tabs__panel { display: none; }
-    .faq-tabs__panel.is-active { display: block; }
-    .faq-tabs__answer { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; font-size: 16px; color: var(--softgrey80); line-height: 1.8; padding: 40px; border-radius: var(--radius); position: relative; overflow: hidden; }
-    .faq-tabs__answer > *:not(.svc-slide__bg) { position: relative; z-index: 1; }
-    .faq-tabs__answer .btn { align-self: flex-end; }
+    /* ── LEISTUNGEN: Tab-Layout ── */
+    .services { padding: var(--section-padding) 0; }
+    .services__nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
+    .services__tab { padding: 10px 20px; border-radius: 999px; border: 1px solid var(--white_transparent10); background: none; color: var(--softgrey70); font-size: 15px; font-family: 'Instrument Sans', sans-serif; cursor: pointer; transition: all 0.2s; }
+    .services__tab:hover {color: var(--softgreen); box-shadow: 0 3px 12px var(--white_transparent10); transform: translateY(-1px);}
+    .services__tab.is-active { background: var(--softgreen); color: var(--delluxe_black); border-color: transparent; font-weight: 600; position: relative; }
+    .services__tab.is-active::before { content: ''; position: absolute; inset: 4px; border-radius: inherit; border: 2px solid var(--delluxe_black); }
+    .services__panel { display: none; }
+    .services__panel.is-active { display: block; }
+    .services__answer { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; font-size: 16px; color: var(--softgrey80); line-height: 1.8; padding: 40px; border-radius: var(--radius); position: relative; overflow: hidden; }
+    .services__answer > *:not(.svc-slide__bg) { position: relative; z-index: 1; }
+    .services__answer .btn { align-self: flex-end; }
 
     /* ════════════════════════════
        CTA
@@ -818,7 +815,7 @@
   </section>
 
   <!-- ═══ LEISTUNGEN ═══ -->
-  <section class="faq-tabs" id="leistungen">
+  <section class="services" id="leistungen">
     <div class="container">
       <div class="section-header reveal">
         <div>
@@ -830,46 +827,46 @@
         </div>
       </div>
       <div class="reveal">
-        <nav class="faq-tabs__nav">
-          <button class="faq-tabs__tab is-active" data-tab="st1">Lackfreie Dellenreparatur</button>
-          <button class="faq-tabs__tab" data-tab="st2">Hagelschaden</button>
-          <button class="faq-tabs__tab" data-tab="st3">Smart Repair</button>
-          <button class="faq-tabs__tab" data-tab="st4">Leasingrückgabe</button>
-          <button class="faq-tabs__tab" data-tab="st5">Hagelschaden II</button>
-          <button class="faq-tabs__tab" data-tab="st6">Smart Repair II</button>
+        <nav class="services__nav">
+          <button class="services__tab is-active" data-tab="st1">Lackfreie Dellenreparatur</button>
+          <button class="services__tab" data-tab="st2">Hagelschaden</button>
+          <button class="services__tab" data-tab="st3">Smart Repair</button>
+          <button class="services__tab" data-tab="st4">Leasingrückgabe</button>
+          <button class="services__tab" data-tab="st5">Hagelschaden II</button>
+          <button class="services__tab" data-tab="st6">Smart Repair II</button>
         </nav>
-        <div class="faq-tabs__panel is-active" id="st1">
-          <div class="faq-tabs__answer">
+        <div class="services__panel is-active" id="st1">
+          <div class="services__answer">
             <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/1.webp');"></div>
             <p class="section-text">PDR-Technik bewahrt den Originallack &ndash; ohne Schleifen, ohne Spachtel, ohne Neulackierung.</p>
           </div>
         </div>
-        <div class="faq-tabs__panel" id="st2">
-          <div class="faq-tabs__answer">
+        <div class="services__panel" id="st2">
+          <div class="services__answer">
             <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/2.webp');"></div>
             <p class="section-text">Strukturierte Instandsetzung nach Hagelereignissen mit professioneller Versicherungsabwicklung.</p>
           </div>
         </div>
-        <div class="faq-tabs__panel" id="st3">
-          <div class="faq-tabs__answer">
+        <div class="services__panel" id="st3">
+          <div class="services__answer">
             <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/3.webp');"></div>
             <p class="section-text">Gezielte Reparatur kleiner Schäden mit sauberem Finish und wirtschaftlichem Ergebnis.</p>
           </div>
         </div>
-        <div class="faq-tabs__panel" id="st4">
-          <div class="faq-tabs__answer">
+        <div class="services__panel" id="st4">
+          <div class="services__answer">
             <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/4.webp');"></div>
             <p class="section-text">Optische Aufbereitung vor Rückgabe &ndash; Minderwerte und Nachzahlungen vermeiden.</p>
           </div>
         </div>
-        <div class="faq-tabs__panel" id="st5">
-          <div class="faq-tabs__answer">
+        <div class="services__panel" id="st5">
+          <div class="services__answer">
             <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/2.webp');"></div>
             <p class="section-text">Strukturierte Instandsetzung nach Hagelereignissen mit professioneller Versicherungsabwicklung.</p>
           </div>
         </div>
-        <div class="faq-tabs__panel" id="st6">
-          <div class="faq-tabs__answer">
+        <div class="services__panel" id="st6">
+          <div class="services__answer">
             <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/3.webp');"></div>
             <p class="section-text">Gezielte Reparatur kleiner Schäden mit sauberem Finish und wirtschaftlichem Ergebnis.</p>
           </div>
@@ -911,8 +908,8 @@
     </div>
   </section>
 
-  <!-- ═══ Nachhaltigkeit neu ═══ -->
-  <section class="services" id="nachhaltigkeit">
+  <!-- ═══ Nachhaltigkeit ═══ -->
+  <section class="sustainability" id="nachhaltigkeit">
     <div class="container">
       <div class="section-header reveal">
         <div>
@@ -924,7 +921,6 @@
         </div>
       </div>
 
-      <!--Variante B-->
       <div class="sustain-cards" id="sustainCards" style="display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 64px; text-align: center;">
         <div class="sustain-card" style="padding: 32px 32px 32px 0; border-right: 1px solid var(--softgreen_transparent50);">
           <div class="eyebrow">Photovoltaik</div>
@@ -1652,14 +1648,14 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
       });
     })();
 
-    // Tabs (FAQ & Leistungen): jede Nav-Gruppe unabhängig
-    document.querySelectorAll('.faq-tabs__nav').forEach(nav => {
+    // Leistungen: Tabs umschalten
+    document.querySelectorAll('.services__nav').forEach(nav => {
       const container = nav.parentElement;
-      nav.querySelectorAll('.faq-tabs__tab').forEach(tab => {
+      nav.querySelectorAll('.services__tab').forEach(tab => {
         tab.addEventListener('click', () => {
-          nav.querySelectorAll('.faq-tabs__tab').forEach(t => t.classList.remove('is-active'));
+          nav.querySelectorAll('.services__tab').forEach(t => t.classList.remove('is-active'));
           tab.classList.add('is-active');
-          container.querySelectorAll('.faq-tabs__panel').forEach(p => p.classList.remove('is-active'));
+          container.querySelectorAll('.services__panel').forEach(p => p.classList.remove('is-active'));
           const panel = document.getElementById(tab.dataset.tab);
           if (panel) panel.classList.add('is-active');
         });
