@@ -64,9 +64,7 @@
 
     :root {
       --delluxe_green:        #6cd141;
-      --delluxe_green_transparent25: #6cd14125;
       --softgreen:            #dcffe8fa;
-      --softgreen_transparent10: #dcffe810;
       --softgreen_transparent50: #dcffe850;
       --delluxe_black:        #0c0c0c;
       --delluxe_black_transparent55:        #0c0c0c55;
@@ -144,9 +142,6 @@
       border: 2px solid var(--delluxe_black);
     }
     .btn--green:hover { color: var(--delluxe_black)}
-    .btn--ghost   { background: var(--black_transparent20); border: 1px solid var(--white_transparent15); color: var(--softgrey70); backdrop-filter: blur(8px); }
-    .btn--small   { padding: 6px 18px; font-size: 15px; }
-    /*.btn--secondary { background: linear-gradient(60deg, var(--delluxe_black) 60%, var(--delluxe_green_transparent25) 100%); color: var(--softgreen); border: 1px solid var(--softgreen_transparent50); }*/
     .btn--secondary { background: var(--black_transparent20); color: var(--softgreen); border: 1px solid var(--white_transparent15); backdrop-filter: blur(8px); } 
     /* ════════════════════════════
        NAVIGATION
@@ -167,7 +162,7 @@
       opacity: 0; transition: opacity 0.55s ease;
       pointer-events: none; z-index: -1;
     }
-    .navbar.navbar--scrolled { background: linear-gradient(to bottom, var(--black_transparent85) 0%, transparent 100%); }
+    .navbar.navbar--scrolled { background: linear-gradient(to bottom, var(--delluxe_black_transparent85) 0%, transparent 100%); }
     .navbar.navbar--scrolled::after { opacity: 1; }
 
     /* Desktop Navbar-Layout */
@@ -205,9 +200,8 @@
     }
     .hero__overlay {
       position: absolute; inset: 0;
+      /* Radialer statt vertikaler linearer Verlauf, weil der lineare eine sichtbare Linie erzeugt */
       background:
-        /*das macht eine Linie, deshalb der radiale Gradient, der macht allerdings eine Ellipse, wenn er zu klein ist
-        linear-gradient(to bottom, var(--delluxe_black) 10%, rgba(12,12,12,10%) 50%, var(--delluxe_black) 100%),*/
         linear-gradient(to right, var(--delluxe_black) 0%, transparent 30%, transparent 70%, var(--delluxe_black) 100%),
         radial-gradient(ellipse 150% 90% at center, transparent 0%, var(--delluxe_black) 50%);
     }
@@ -275,48 +269,9 @@
     .section-header .btn { align-self: flex-end; }
     .section-title { font-family: 'Bodoni Moda', serif; font-weight: 300; font-size: clamp(32px, 3.8vw, 52px); line-height: 1.1; letter-spacing: -.05em; color: var(--delluxe_white); }
     .section-text { font-size: 15px; color: var(--softgrey80); line-height: 1.75; margin-bottom: 16px; }
-    .footer__links li,
-    .footer__links a  { font-size: 15px; color: var(--softgrey70); line-height: 1.75; }
-
-    .services__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--card-gap); }
-
-    .service-card {
-      position: relative; overflow: hidden;
-      border-radius: var(--radius); padding: 36px;
-      display: flex; flex-direction: column; gap: 14px;
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-    .service-card__bg {
-      position: absolute; inset: 0;
-      background-size: cover; background-position: center;
-      transition: filter 0.4s, opacity 0.4s;
-      z-index: 0;
-    }
-    .service-card:hover .service-card__bg { filter: blur(4px); opacity: 0.45; }
-    .service-card > *:not(.service-card__bg) { position: relative; z-index: 1; }
-    .service-card > .btn { margin-top: auto; align-self: flex-end; }
-    .service-card:hover { transform: translateY(-3px);}
-    .service-card__number      { font-size: 11px; color: var(--mediumgrey); letter-spacing: 0.06em; }
     .subtitle { font-family: 'Bodoni Moda', serif; font-size: 30px; font-weight: 400; color: var(--delluxe_white); line-height: 1; margin-bottom: 16px;}
-    .service-card__link        { margin-top: auto; align-self: flex-end; color: var(--delluxe_green); font-size: 14px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: gap 0.2s; }
-    .service-card__link:hover  { gap: 10px; }
 
-    /* ── SERVICE SLIDER ── */
-    .svc-slider { position: relative; overflow: hidden; visibility: hidden; }
-    .svc-slider__track { display: flex; gap: 20px; will-change: transform; }
-    .svc-slider__track.is-animating { transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
-    .svc-slider__track.no-transition,
-    .svc-slider__track.no-transition * { transition: none !important; }
-    .svc-slide {
-      flex-shrink: 0; height: 460px;
-      position: relative; overflow: hidden; border-radius: var(--radius);
-      display: flex; flex-direction: column; gap: 14px; padding: 32px;
-      filter: blur(6px); opacity: 0.5;
-      transition: filter 0.4s, opacity 0.4s;
-      isolation: isolate; outline: 1px solid transparent; transform: translateZ(0);
-      box-shadow: inset 0 0 0 1px var(--delluxe_black);
-    }
-    .svc-slide.is-active { filter: blur(0); opacity: 1; }
+    /* Hintergrundbild in den FAQ-Tab-Antworten */
     .svc-slide__bg {
       position: absolute; inset: 0;
       /* Verlauf 2px höher als die Box, damit am unteren Rand keine helle Naht entsteht */
@@ -328,21 +283,6 @@
       content: ''; position: absolute; inset: -1px; pointer-events: none;
       background: linear-gradient(90deg, var(--delluxe_black) 5%, transparent 15%, transparent 85%, var(--delluxe_black) 95%);
     }
-    .svc-slide.is-active:hover .svc-slide__bg { filter: blur(4px); opacity: 0.45; }
-    .svc-slide > *:not(.svc-slide__bg) { position: relative; z-index: 1; }
-    .svc-slide > .btn { margin-top: auto; align-self: flex-end; }
-    .svc-slide > .service-card__link { margin-top: auto; align-self: flex-end; }
-    .svc-slider__btn {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      background: var(--delluxe_black_transparent85); border: 1px solid var(--white_transparent15);
-      color: var(--delluxe_white); width: 44px; height: 44px; border-radius: 50%;
-      font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s, opacity 0.2s; z-index: 10;
-    }
-    .svc-slider__btn:hover { background: var(--delluxe_black); }
-    .svc-slider__btn--prev { left: 12px; }
-    .svc-slider__btn--next { right: 12px; }
-    .svc-slider__btn:disabled { opacity: 0.3; cursor: default; }
 
     /* ════════════════════════════
        GALERIE / SLIDER
@@ -378,27 +318,10 @@
     .slider__progress-fill { height: 100%; width: 0; background: var(--softgreen); border-radius: 2px; transition: width 0.4s ease; }
 
     .slider-dots { display: none; justify-content: center; gap: 8px; }
-    #svcDots, #svcDotsMirror, #reviewsDotsV2 { display: flex; }
-.slider-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--white_transparent10); border: 1px solid var(--white_transparent15); cursor: pointer; transition: background 0.2s; }
+    #reviewsDotsV2 { display: flex; }
+    .slider-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--white_transparent10); border: 1px solid var(--white_transparent15); cursor: pointer; transition: background 0.2s; }
     .slider-dots .dot.active { background: var(--delluxe_green); border-color: var(--delluxe_green); }
 
-
-    /* ════════════════════════════
-       NACHHALTIGKEIT
-    ════════════════════════════ */
-    .sustainability { padding: var(--section-padding) 0; background: var(--delluxe_black); border-top: 1px solid var(--black_transparent20); border-bottom: 1px solid var(--black_transparent20); }
-    .sustainability__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
-
-    .sustainability__text  { font-size: 15px; color: var(--softgrey70); line-height: 1.75; margin-bottom: 32px; }
-
-    .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-    .metric-card { background: linear-gradient(60deg, var(--delluxe_black) 60%, var(--delluxe_green_transparent25) 100%); border: 1px solid var(--white_transparent10);
-      border-radius: var(--radius); padding: 16px;
-      display: flex; flex-direction: column; gap: 14px;
-      transition: border-color 0.25s, background 0.25s, transform 0.25s, box-shadow 0.25s;
-    }
-    .metric-card:hover { border-color: var(--softgreen_transparent50); transform: translateY(-3px); box-shadow: 0 3px 12px var(--white_transparent10); }
 
     /* ════════════════════════════
        BEWERTUNGEN
@@ -474,37 +397,34 @@
     .faq__header { margin-bottom: 48px; }
     .faq__icon { width: 28px; height: 28px; border: 1px solid var(--white_transparent15); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; color: var(--softgrey70); transition: transform 0.3s, border-color 0.2s, color 0.2s; }
 
-    /* ════════════════════════════
-       CTA
-    ════════════════════════════ */
     /* ── FAQ VARIANTE 6: Fullwidth zentriert (nur Mobile) ── */
-    .faq-full { display: none; padding: var(--section-padding) 0; text-align: center; }
-    /* ── FAQ VARIANTE 4: Mit Bild (nur Desktop) ── */
-    .faq-full__header { margin-bottom: 48px; }
-    .faq-full__list { display: flex; flex-direction: column; gap: 0; }
-    .faq-full__item { width: 100%; text-align: center; }
-    .faq-full__item + .faq-full__item::before { content: ''; display: block; height: 1px; width: 90%; margin: 0 auto; background: var(--softgreen_transparent50); }
-    .faq-full__question { width: 100%; display: flex; align-items: center; justify-content: center; gap: 20px; padding: 20px 24px;
+    .faq-mobile { display: none; padding: var(--section-padding) 0; text-align: center; }
+    .faq-mobile__header { margin-bottom: 48px; }
+    .faq-mobile__list { display: flex; flex-direction: column; }
+    .faq-mobile__item { width: 100%; text-align: center; }
+    .faq-mobile__item + .faq-mobile__item::before { content: ''; display: block; height: 1px; width: 90%; margin: 0 auto; background: var(--softgreen_transparent50); }
+    .faq-mobile__question { width: 100%; display: flex; align-items: center; justify-content: center; gap: 20px; padding: 20px 24px;
       background: none;
       border: none; outline: none;
       font-family: 'Instrument Sans', sans-serif; font-size: 18px; color: var(--delluxe_white); font-weight: 500; cursor: pointer; transition: color 0.2s; }
-    .faq-full__question:hover .faq__icon { border-color: var(--delluxe_green); color: var(--delluxe_green); }
-    .faq-full__answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; padding: 0 28px; }
-    .faq-full__item.faq-full__item--open .faq-full__answer { max-height: 300px; padding: 0 28px 24px; }
-    .faq-full__answer p { font-size: 14px; color: var(--softgrey70); line-height: 1.75; padding-top: 16px; border-top: 1px solid var(--black_transparent20); }
+    .faq-mobile__question:hover .faq__icon { border-color: var(--delluxe_green); color: var(--delluxe_green); }
+    .faq-mobile__answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; padding: 0 28px; }
+    .faq-mobile__item.faq-mobile__item--open .faq-mobile__answer { max-height: 300px; padding: 0 28px 24px; }
+    .faq-mobile__answer p { font-size: 14px; color: var(--softgrey70); line-height: 1.75; padding-top: 16px; border-top: 1px solid var(--black_transparent20); }
 
-    .faq-image { padding: var(--section-padding) 0; }
-    .faq-image__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
-    .faq-image__list { display: flex; flex-direction: column; gap: 0; }
-    .faq-image__item { padding: 20px 24px; border-radius: 0; cursor: pointer; transition: background 0.2s; }
-    .faq-image__item + .faq-image__item { border-top: 1px solid var(--softgreen_transparent50); }
-    .faq-image__q { font-size: 16px; font-weight: 500; color: var(--softgrey70); transition: color 0.2s; }
-    .faq-image__item.is-active .faq-image__q { color: var(--delluxe_white); }
-    .faq-image__a { font-size: 14px; color: var(--softgrey50); line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.3s, padding 0.3s; }
-    .faq-image__item.is-active .faq-image__a { max-height: 200px; padding-top: 10px; color: var(--softgrey70); }
-    .faq-image__visual { position: sticky; top: 120px; border-radius: var(--radius); overflow: hidden; height: 400px; isolation: isolate; }
-    .faq-image__visual img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s; display: block; }
-    .faq-image__visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), linear-gradient(90deg, var(--delluxe_black) 0%, transparent 10%, transparent 90%, var(--delluxe_black) 100%); pointer-events: none; }
+    /* ── FAQ VARIANTE 4: Mit Bild (nur Desktop) ── */
+    .faq { padding: var(--section-padding) 0; }
+    .faq__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .faq__list { display: flex; flex-direction: column; }
+    .faq__item { padding: 20px 24px; cursor: pointer; transition: background 0.2s; }
+    .faq__item + .faq__item { border-top: 1px solid var(--softgreen_transparent50); }
+    .faq__question { font-size: 16px; font-weight: 500; color: var(--softgrey70); transition: color 0.2s; }
+    .faq__item.is-active .faq__question { color: var(--delluxe_white); }
+    .faq__answer { font-size: 14px; color: var(--softgrey50); line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.3s, padding 0.3s; }
+    .faq__item.is-active .faq__answer { max-height: 200px; padding-top: 10px; color: var(--softgrey70); }
+    .faq__visual { position: sticky; top: 120px; border-radius: var(--radius); overflow: hidden; height: 400px; isolation: isolate; }
+    .faq__visual img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s; display: block; }
+    .faq__visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), linear-gradient(90deg, var(--delluxe_black) 0%, transparent 10%, transparent 90%, var(--delluxe_black) 100%); pointer-events: none; }
 
     /* ── FAQ VARIANTE 5: Tab-Layout ── */
     .faq-tabs { padding: var(--section-padding) 0; }
@@ -519,13 +439,14 @@
     .faq-tabs__answer > *:not(.svc-slide__bg) { position: relative; z-index: 1; }
     .faq-tabs__answer .btn { align-self: flex-end; }
 
+    /* ════════════════════════════
+       CTA
+    ════════════════════════════ */
     .cta { padding: var(--section-padding) 0; }
     .cta__box {
       padding: 60px 60px; text-align: center; position: relative; overflow: hidden;
     }
-    .cta__title   { font-family: 'Bodoni Moda', serif; font-size: clamp(36px, 4.5vw, 64px); font-weight: 300; color: var(--delluxe_white); margin-bottom: 16px; position: relative; }
-    .cta__text    { font-size: 15px; color: var(--softgrey70); margin-bottom: 48px; position: relative; }
-    
+
     /* ════════════════════════════
        FOOTER
     ════════════════════════════ */
@@ -536,8 +457,8 @@
     .footer__table th { padding-bottom: 8px; font-weight: normal; text-align: left; vertical-align: bottom; }
     .footer__table th .footer__col-title { margin-bottom: 0; }
     .footer__col-title  { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mediumgrey); margin-bottom: 16px; }
-    .footer__links      { list-style: none; display: flex; flex-direction: column;}
-    .footer__links a    { text-decoration: none; transition: color 0.2s; }
+    .footer__links      { list-style: none; display: flex; flex-direction: column; font-size: 15px; color: var(--softgrey70); line-height: 1.75; }
+    .footer__links a    { color: inherit; text-decoration: none; transition: color 0.2s; }
     .footer__links a:hover { color: var(--delluxe_white); }
     .footer__bottom       { border-top: 1px solid var(--black_transparent20); padding-top: 36px; display: flex; align-items: center; justify-content: center; }
     .footer__copyright    { font-size: 12px; color: var(--mediumgrey); }
@@ -578,7 +499,6 @@
     }
     .navbar__mobile-link:last-child { border-bottom: none; }
     .navbar__mobile-link:active { color: var(--delluxe_white); }
-    .navbar__mobile-actions { display: flex; flex-direction: column; gap: 8px; padding: 16px 20px 28px; }
 
     /* ════════════════════════════
        RESPONSIVE
@@ -591,8 +511,6 @@
       .navbar { height: auto; padding: 18px; transition: background 0.45s, transform 0.3s ease; }
       .navbar::after { display: none; }
       .navbar__inner { display: none; }
-      .navbar__logo { display: none; }
-      .navbar__links, .navbar__phone { display: none; }
       .navbar__mobile-bar {
         display: flex; align-items: center; justify-content: space-between;
         position: fixed; top: 18px; left: 0; right: 0; z-index: 201;
@@ -649,7 +567,7 @@
 
       .navbar__mobile-social { display: flex; align-items: center; gap: 14px; }
       .navbar__mobile-social a { color: var(--softgrey70); display: flex; align-items: center; transition: color 0.2s; }
-      .navbar__hamburger { display: flex; background: none; border: none; padding: 0; cursor: pointer; flex-direction: column; gap: 5px; align-items: center; justify-content: center; }
+      .navbar__hamburger { padding: 0; }
       .navbar__hamburger .bar { background: var(--delluxe_black); }
 
       .navbar__mobile-bar.is-open .navbar__mobile-pill-ghost { display: none; }
@@ -661,23 +579,19 @@
       .hero__title { font-size: clamp(52px, 14vw, 80px); }
       .hero__subtitle {flex-wrap: wrap; gap: 3px 12px; font-size: clamp(11px, 3.2vw, 15px); }
       .hero__subtitle span { white-space: nowrap; }
-      .statement__inner, .section-header, .sustainability__inner { grid-template-columns: 1fr; gap: 32px; }
-      .services__grid { display: flex; overflow-x: scroll; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 12px; padding: 0 6% 4px; }
-      .services__grid::-webkit-scrollbar { display: none; }
-      .service-card { flex: 0 0 88%; scroll-snap-align: center; padding: 24px; }
+      .statement__inner, .section-header { gap: 32px; }
       .slider-dots { display: flex; margin-top: 16px; }
       #reviewsDotsV2 { margin-top: 0; margin-bottom: 16px; }
       .reviews .review-card { height: 600px; }
       .reviews .reviews__bg { width: 100%; }
       .reviews .reviews__slide.is-active .review-card::after { background-size: cover; }
-      .metrics-grid { grid-template-columns: 1fr 1fr; }
       .sustain-cards { display: flex !important; overflow-x: scroll; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin-top: 32px !important; gap: 0; }
       .sustain-cards::-webkit-scrollbar { display: none; }
       .sustain-card { flex: 0 0 85%; scroll-snap-align: center; border-right: none !important; border-top: 1px solid var(--softgreen_transparent50); border-bottom: 1px solid var(--softgreen_transparent50); padding: 24px !important; }
       .cta__box { padding: 48px 24px; }
       .subtitle { font-size: 22px; }
-      .faq-full { display: block; }
-      .faq-image { display: none; }
+      .faq-mobile { display: block; }
+      .faq { display: none; }
       .slider__btn { display: none; }
       .cta-float { left: 50%; right: auto; transform: translateX(-50%); bottom: 16px; }
       .cta-float.scrollhide { transform: translateX(-50%) translateY(15%); }
@@ -755,10 +669,6 @@
       font-size: 12px; font-weight: 600; letter-spacing: 0.05em;
       color: var(--softgrey50); text-transform: uppercase;
     }
-    .schaden-form__label .optional {
-      font-weight: 400; text-transform: none; letter-spacing: 0;
-      color: var(--softgrey50); font-size: 11px; margin-left: 4px;
-    }
 
     .schaden-form__input {
       background: #1e1e1e; border: 1px solid #333;
@@ -766,7 +676,7 @@
       font-size: 15px; color: var(--delluxe_white);
       font-family: 'Instrument Sans', sans-serif;
       outline: none; transition: border-color 0.2s;
-      width: 100%; box-sizing: border-box;
+      width: 100%;
     }
     .schaden-form__input::placeholder { color: #555; }
     .schaden-form__input:focus { border-color: var(--delluxe_green); }
@@ -786,14 +696,6 @@
     .schaden-form__upload-text { font-size: 13px; color: var(--softgrey50); }
     .schaden-form__upload-text strong { color: var(--softgrey70); }
     .schaden-form__upload-names { margin-top: 8px; font-size: 12px; color: var(--softgrey70); }
-
-    .schaden-form__divider {
-      display: flex; align-items: center; gap: 12px;
-      color: var(--softgrey50); font-size: 12px; margin: 4px 0;
-    }
-    .schaden-form__divider::before, .schaden-form__divider::after {
-      content: ''; flex: 1; height: 1px; background: #2a2a2a;
-    }
 
     .schaden-form__submit {
       margin-top: 6px; width: 100%; justify-content: center;
@@ -1126,68 +1028,68 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
   </section>
 
   <!-- ═══ FAQ mobil ═══ -->
-  <section class="faq-full">
+  <section class="faq-mobile">
     <div class="container">
-      <div class="faq-full__header reveal">
+      <div class="faq-mobile__header reveal">
         <span class="eyebrow">Häufige Fragen</span>
         <h2 class="section-title">Was sie wissen sollten</h2>
       </div>
-      <div class="faq-full__list reveal">
-        <div class="faq-full__item">
-          <button class="faq-full__question">Was kostet eine Dellenreparatur beim Beulendoktor?<span class="faq__icon">+</span></button>
-          <div class="faq-full__answer"><p>Kleine Dellen kosten 50&ndash;80&thinsp;&euro;, mittlere 80&ndash;150&thinsp;&euro;, Hagelschäden je nach Umfang 300&ndash;1.500&thinsp;&euro;. PDR ist bis zu 70&thinsp;% günstiger als konventionelle Lackierung &ndash; und der Originallack bleibt erhalten.</p></div>
+      <div class="faq-mobile__list reveal">
+        <div class="faq-mobile__item">
+          <button class="faq-mobile__question">Was kostet eine Dellenreparatur beim Beulendoktor?<span class="faq__icon">+</span></button>
+          <div class="faq-mobile__answer"><p>Kleine Dellen kosten 50&ndash;80&thinsp;&euro;, mittlere 80&ndash;150&thinsp;&euro;, Hagelschäden je nach Umfang 300&ndash;1.500&thinsp;&euro;. PDR ist bis zu 70&thinsp;% günstiger als konventionelle Lackierung &ndash; und der Originallack bleibt erhalten.</p></div>
         </div>
-        <div class="faq-full__item">
-          <button class="faq-full__question">Übernimmt die Versicherung die Kosten für Hagelschäden?<span class="faq__icon">+</span></button>
-          <div class="faq-full__answer"><p>Ja. Die Teilkaskoversicherung übernimmt Hagelschäden in der Regel vollständig &ndash; ohne Verlust des Schadenfreiheitsrabattes. Wir unterstützen Sie bei der Abwicklung.</p></div>
+        <div class="faq-mobile__item">
+          <button class="faq-mobile__question">Übernimmt die Versicherung die Kosten für Hagelschäden?<span class="faq__icon">+</span></button>
+          <div class="faq-mobile__answer"><p>Ja. Die Teilkaskoversicherung übernimmt Hagelschäden in der Regel vollständig &ndash; ohne Verlust des Schadenfreiheitsrabattes. Wir unterstützen Sie bei der Abwicklung.</p></div>
         </div>
-        <div class="faq-full__item">
-          <button class="faq-full__question">Wie lange dauert eine Dellenreparatur?<span class="faq__icon">+</span></button>
-          <div class="faq-full__answer"><p>Einzelne kleine Dellen sind in 1&ndash;3 Stunden behoben. Umfangreiche Hagelschäden benötigen je nach Fahrzeug 2&ndash;4 Tage. Sie erhalten in jedem Fall eine genaue Zeitangabe vor Beginn der Arbeiten.</p></div>
+        <div class="faq-mobile__item">
+          <button class="faq-mobile__question">Wie lange dauert eine Dellenreparatur?<span class="faq__icon">+</span></button>
+          <div class="faq-mobile__answer"><p>Einzelne kleine Dellen sind in 1&ndash;3 Stunden behoben. Umfangreiche Hagelschäden benötigen je nach Fahrzeug 2&ndash;4 Tage. Sie erhalten in jedem Fall eine genaue Zeitangabe vor Beginn der Arbeiten.</p></div>
         </div>
-        <div class="faq-full__item">
-          <button class="faq-full__question">Kann jede Delle ohne Lackieren repariert werden?<span class="faq__icon">+</span></button>
-          <div class="faq-full__answer"><p>In den meisten Fällen ja &ndash; vorausgesetzt, der Originallack ist intakt und das Metall nicht überdehnt. Ausnahmen: scharfkantige Dellen, Karosserierippen und bereits nacklackierte Stellen. Wir begutachten Ihr Fahrzeug kostenfrei.</p></div>
+        <div class="faq-mobile__item">
+          <button class="faq-mobile__question">Kann jede Delle ohne Lackieren repariert werden?<span class="faq__icon">+</span></button>
+          <div class="faq-mobile__answer"><p>In den meisten Fällen ja &ndash; vorausgesetzt, der Originallack ist intakt und das Metall nicht überdehnt. Ausnahmen: scharfkantige Dellen, Karosserierippen und bereits nacklackierte Stellen. Wir begutachten Ihr Fahrzeug kostenfrei.</p></div>
         </div>
-        <div class="faq-full__item">
-          <button class="faq-full__question">Welche Gebiete rund um München bedient ihr?<span class="faq__icon">+</span></button>
-          <div class="faq-full__answer"><p>Unser Meisterbetrieb in Eichenau bedient München und den gesamten Münchner Westen: Germering, Puchheim, Fürstenfeldbruck, Starnberg und den Landkreis Fürstenfeldbruck im Umkreis von ca. 35&thinsp;km.</p></div>
+        <div class="faq-mobile__item">
+          <button class="faq-mobile__question">Welche Gebiete rund um München bedient ihr?<span class="faq__icon">+</span></button>
+          <div class="faq-mobile__answer"><p>Unser Meisterbetrieb in Eichenau bedient München und den gesamten Münchner Westen: Germering, Puchheim, Fürstenfeldbruck, Starnberg und den Landkreis Fürstenfeldbruck im Umkreis von ca. 35&thinsp;km.</p></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ═══ FAQ Desktop ═══ -->
-  <section class="faq-image">
+  <section class="faq">
     <div class="container">
-      <div class="faq__header reveal" style="margin-bottom: 48px;">
+      <div class="faq__header reveal">
         <span class="eyebrow">Häufige Fragen</span>
-        <h2 class="section-title">Was sie wissen sollten</h2>
+        <h2 class="section-title">Was Sie wissen sollten</h2>
       </div>
-      <div class="faq-image__inner reveal">
-        <div class="faq-image__list">
-          <div class="faq-image__item is-active" data-img="images/DiaShow/1.webp">
-            <div class="faq-image__q">Was kostet eine Dellenreparatur?</div>
-            <div class="faq-image__a">Kleine Dellen kosten 50–80&thinsp;€, mittlere 80–150&thinsp;€, Hagelschäden je nach Umfang 300–1.500&thinsp;€.</div>
+      <div class="faq__inner reveal">
+        <div class="faq__list">
+          <div class="faq__item is-active" data-img="images/DiaShow/1.webp">
+            <div class="faq__question">Was kostet eine Dellenreparatur?</div>
+            <div class="faq__answer">Kleine Dellen kosten 50–80&thinsp;€, mittlere 80–150&thinsp;€, Hagelschäden je nach Umfang 300–1.500&thinsp;€.</div>
           </div>
-          <div class="faq-image__item" data-img="images/DiaShow/2.webp">
-            <div class="faq-image__q">Übernimmt die Versicherung Hagelschäden?</div>
-            <div class="faq-image__a">Ja. Die Teilkaskoversicherung übernimmt Hagelschäden vollständig – ohne Verlust des Schadenfreiheitsrabattes.</div>
+          <div class="faq__item" data-img="images/DiaShow/2.webp">
+            <div class="faq__question">Übernimmt die Versicherung Hagelschäden?</div>
+            <div class="faq__answer">Ja. Die Teilkaskoversicherung übernimmt Hagelschäden vollständig – ohne Verlust des Schadenfreiheitsrabattes.</div>
           </div>
-          <div class="faq-image__item" data-img="images/DiaShow/3.webp">
-            <div class="faq-image__q">Wie lange dauert eine Reparatur?</div>
-            <div class="faq-image__a">Einzelne Dellen in 1–3 Stunden, Hagelschäden in 2–4 Tagen.</div>
+          <div class="faq__item" data-img="images/DiaShow/3.webp">
+            <div class="faq__question">Wie lange dauert eine Reparatur?</div>
+            <div class="faq__answer">Einzelne Dellen in 1–3 Stunden, Hagelschäden in 2–4 Tagen.</div>
           </div>
-          <div class="faq-image__item" data-img="images/DiaShow/4.webp">
-            <div class="faq-image__q">Kann jede Delle ohne Lackieren repariert werden?</div>
-            <div class="faq-image__a">In den meisten Fällen ja. Wir begutachten Ihr Fahrzeug kostenfrei.</div>
+          <div class="faq__item" data-img="images/DiaShow/4.webp">
+            <div class="faq__question">Kann jede Delle ohne Lackieren repariert werden?</div>
+            <div class="faq__answer">In den meisten Fällen ja. Wir begutachten Ihr Fahrzeug kostenfrei.</div>
           </div>
-          <div class="faq-image__item" data-img="images/DiaShow/1.webp">
-            <div class="faq-image__q">Welche Gebiete bedient ihr?</div>
-            <div class="faq-image__a">München und den gesamten Münchner Westen im Umkreis von ca. 35&thinsp;km.</div>
+          <div class="faq__item" data-img="images/DiaShow/1.webp">
+            <div class="faq__question">Welche Gebiete bedient ihr?</div>
+            <div class="faq__answer">München und den gesamten Münchner Westen im Umkreis von ca. 35&thinsp;km.</div>
           </div>
         </div>
-        <div class="faq-image__visual">
+        <div class="faq__visual">
           <img src="images/DiaShow/1.webp" id="faqImg" alt="FAQ Bild" loading="lazy" />
         </div>
       </div>
@@ -1306,11 +1208,11 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
         <div class="schaden-form__row">
           <div class="schaden-form__group">
             <label class="schaden-form__label" for="sf-vorname">Vorname <span style="color:var(--delluxe_green)">*</span></label>
-            <input class="schaden-form__input" type="text" id="sf-vorname" name="vorname" placeholder="Max" required autocomplete="given-name">
+            <input class="schaden-form__input" type="text" id="sf-vorname" name="vorname" placeholder="Karlie" required autocomplete="given-name">
           </div>
           <div class="schaden-form__group">
             <label class="schaden-form__label" for="sf-name">Nachname <span style="color:var(--delluxe_green)">*</span></label>
-            <input class="schaden-form__input" type="text" id="sf-name" name="name" placeholder="Müller" required autocomplete="family-name">
+            <input class="schaden-form__input" type="text" id="sf-name" name="name" placeholder="Kunde" required autocomplete="family-name">
           </div>
         </div>
 
@@ -1321,7 +1223,7 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
 
         <div class="schaden-form__group">
           <label class="schaden-form__label" for="sf-mail">E-Mail-Adresse </label>
-          <input class="schaden-form__input" type="email" id="sf-mail" name="mail" placeholder="max@beispiel.de" autocomplete="email">
+          <input class="schaden-form__input" type="email" id="sf-mail" name="mail" placeholder="karlie@beispiel.de" autocomplete="email">
         </div>
 
         <div class="schaden-form__group">
@@ -1370,44 +1272,6 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
   </div>
 
   <script>
-    // Service Cards Dots (Mobile)
-    const servicesGrid = document.getElementById('servicesGrid');
-    const servicesDots = document.getElementById('servicesDots');
-    if (servicesGrid && servicesDots) {
-      const cards = servicesGrid.querySelectorAll('.service-card');
-      cards.forEach((_, i) => {
-        const dot = document.createElement('button');
-        dot.className = 'dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', 'Karte ' + (i + 1));
-        dot.addEventListener('click', () => {
-          cards[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        });
-        servicesDots.appendChild(dot);
-      });
-      servicesGrid.addEventListener('scroll', () => {
-        const center = servicesGrid.scrollLeft + servicesGrid.offsetWidth / 2;
-        let closest = 0, minDist = Infinity;
-        cards.forEach((card, i) => {
-          const dist = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
-          if (dist < minDist) { minDist = dist; closest = i; }
-        });
-        servicesDots.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === closest));
-      });
-      let sTouchStartX = 0;
-      servicesGrid.addEventListener('touchstart', e => { sTouchStartX = e.touches[0].clientX; }, { passive: true });
-      servicesGrid.addEventListener('touchend', e => {
-        const dx = e.changedTouches[0].clientX - sTouchStartX;
-        const center = servicesGrid.scrollLeft + servicesGrid.offsetWidth / 2;
-        let closest = 0, minDist = Infinity;
-        cards.forEach((card, i) => {
-          const dist = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
-          if (dist < minDist) { minDist = dist; closest = i; }
-        });
-        if (dx < -40 && closest === cards.length - 1) cards[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        if (dx > 40 && closest === 0) cards[cards.length - 1].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      }, { passive: true });
-    }
-
     // Sustain Cards Dots (Mobile)
     const sustainCards = document.getElementById('sustainCards');
     const sustainDots = document.getElementById('sustainDots');
@@ -1690,110 +1554,6 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
       if (Math.abs(dx) > 40) { clearInterval(rAutoPlay); dx < 0 ? rNext() : rPrev(); rAutoPlay = setInterval(rNext, 5000); }
     }, { passive: true });
 
-    // Service Card Slider (2 gleichzeitig sichtbar, kein Auto-Play)
-    (function () {
-      const svcSlider = document.getElementById('svcSlider');
-      const svcTrack  = document.getElementById('svcTrack');
-      if (!svcTrack) return;
-      const svcPrevBtn = document.getElementById('svcPrev');
-      const svcNextBtn = document.getElementById('svcNext');
-      const slides     = [...svcTrack.children];
-      const origSlides = [...svcTrack.children];
-      const COUNT      = origSlides.length; // 6
-      const GAP        = 20;
-      const PEEK_R     = 0.12;
-      const dotsEl     = document.getElementById('svcDots');
-      const allDotsEls = [dotsEl].filter(Boolean);
-      let visible      = 3;
-      let current      = COUNT; // startet in der mittleren (originalen) Kopie
-
-      // Slides dreifach klonen für nahtlosen Loop
-      origSlides.forEach(s => svcTrack.insertBefore(s.cloneNode(true), svcTrack.firstChild));
-      origSlides.forEach(s => svcTrack.appendChild(s.cloneNode(true)));
-      const allSlides = [...svcTrack.children]; // 18
-
-      function isMobile() { return window.matchMedia('(max-width: 820px)').matches; }
-      function getVisible() { return isMobile() ? 1 : 3; }
-      function cW()      { return svcTrack.parentElement.offsetWidth; }
-      function peekPx()  { return cW() * PEEK_R; }
-      function cardPx()  { return (cW() - (visible - 1) * GAP - 2 * peekPx()) / visible; }
-      function stepPx()  { return cardPx() + GAP; }
-      function realIdx() { return ((current - COUNT) % COUNT + COUNT) % COUNT; }
-
-      function setWidths() {
-        const w = cardPx() + 'px';
-        allSlides.forEach(s => s.style.width = w);
-      }
-
-      function buildDots() {
-        allDotsEls.forEach(el => {
-          el.innerHTML = '';
-          for (let i = 0; i < COUNT; i++) {
-            const d = document.createElement('button');
-            d.className = 'dot';
-            d.setAttribute('aria-label', 'Karte ' + (i + 1));
-            d.addEventListener('click', () => svcGoTo(COUNT + i));
-            el.appendChild(d);
-          }
-          el.style.display = 'flex';
-        });
-        updateDots();
-      }
-
-      function updateDots() {
-        const ri = realIdx();
-        allDotsEls.forEach(el => el.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === ri)));
-      }
-
-      function svcGoTo(index, animate = true) {
-        if (animate) {
-          svcTrack.classList.add('is-animating');
-        } else {
-          svcTrack.classList.add('no-transition');
-          svcTrack.classList.remove('is-animating');
-        }
-        current = index;
-        svcTrack.style.transform = `translateX(${peekPx() - current * stepPx()}px)`;
-        allSlides.forEach((s, i) => s.classList.toggle('is-active', i >= current && i < current + visible));
-        updateDots();
-        if (!animate) requestAnimationFrame(() => requestAnimationFrame(() => svcTrack.classList.remove('no-transition')));
-      }
-
-      function svcNext() {
-        current++;
-        svcGoTo(current);
-        if (current >= COUNT * 2) setTimeout(() => svcGoTo(COUNT, false), 520);
-      }
-
-      function svcPrev() {
-        current--;
-        svcGoTo(current);
-        if (current < COUNT) setTimeout(() => svcGoTo(current + COUNT, false), 520);
-      }
-
-      function init(animate = false) {
-        visible = getVisible();
-        setWidths();
-        buildDots();
-        svcGoTo(current, animate);
-      }
-
-      init(false);
-      window.addEventListener('resize', () => init(false));
-      svcNextBtn.addEventListener('click', svcNext);
-      svcPrevBtn.addEventListener('click', svcPrev);
-
-      // Touch-Wischen
-      let touchX = 0;
-      svcSlider.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
-      svcSlider.addEventListener('touchend', e => {
-        const dx = e.changedTouches[0].clientX - touchX;
-        if (Math.abs(dx) > 40) dx < 0 ? svcNext() : svcPrev();
-      }, { passive: true });
-
-      svcSlider.style.visibility = 'visible';
-    })();
-
     // Footer Akkordeon (Mobile)
     const footerAcc = document.querySelector('.footer__accordion');
     if (footerAcc) {
@@ -1840,23 +1600,23 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
 
 
     // FAQ Variante 6: Fullwidth zentriert
-    document.querySelectorAll('.faq-full__question').forEach(button => {
+    document.querySelectorAll('.faq-mobile__question').forEach(button => {
       button.addEventListener('click', () => {
-        const item   = button.closest('.faq-full__item');
-        const isOpen = item.classList.contains('faq-full__item--open');
-        document.querySelectorAll('.faq-full__item').forEach(i => i.classList.remove('faq-full__item--open'));
-        if (!isOpen) item.classList.add('faq-full__item--open');
+        const item   = button.closest('.faq-mobile__item');
+        const isOpen = item.classList.contains('faq-mobile__item--open');
+        document.querySelectorAll('.faq-mobile__item').forEach(i => i.classList.remove('faq-mobile__item--open'));
+        if (!isOpen) item.classList.add('faq-mobile__item--open');
         const icon = button.querySelector('.faq__icon');
-        document.querySelectorAll('.faq-full__question .faq__icon').forEach(ic => ic.textContent = '+');
+        document.querySelectorAll('.faq-mobile__question .faq__icon').forEach(ic => ic.textContent = '+');
         if (!isOpen) icon.textContent = '×';
       });
     });
 
     // FAQ Variante 4: Mit Bild
     const faqImg = document.getElementById('faqImg');
-    document.querySelectorAll('.faq-image__item').forEach(item => {
+    document.querySelectorAll('.faq__item').forEach(item => {
       item.addEventListener('click', () => {
-        document.querySelectorAll('.faq-image__item').forEach(i => i.classList.remove('is-active'));
+        document.querySelectorAll('.faq__item').forEach(i => i.classList.remove('is-active'));
         item.classList.add('is-active');
         faqImg.style.opacity = '0';
         setTimeout(() => { faqImg.src = item.dataset.img; faqImg.style.opacity = '1'; }, 300);
