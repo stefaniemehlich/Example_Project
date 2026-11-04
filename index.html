@@ -79,6 +79,7 @@
       --black_transparent20:  #00000033;
       --white_transparent10:  #FFFFFF1A;
       --white_transparent15:  #FFFFFF26;
+      --error:                #ff6b6b;
       
       --max-width:          1240px;
       --radius:             2px;
@@ -659,7 +660,7 @@
       position: absolute; top: 16px; right: 16px;
       background: var(--black_transparent20); border: 1px solid var(--white_transparent15);
       color: var(--softgrey70); border-radius: 50%;
-      width: 36px; height: 36px; font-size: 18px; line-height: 1;
+      width: 44px; height: 44px; font-size: 28px; line-height: 1;
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: color 0.2s, background 0.2s;
     }
@@ -668,10 +669,21 @@
     .schaden-modal__title {
       font-size: 22px; font-weight: 700; color: var(--delluxe_white);
       margin: 0 0 4px;
+      padding-right: 40px; /* Platz für das X */
     }
+    .schaden-modal__success .schaden-modal__title { padding: 0 40px; } /* zentriert: beidseitig */
     .schaden-modal__sub {
       font-size: 14px; color: var(--softgrey50); margin: 0 0 28px;
     }
+
+    .schaden-modal__success { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 24px 0 8px; }
+    .schaden-modal__success[hidden] { display: none; }
+    .schaden-modal__success-icon {
+      width: 56px; height: 56px; border-radius: 50%; margin-bottom: 20px;
+      border: 2px solid var(--delluxe_green); color: var(--delluxe_green);
+      display: flex; align-items: center; justify-content: center; font-size: 26px;
+    }
+    .schaden-modal__success .btn { align-self: center; }
 
     .schaden-form { display: flex; flex-direction: column; gap: 14px; }
 
@@ -696,6 +708,11 @@
     .schaden-form__required { color: var(--delluxe_green); }
     .schaden-form__input::placeholder { color: var(--mediumgrey); }
     .schaden-form__input:focus { border-color: var(--delluxe_green); }
+    .schaden-form__input.is-invalid { border-color: var(--error); }
+    .schaden-form__error { font-size: 12px; color: var(--error); }
+    .schaden-form__error:empty { display: none; }
+    .schaden-form__upload.is-invalid { border-color: var(--error); }
+    .schaden-form__counter { font-size: 12px; color: var(--softgrey50); text-align: right; }
 
     .schaden-form__upload {
       background: #1e1e1e; border: 1px dashed #444;
@@ -1201,65 +1218,84 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
   <div class="schaden-modal" id="schadenModal" role="dialog" aria-modal="true" aria-label="Schaden einreichen">
     <div class="schaden-modal__box">
       <button class="schaden-modal__close" id="schadenModalClose" aria-label="Schließen">&times;</button>
-      <h2 class="schaden-modal__title">Schaden checken</h2>
+      <div id="schadenFormView">
+     <h2 class="schaden-modal__title">Schaden checken</h2>
       <p class="schaden-modal__sub">Wir melden uns innerhalb von 24 Stunden mit einem Angebot.</p>
 
-      <form class="schaden-form" id="schadenForm" novalidate>
+      <form class="schaden-form" id="schadenForm">
 
         <div class="schaden-form__row">
           <div class="schaden-form__group">
             <label class="schaden-form__label" for="sf-vorname">Vorname <span class="schaden-form__required">*</span></label>
-            <input class="schaden-form__input" type="text" id="sf-vorname" name="vorname" placeholder="Karlie" required autocomplete="given-name">
+            <input class="schaden-form__input" type="text" id="sf-vorname" name="vorname" placeholder="Karlie" required maxlength="50" aria-describedby="sf-vorname-error" autocomplete="given-name">
+            <p class="schaden-form__error" id="sf-vorname-error" aria-live="polite"></p>
           </div>
           <div class="schaden-form__group">
             <label class="schaden-form__label" for="sf-name">Nachname <span class="schaden-form__required">*</span></label>
-            <input class="schaden-form__input" type="text" id="sf-name" name="name" placeholder="Kunde" required autocomplete="family-name">
+            <input class="schaden-form__input" type="text" id="sf-name" name="name" placeholder="Kunde" required maxlength="50" aria-describedby="sf-name-error" autocomplete="family-name">
+            <p class="schaden-form__error" id="sf-name-error" aria-live="polite"></p>
           </div>
         </div>
 
         <div class="schaden-form__group">
           <label class="schaden-form__label" for="sf-telefon">Telefonnummer <span class="schaden-form__required">*</span></label>
-          <input class="schaden-form__input" type="tel" id="sf-telefon" name="telefon" placeholder="+49 176 12345678" required autocomplete="tel">
+          <input class="schaden-form__input" type="tel" id="sf-telefon" name="telefon" placeholder="+49 176 12345678" required aria-describedby="sf-telefon-error" autocomplete="tel">
+          <p class="schaden-form__error" id="sf-telefon-error" aria-live="polite"></p>
         </div>
 
         <div class="schaden-form__group">
-          <label class="schaden-form__label" for="sf-mail">E-Mail-Adresse </label>
-          <input class="schaden-form__input" type="email" id="sf-mail" name="mail" placeholder="karlie@beispiel.de" autocomplete="email">
+          <label class="schaden-form__label" for="sf-mail">E-Mail-Adresse</label>
+          <input class="schaden-form__input" type="email" id="sf-mail" name="mail" placeholder="karlie@beispiel.de" maxlength="254" aria-describedby="sf-mail-error" autocomplete="email">
+          <p class="schaden-form__error" id="sf-mail-error" aria-live="polite"></p>
         </div>
 
         <div class="schaden-form__group">
           <label class="schaden-form__label" for="sf-strasse">Straße</label>
-          <input class="schaden-form__input" type="text" id="sf-strasse" name="adresse" placeholder="Musterstraße 1" autocomplete="street-address">
+          <input class="schaden-form__input" type="text" id="sf-strasse" name="adresse" placeholder="Musterstraße 1" maxlength="100" aria-describedby="sf-strasse-error" autocomplete="street-address">
+          <p class="schaden-form__error" id="sf-strasse-error" aria-live="polite"></p>
         </div>
         <div class="schaden-form__row">
           <div class="schaden-form__group">
             <label class="schaden-form__label" for="sf-plz">PLZ</label>
-            <input class="schaden-form__input" type="text" id="sf-plz" name="plz" placeholder="82223" autocomplete="street-address">
+            <input class="schaden-form__input" type="text" id="sf-plz" name="plz" placeholder="82223" inputmode="numeric" maxlength="5" aria-describedby="sf-plz-error" autocomplete="postal-code">
+            <p class="schaden-form__error" id="sf-plz-error" aria-live="polite"></p>
           </div>
           <div class="schaden-form__group">
             <label class="schaden-form__label" for="sf-ort">Ort</label>
-            <input class="schaden-form__input" type="text" id="sf-ort" name="adresse" placeholder="Eichenau" autocomplete="street-address">
+            <input class="schaden-form__input" type="text" id="sf-ort" name="ort" placeholder="Eichenau" maxlength="50" aria-describedby="sf-ort-error" autocomplete="address-level2">
+            <p class="schaden-form__error" id="sf-ort-error" aria-live="polite"></p>
           </div>
         </div>
 
         <div class="schaden-form__group">
-          <label class="schaden-form__label">Fotos &amp; Videos des Schadens</label>
+          <label class="schaden-form__label" for="sf-upload">Fotos &amp; Videos des Schadens</label>
           <div class="schaden-form__upload" id="sfUploadArea">
-            <input type="file" id="sf-upload" name="dateien" accept="image/*,video/*" multiple>
+            <input type="file" id="sf-upload" name="dateien" accept="image/*,video/*" multiple aria-describedby="sf-upload-error">
             <div class="schaden-form__upload-icon">📎</div>
             <div class="schaden-form__upload-text"><strong>Dateien auswählen</strong> oder hier ablegen</div>
-            <div class="schaden-form__upload-text">mehrere Bilder &amp; Videos möglich</div>
+            <div class="schaden-form__upload-text">bis zu 10 Bilder &amp; Videos, max. 20&nbsp;MB pro Datei</div>
             <div class="schaden-form__upload-names" id="sfFileNames"></div>
           </div>
+          <p class="schaden-form__error" id="sf-upload-error" aria-live="polite"></p>
         </div>
 
         <div class="schaden-form__group">
           <label class="schaden-form__label" for="sf-mitteilung">Mitteilung</label>
-          <textarea class="schaden-form__input" id="sf-mitteilung" name="mitteilung" placeholder="Beschreiben Sie kurz den Schaden oder stellen Sie eine Frage …" rows="4"></textarea>
+          <textarea class="schaden-form__input" id="sf-mitteilung" name="mitteilung" placeholder="Beschreiben Sie kurz den Schaden oder stellen Sie eine Frage …" rows="4" maxlength="1000" aria-describedby="sf-mitteilung-error sf-mitteilung-counter"></textarea>
+          <p class="schaden-form__error" id="sf-mitteilung-error" aria-live="polite"></p>
+          <p class="schaden-form__counter" id="sf-mitteilung-counter">0 / 1000</p>
         </div>
 
         <button type="submit" class="btn btn--green schaden-form__submit">Anfrage absenden</button>
       </form>
+      </div>
+
+      <div class="schaden-modal__success" id="schadenSuccess" hidden>
+        <div class="schaden-modal__success-icon" aria-hidden="true">&#10003;</div>
+        <h2 class="schaden-modal__title">Danke für Ihre Anfrage, <span id="schadenSuccessName"></span>!</h2>
+        <p class="schaden-modal__sub">Es handelt sich nur um eine Beispielseite. Es wurden keine Daten versendet.</p>
+        <button type="button" class="btn btn--green" id="schadenSuccessClose">Schließen</button>
+      </div>
     </div>
   </div>
 
@@ -1625,8 +1661,155 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
       const closeBtn  = document.getElementById('schadenModalClose');
       const fileInput = document.getElementById('sf-upload');
       const fileNames = document.getElementById('sfFileNames');
+      const form      = document.getElementById('schadenForm');
+      const formView  = document.getElementById('schadenFormView');
+      const success   = document.getElementById('schadenSuccess');
+      const successCloseBtn = document.getElementById('schadenSuccessClose');
+      const successName = document.getElementById('schadenSuccessName');
+
+      // ── Eingabeprüfung ──
+      const MB = 1024 * 1024;
+      const counter = document.getElementById('sf-mitteilung-counter');
+
+      // Namen: Buchstaben aller Sprachen; Leerzeichen, Bindestrich, Apostroph nur einzeln zwischen Buchstaben
+      function nameRule(value, label) {
+        if (!value)                               return `Bitte geben Sie Ihren ${label} ein.`;
+        if (value.length < 2)                     return 'Bitte mindestens 2 Zeichen eingeben.';
+        if (value.length > 50)                    return 'Bitte höchstens 50 Zeichen eingeben.';
+        if (!/^[\p{L} '’-]*$/u.test(value))       return 'Nur Buchstaben, Leerzeichen, Bindestrich und Apostroph sind erlaubt.';
+        if (!/^\p{L}+(?:[ '’-]\p{L}+)*$/u.test(value)) return 'Leerzeichen, Bindestrich und Apostroph nur einzeln zwischen Buchstaben.';
+        return '';
+      }
+
+      // Jede Regel gibt eine Fehlermeldung zurück, oder '' wenn alles passt
+      const RULES = {
+        'sf-vorname': value => nameRule(value, 'Vornamen'),
+        'sf-name':    value => nameRule(value, 'Nachnamen'),
+
+        'sf-telefon': value => {
+          if (!value)                          return 'Bitte geben Sie Ihre Telefonnummer ein.';
+          if (!/^[0-9+ ()\/-]*$/.test(value))  return 'Nur Ziffern, Leerzeichen und + - / ( ) sind erlaubt.';
+          if (value.lastIndexOf('+') > 0)      return 'Das + ist nur ganz am Anfang erlaubt.';
+          const first = value.replace(/[\s(]/g, '')[0];
+          if (first !== '0' && first !== '+')  return 'Bitte mit Vorwahl eingeben (beginnend mit 0 oder +).';
+          const digits = value.replace(/\D/g, '').length;
+          if (digits < 6)                      return 'Die Nummer ist zu kurz.';
+          if (digits > 15)                     return 'Die Nummer ist zu lang (höchstens 15 Ziffern).';
+          return '';
+        },
+
+        'sf-mail': value => {
+          if (!value)              return '';
+          if (value.length > 254)  return 'Bitte höchstens 254 Zeichen eingeben.';
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@.]{2,}$/.test(value)) return 'Bitte eine gültige E-Mail-Adresse eingeben, z. B. name@beispiel.de.';
+          return '';
+        },
+
+        'sf-strasse': value => {
+          if (!value)                             return '';
+          if (!/^[\p{L}\d .\/-]+$/u.test(value))  return 'Nur Buchstaben, Ziffern, Leerzeichen und . - / sind erlaubt.';
+          return '';
+        },
+
+        'sf-plz': value => {
+          if (!value)                    return '';
+          if (!/^\d{4,5}$/.test(value))  return 'Bitte 4 oder 5 Ziffern eingeben.';
+          return '';
+        },
+
+        'sf-ort': value => {
+          if (!value)                               return '';
+          if (value.length < 2)                     return 'Bitte mindestens 2 Zeichen eingeben.';
+          if (!/^[\p{L} .'’()-]+$/u.test(value))    return "Nur Buchstaben, Leerzeichen und . - ' ( ) sind erlaubt.";
+          if (!/^\p{L}/u.test(value))               return 'Der Ort muss mit einem Buchstaben beginnen.';
+          return '';
+        },
+
+        'sf-upload': files => {
+          if (files.length > 10) return 'Bitte höchstens 10 Dateien auswählen.';
+          const wrongType = files.find(file => !/^(image|video)\//.test(file.type));
+          if (wrongType)         return `„${wrongType.name}“ ist kein Bild oder Video.`;
+          const tooBig = files.find(file => file.size > 20 * MB);
+          if (tooBig)            return `„${tooBig.name}“ ist größer als 20 MB.`;
+          const total = files.reduce((sum, file) => sum + file.size, 0);
+          if (total > 50 * MB)   return 'Alle Dateien zusammen dürfen höchstens 50 MB groß sein.';
+          return '';
+        },
+
+        'sf-mitteilung': value => value.length > 1000 ? 'Bitte höchstens 1000 Zeichen eingeben.' : ''
+      };
+
+      const checkedFields = Object.keys(RULES).map(id => document.getElementById(id));
+
+      function validate(input) {
+        // normalize: „ë“ als ein Zeichen statt „e“ + Trema (kommt z. B. beim Einfügen vor)
+        const value = input.type === 'file' ? [...input.files] : input.value.trim().normalize('NFC');
+        input.setCustomValidity(RULES[input.id](value));
+      }
+
+      // Meldung unter dem Feld anzeigen bzw. entfernen
+      function showError(input) {
+        const errorEl = document.getElementById(input.id + '-error');
+        errorEl.textContent = input.validity.valid ? '' : input.validationMessage;
+        const box = input.type === 'file' ? input.closest('.schaden-form__upload') : input;
+        box.classList.toggle('is-invalid', !input.validity.valid);
+      }
+
+      function updateCounter() {
+        counter.textContent = form.elements.mitteilung.value.length + ' / 1000';
+      }
+
+      let firstInvalid = null;
+      checkedFields.forEach(input => {
+        validate(input);
+        // Dateien sofort prüfen, Textfelder erst nach dem Verlassen, danach live
+        input.addEventListener(input.type === 'file' ? 'change' : 'input', () => {
+          validate(input);
+          if (input.type === 'file') input.dataset.touched = 'true';
+          if (input.dataset.touched) showError(input);
+        });
+        if (input.type !== 'file') {
+          input.addEventListener('blur', () => {
+            if (input.value !== input.value.trim()) {
+              input.value = input.value.trim();
+              validate(input);
+            }
+            input.dataset.touched = 'true';
+            showError(input);
+          });
+        }
+        // Beim Absenden: eigene Meldung statt Browser-Blase, erstes fehlerhaftes Feld fokussieren
+        input.addEventListener('invalid', e => {
+          e.preventDefault();
+          input.dataset.touched = 'true';
+          showError(input);
+          if (!firstInvalid) {
+            firstInvalid = input;
+            input.focus();
+            setTimeout(() => { firstInvalid = null; });
+          }
+        });
+      });
+      form.elements.mitteilung.addEventListener('input', updateCounter);
+
+      function resetValidation() {
+        checkedFields.forEach(input => {
+          delete input.dataset.touched;
+          validate(input);
+          document.getElementById(input.id + '-error').textContent = '';
+          (input.type === 'file' ? input.closest('.schaden-form__upload') : input).classList.remove('is-invalid');
+        });
+        updateCounter();
+      }
+
+      // Zurück zur leeren Formular-Ansicht
+      function showForm() {
+        formView.hidden = false;
+        success.hidden = true;
+      }
 
       function openModal() {
+        showForm();
         modal.classList.add('is-open');
         document.body.style.overflow = 'hidden';
       }
@@ -1637,6 +1820,7 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
 
       if (openBtn) openBtn.addEventListener('click', openModal);
       if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      successCloseBtn.addEventListener('click', closeModal);
       modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
       document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
 
@@ -1647,11 +1831,18 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
         });
       }
 
-      document.getElementById('schadenForm').addEventListener('submit', e => {
+      // Wird erst ausgelöst, wenn alle Pflichtfelder ausgefüllt sind
+      form.addEventListener('submit', e => {
         e.preventDefault();
         // Hier später: FormData an Backend senden
-        alert('Danke! Wir melden uns bei Ihnen.');
-        closeModal();
+        // Vorname vor dem Leeren des Formulars übernehmen
+        successName.textContent = form.elements.vorname.value.trim().normalize('NFC');
+        form.reset();
+        resetValidation();
+        fileNames.textContent = '';
+        formView.hidden = true;
+        success.hidden = false;
+        successCloseBtn.focus();
       });
     })();
 
