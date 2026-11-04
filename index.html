@@ -459,6 +459,7 @@
     .footer__links      { list-style: none; display: flex; flex-direction: column; font-size: 15px; color: var(--softgrey70); line-height: 1.75; }
     .footer__links a    { color: inherit; text-decoration: none; transition: color 0.2s; }
     .footer__links a:hover { color: var(--delluxe_white); }
+    .footer__accordion  { display: none; } /* nur Mobile, siehe RESPONSIVE */
     .footer__bottom       { border-top: 1px solid var(--black_transparent20); padding-top: 36px; display: flex; align-items: center; justify-content: center; }
     .footer__copyright    { font-size: 12px; color: var(--mediumgrey); }
 
@@ -1138,7 +1139,7 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
           </tr>
         </tbody>
       </table>
-      <div class="footer__accordion" style="display:none">
+      <div class="footer__accordion">
         <div>
           <button class="footer__acc-trigger">Leistungen</button>
           <div class="footer__acc-content"><ul class="footer__links">
@@ -1545,12 +1546,6 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
     // Footer Akkordeon (Mobile)
     const footerAcc = document.querySelector('.footer__accordion');
     if (footerAcc) {
-      const mq = window.matchMedia('(max-width: 820px)');
-      function applyFooterAcc() {
-        footerAcc.style.display = mq.matches ? 'block' : 'none';
-      }
-      applyFooterAcc();
-      mq.addEventListener('change', applyFooterAcc);
       footerAcc.querySelectorAll('.footer__acc-trigger').forEach(btn => {
         btn.addEventListener('click', () => {
           const content = btn.nextElementSibling;
