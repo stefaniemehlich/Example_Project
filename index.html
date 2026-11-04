@@ -680,12 +680,12 @@
     .schaden-form__group { display: flex; flex-direction: column; gap: 6px; }
 
     .schaden-form__label {
-      font-size: 12px; font-weight: 600; letter-spacing: 0.05em;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.14em;
       color: var(--softgrey50); text-transform: uppercase;
     }
 
     .schaden-form__input {
-      background: #1e1e1e; border: 1px solid #333;
+      background: #1e1e1e; border: 1px solid var(--white_transparent15);
       border-radius: 8px; padding: 11px 14px;
       font-size: 15px; color: var(--delluxe_white);
       font-family: 'Instrument Sans', sans-serif;
@@ -694,7 +694,7 @@
     }
     textarea.schaden-form__input { resize: vertical; }
     .schaden-form__required { color: var(--delluxe_green); }
-    .schaden-form__input::placeholder { color: #555; }
+    .schaden-form__input::placeholder { color: var(--mediumgrey); }
     .schaden-form__input:focus { border-color: var(--delluxe_green); }
 
     .schaden-form__upload {
@@ -720,9 +720,9 @@
 
     .schaden-modal__box::-webkit-scrollbar { width: 6px; }
     .schaden-modal__box::-webkit-scrollbar-track { background: transparent; }
-    .schaden-modal__box::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-    .schaden-modal__box::-webkit-scrollbar-thumb:hover { background: #444; }
-    .schaden-modal__box { scrollbar-width: thin; scrollbar-color: #333 transparent; }
+    .schaden-modal__box::-webkit-scrollbar-thumb { background: var(--mediumgrey); border-radius: 3px; }
+    .schaden-modal__box::-webkit-scrollbar-thumb:hover { background: var(--softgrey50); }
+    .schaden-modal__box { scrollbar-width: thin; scrollbar-color: var(--mediumgrey) transparent; }
 
     @media (max-width: 520px) {
       .schaden-modal__box { padding: 28px 20px 24px; }
