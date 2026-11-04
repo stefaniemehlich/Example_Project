@@ -326,7 +326,7 @@
     /* Leichter horizontaler Verlauf: links dunkler, damit der Text besser lesbar ist */
     .faq-tabs__answer .svc-slide__bg::after {
       content: ''; position: absolute; inset: -1px; pointer-events: none;
-      background: linear-gradient(90deg, var(--delluxe_black) 0%, transparent 50%, var(--delluxe_black) 100%);
+      background: linear-gradient(90deg, var(--delluxe_black) 5%, transparent 15%, transparent 85%, var(--delluxe_black) 95%);
     }
     .svc-slide.is-active:hover .svc-slide__bg { filter: blur(4px); opacity: 0.45; }
     .svc-slide > *:not(.svc-slide__bg) { position: relative; z-index: 1; }
@@ -504,7 +504,7 @@
     .faq-image__item.is-active .faq-image__a { max-height: 200px; padding-top: 10px; color: var(--softgrey70); }
     .faq-image__visual { position: sticky; top: 120px; border-radius: var(--radius); overflow: hidden; height: 400px; isolation: isolate; }
     .faq-image__visual img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s; display: block; }
-    .faq-image__visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%); pointer-events: none; }
+    .faq-image__visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), linear-gradient(90deg, var(--delluxe_black) 0%, transparent 10%, transparent 90%, var(--delluxe_black) 100%); pointer-events: none; }
 
     /* ── FAQ VARIANTE 5: Tab-Layout ── */
     .faq-tabs { padding: var(--section-padding) 0; }
