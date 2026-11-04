@@ -114,6 +114,8 @@
 
       margin-bottom: 16px;
     }
+    .eyebrow--center { display: block; text-align: center; }
+    .eyebrow__icon { vertical-align: middle; margin-right: 5px; margin-bottom: 2px; transform: rotate(35deg); }
 
     .section-header { display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; }
     .section-header .btn { align-self: flex-end; }
@@ -267,14 +269,15 @@
     .statement__title italic_green { font-style: italic; color: var(--delluxe_green); }
 
     /* Hintergrundbild in den FAQ-Tab-Antworten */
-    .svc-slide__bg {
+    .services__bg {
       position: absolute; inset: 0;
+      background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), var(--bg-image);
       /* Verlauf 2px höher als die Box, damit am unteren Rand keine helle Naht entsteht */
       background-size: 100% calc(100% + 2px), cover; background-position: center; background-repeat: no-repeat;
       transition: filter 0.4s, opacity 0.4s; z-index: 0;
     }
     /* Leichter horizontaler Verlauf: links dunkler, damit der Text besser lesbar ist */
-    .services__answer .svc-slide__bg::after {
+    .services__answer .services__bg::after {
       content: ''; position: absolute; inset: -1px; pointer-events: none;
       background: linear-gradient(90deg, var(--delluxe_black) 5%, transparent 15%, transparent 85%, var(--delluxe_black) 95%);
     }
@@ -311,7 +314,7 @@
     .slider__progress-fill { height: 100%; width: 0; background: var(--softgreen); border-radius: 2px; transition: width 0.4s ease; }
 
     .slider-dots { display: none; justify-content: center; gap: 8px; }
-    #reviewsDotsV2 { display: flex; }
+    #reviewsDots { display: flex; }
     .slider-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--white_transparent10); border: 1px solid var(--white_transparent15); cursor: pointer; transition: background 0.2s; }
     .slider-dots .dot.active { background: var(--delluxe_green); border-color: var(--delluxe_green); }
   
@@ -319,6 +322,10 @@
        NACHHALTIGKEIT
     ════════════════════════════ */
     .sustainability { padding: var(--section-padding) 0; }
+    .sustainability__cards { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 64px; text-align: center; }
+    .sustainability__card { padding: 32px; border-right: 1px solid var(--softgreen_transparent50); }
+    .sustainability__card:first-child { padding-left: 0; }
+    .sustainability__card:last-child { padding-right: 0; border-right: none; }
 
     /* ════════════════════════════
        BEWERTUNGEN
@@ -435,7 +442,7 @@
     .services__panel { display: none; }
     .services__panel.is-active { display: block; }
     .services__answer { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; font-size: 16px; color: var(--softgrey80); line-height: 1.8; padding: 40px; border-radius: var(--radius); position: relative; overflow: hidden; }
-    .services__answer > *:not(.svc-slide__bg) { position: relative; z-index: 1; }
+    .services__answer > *:not(.services__bg) { position: relative; z-index: 1; }
     .services__answer .btn { align-self: flex-end; }
 
     /* ════════════════════════════
@@ -445,6 +452,8 @@
     .cta__box {
       padding: 60px 60px; text-align: center; position: relative; overflow: hidden;
     }
+    .cta__box .section-title,
+    .cta__box .section-text { margin-bottom: 24px; }
 
     /* ════════════════════════════
        FOOTER
@@ -455,6 +464,8 @@
     .footer__table th:first-child, .footer__table td:first-child { width: 35%; }
     .footer__table th { padding-bottom: 8px; font-weight: normal; text-align: left; vertical-align: bottom; }
     .footer__table th .footer__col-title { margin-bottom: 0; }
+    .footer__logo { text-decoration: none; }
+    .footer__address { margin-bottom: 0; }
     .footer__col-title  { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mediumgrey); margin-bottom: 16px; }
     .footer__links      { list-style: none; display: flex; flex-direction: column; font-size: 15px; color: var(--softgrey70); line-height: 1.75; }
     .footer__links a    { color: inherit; text-decoration: none; transition: color 0.2s; }
@@ -469,6 +480,7 @@
     .cta-float { position: fixed; bottom: 36px; right: max(30px, calc((100vw - var(--max-width)) / 2)); z-index: 300; display: flex; flex-direction: row; align-items: center; gap: 10px; transition: bottom 0.3s ease, opacity 0.2s, transform 0.2s; }
     .cta-float.scrollhide { transform: translateY(15%); }
     .cta-float .btn--secondary { line-height: 16px; }
+    .cta-float .btn--green { white-space: nowrap; }
 
     /* ════════════════════════════
        MOBILE NAV
@@ -487,7 +499,7 @@
     .navbar__mobile-panel {
       display: none;
       position: fixed; top: 0; left: 0; right: 0; z-index: 199;
-      backdrop-filter: blur(8px) saturate(1.4); -webkit-backdrop-filter: blur(10px) saturate(1.4);
+      backdrop-filter: blur(8px) saturate(1.4); -webkit-backdrop-filter: blur(8px) saturate(1.4);
       max-height: 0; overflow: hidden; pointer-events: none;
       transition: max-height 0.35s ease;
     }
@@ -581,13 +593,15 @@
       .hero__subtitle span { white-space: nowrap; }
       .statement__inner, .section-header { gap: 32px; }
       .slider-dots { display: flex; margin-top: 16px; }
-      #reviewsDotsV2 { margin-top: 0; margin-bottom: 16px; }
+      #reviewsDots { margin-top: 0; margin-bottom: 16px; }
       .reviews__slide { height: 600px; }
       .reviews .reviews__bg { width: 100%; }
       .reviews__slide.is-active::after { background-size: cover; }
-      .sustain-cards { display: flex !important; overflow-x: scroll; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin-top: 32px !important; gap: 0; }
-      .sustain-cards::-webkit-scrollbar { display: none; }
-      .sustain-card { flex: 0 0 85%; scroll-snap-align: center; border-right: none !important; border-top: 1px solid var(--softgreen_transparent50); border-bottom: 1px solid var(--softgreen_transparent50); padding: 24px !important; }
+      .sustainability__cards { display: flex; overflow-x: scroll; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin-top: 32px; gap: 0; }
+      .sustainability__cards::-webkit-scrollbar { display: none; }
+      .sustainability__card,
+      .sustainability__card:first-child,
+      .sustainability__card:last-child { flex: 0 0 85%; scroll-snap-align: center; padding: 24px; border-right: none; border-top: 1px solid var(--softgreen_transparent50); border-bottom: 1px solid var(--softgreen_transparent50); }
       .cta__box { padding: 48px 24px; }
       .subtitle { font-size: 22px; }
       .faq-mobile { display: block; }
@@ -601,7 +615,7 @@
       .footer__table thead tr { display: block; }
       .footer__table thead th:not(:first-child) { display: none; }
       .footer__table tbody { display: none; }
-      .footer__accordion { display: block; }
+      .footer__accordion { display: block; border-bottom: 1px solid var(--black_transparent20); }
       .footer__acc-trigger {
         width: 100%; display: flex; align-items: center; justify-content: space-between;
         background: none; border: none; border-top: 1px solid var(--black_transparent20);
@@ -678,6 +692,8 @@
       outline: none; transition: border-color 0.2s;
       width: 100%;
     }
+    textarea.schaden-form__input { resize: vertical; }
+    .schaden-form__required { color: var(--delluxe_green); }
     .schaden-form__input::placeholder { color: #555; }
     .schaden-form__input:focus { border-color: var(--delluxe_green); }
 
@@ -806,12 +822,13 @@
     <div class="container">
       <div class="statement__inner">
         <div class="reveal">
-          <span class="eyebrow" style="display: block; text-align: center;">Warum Delluxe-Dellen</span>
+          <span class="eyebrow eyebrow--center">Warum Delluxe-Dellen</span>
           <h2 class="statement__title">
             Ihr Originallack ist <strong>unersetzlich.</strong><br>
             Konventionelle Reparaturen greifen in<br>Material und Oberfläche ein. Wir sind<br>die <italic_green>schonende Alternative.</italic_green>
           </h2>
-          
+        </div>
+      </div>
     </div>
   </section>
 
@@ -823,9 +840,7 @@
           <span class="eyebrow">Leistungen</span>
           <h2 class="section-title">Lackfreie<br>Dellenreparatur<br>in München</h2>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 24px;">
-          <p class="section-text">Meisterbetrieb für PDR &ndash; klare Prozesse, hochwertige Werkzeuge und Präzision vom Einzelauftrag bis zum Hagelschaden.</p>
-        </div>
+        <p class="section-text">Meisterbetrieb für PDR &ndash; klare Prozesse, hochwertige Werkzeuge und Präzision vom Einzelauftrag bis zum Hagelschaden.</p>
       </div>
       <div class="reveal">
         <nav class="services__nav">
@@ -838,37 +853,37 @@
         </nav>
         <div class="services__panel is-active" id="st1">
           <div class="services__answer">
-            <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/1.webp');"></div>
+            <div class="services__bg" style="--bg-image: url('images/DiaShow/1.webp');"></div>
             <p class="section-text">PDR-Technik bewahrt den Originallack &ndash; ohne Schleifen, ohne Spachtel, ohne Neulackierung.</p>
           </div>
         </div>
         <div class="services__panel" id="st2">
           <div class="services__answer">
-            <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/2.webp');"></div>
+            <div class="services__bg" style="--bg-image: url('images/DiaShow/2.webp');"></div>
             <p class="section-text">Strukturierte Instandsetzung nach Hagelereignissen mit professioneller Versicherungsabwicklung.</p>
           </div>
         </div>
         <div class="services__panel" id="st3">
           <div class="services__answer">
-            <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/3.webp');"></div>
+            <div class="services__bg" style="--bg-image: url('images/DiaShow/3.webp');"></div>
             <p class="section-text">Gezielte Reparatur kleiner Schäden mit sauberem Finish und wirtschaftlichem Ergebnis.</p>
           </div>
         </div>
         <div class="services__panel" id="st4">
           <div class="services__answer">
-            <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/4.webp');"></div>
+            <div class="services__bg" style="--bg-image: url('images/DiaShow/4.webp');"></div>
             <p class="section-text">Optische Aufbereitung vor Rückgabe &ndash; Minderwerte und Nachzahlungen vermeiden.</p>
           </div>
         </div>
         <div class="services__panel" id="st5">
           <div class="services__answer">
-            <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/2.webp');"></div>
+            <div class="services__bg" style="--bg-image: url('images/DiaShow/2.webp');"></div>
             <p class="section-text">Strukturierte Instandsetzung nach Hagelereignissen mit professioneller Versicherungsabwicklung.</p>
           </div>
         </div>
         <div class="services__panel" id="st6">
           <div class="services__answer">
-            <div class="svc-slide__bg" style="background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), url('images/DiaShow/3.webp');"></div>
+            <div class="services__bg" style="--bg-image: url('images/DiaShow/3.webp');"></div>
             <p class="section-text">Gezielte Reparatur kleiner Schäden mit sauberem Finish und wirtschaftlichem Ergebnis.</p>
           </div>
         </div>
@@ -914,31 +929,29 @@
     <div class="container">
       <div class="section-header reveal">
         <div>
-          <span class="eyebrow" style="color: var(--delluxe_green);">Green Repair <svg viewBox="0 0 24 36" width="10" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:5px;margin-bottom:2px;transform:rotate(35deg)"><path d="M12 2 C8 6 2 12 2 20 C2 24 6 27 12 27 C18 27 22 24 22 20 C22 12 16 6 12 2Z"/><path d="M12 27 Q11 22 12 15"/><path d="M12 27 Q11 31 10 34"/></svg></span>
+          <span class="eyebrow">Green Repair <svg viewBox="0 0 24 36" width="10" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="eyebrow__icon"><path d="M12 2 C8 6 2 12 2 20 C2 24 6 27 12 27 C18 27 22 24 22 20 C22 12 16 6 12 2Z"/><path d="M12 27 Q11 22 12 15"/><path d="M12 27 Q11 31 10 34"/></svg></span>
           <h2 class="section-title">Nachhaltige Dellenreparatur<br>ohne Lack</h2>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 24px;">
-          <p class="section-text">Lackfreie Reparatur, eigene PV-Anlage, elektrische Mobilität und transparente digitale Abwicklung.</p>
-        </div>
+        <p class="section-text">Lackfreie Reparatur, eigene PV-Anlage, elektrische Mobilität und transparente digitale Abwicklung.</p>
       </div>
 
-      <div class="sustain-cards" id="sustainCards" style="display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 64px; text-align: center;">
-        <div class="sustain-card" style="padding: 32px 32px 32px 0; border-right: 1px solid var(--softgreen_transparent50);">
+      <div class="sustainability__cards" id="sustainCards">
+        <div class="sustainability__card">
           <div class="eyebrow">Photovoltaik</div>
           <div class="subtitle">Eigene PV</div>
           <div class="section-text">Solaranlage auf dem Dach</div>
         </div>
-        <div class="sustain-card" style="padding: 32px; border-right: 1px solid var(--softgreen_transparent50);">
+        <div class="sustainability__card">
           <div class="eyebrow">E-Flotte</div>
           <div class="subtitle">100&nbsp;%</div>
           <div class="section-text">elektrisch unterwegs</div>
         </div>
-        <div class="sustain-card" style="padding: 32px; border-right: 1px solid var(--softgreen_transparent50);">
+        <div class="sustainability__card">
           <div class="eyebrow">Abwicklung</div>
           <div class="subtitle">digital</div>
           <div class="section-text">transparent &amp; schnell</div>
         </div>
-        <div class="sustain-card" style="padding: 32px 0 32px 32px;">
+        <div class="sustainability__card">
           <div class="eyebrow">Prinzip</div>
           <div class="subtitle">ohne Lack</div>
           <div class="section-text">materialschonend</div>
@@ -958,10 +971,10 @@
         <h2 class="section-title">Beulendoktor mit 4.9 auf Google</h2>
       </div>
 
-      <div class="slider-dots" id="reviewsDotsV2"></div>
+      <div class="slider-dots" id="reviewsDots"></div>
       <div class="reviews__slider">
         <div class="reviews__bg"></div>
-        <div class="reviews__track" id="reviewsTrackV2">
+        <div class="reviews__track" id="reviewsTrack">
           <div class="reviews__slide">
             <span class="eyebrow">Dominik Urbaniak</span>
             <div class="reviews__meta">
@@ -1010,8 +1023,8 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
             <p class="reviews__quote">Kleine Delle an der Tür wurde schnell und professionell entfernt, danach ist die Delle perfekt verschwunden. Sehr freundliches Personal! Absolut zu empfehlen! Vorher besser immer anrufen um einen Termin zu bekommen, alles sehr unkompliziert gelaufen.</p>
           </div>
         </div>
-        <button class="slider__btn slider__btn--prev" id="reviewsPrevV2" aria-label="Vorherige Bewertung">&#8249;</button>
-        <button class="slider__btn slider__btn--next" id="reviewsNextV2" aria-label="Nächste Bewertung">&#8250;</button>
+        <button class="slider__btn slider__btn--prev" id="reviewsPrev" aria-label="Vorherige Bewertung">&#8249;</button>
+        <button class="slider__btn slider__btn--next" id="reviewsNext" aria-label="Nächste Bewertung">&#8250;</button>
       </div>
     </div>
   </section>
@@ -1090,8 +1103,8 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
     <div class="container">
       <div class="cta__box reveal">
         <span class="eyebrow">Foto senden, Angebot erhalten</span>
-        <h2 class="section-title" style="margin-bottom: 24px;">Beulendoktor anfragen</h2>
-        <p class="section-text"style="margin-bottom: 24px;">Foto senden, Angebot erhalten. Direkt per Telefon oder WhatsApp.</p>
+        <h2 class="section-title">Beulendoktor anfragen</h2>
+        <p class="section-text">Foto senden, Angebot erhalten. Direkt per Telefon oder WhatsApp.</p>
       </div>
     </div>
   </section>
@@ -1102,7 +1115,7 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
       <table class="footer__table">
         <thead>
           <tr>
-            <th><a href="#" style="text-decoration:none"><img src="images/Logo/logo-delluxe-dellen-gruen-weiss-passend.png" alt="Delluxe-Dellen GmbH Logo" height="30" loading="lazy" /></a></th>
+            <th><a href="#" class="footer__logo"><img src="images/Logo/logo-delluxe-dellen-gruen-weiss-passend.png" alt="Delluxe-Dellen GmbH Logo" height="30" loading="lazy" /></a></th>
             <th><div class="footer__col-title">Leistungen</div></th>
             <th><div class="footer__col-title">Unternehmen</div></th>
             <th><div class="footer__col-title">Standorte</div></th>
@@ -1111,7 +1124,7 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
         </thead>
         <tbody>
           <tr>
-            <td><p class="section-text" style="margin-bottom:0">Meisterbetrieb für lackfreie Dellenreparatur in Eichenau bei München<br>Ringstraße 19  ·  82223 Eichenau<br>08141 123 4567</p></td>
+            <td><p class="section-text footer__address">Meisterbetrieb für lackfreie Dellenreparatur in Eichenau bei München<br>Ringstraße 19  ·  82223 Eichenau<br>08141 123 4567</p></td>
             <td><ul class="footer__links">
               <li>Dellenreparatur</li>
               <li>Hagelschaden</li>
@@ -1176,7 +1189,6 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
             <li>Datenschutz</li>
           </ul></div>
         </div>
-        <div style="border-top: 1px solid var(--black_transparent20); margin-top: 0;"></div>
       </div>
 
       <div class="footer__bottom">
@@ -1196,17 +1208,17 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
 
         <div class="schaden-form__row">
           <div class="schaden-form__group">
-            <label class="schaden-form__label" for="sf-vorname">Vorname <span style="color:var(--delluxe_green)">*</span></label>
+            <label class="schaden-form__label" for="sf-vorname">Vorname <span class="schaden-form__required">*</span></label>
             <input class="schaden-form__input" type="text" id="sf-vorname" name="vorname" placeholder="Karlie" required autocomplete="given-name">
           </div>
           <div class="schaden-form__group">
-            <label class="schaden-form__label" for="sf-name">Nachname <span style="color:var(--delluxe_green)">*</span></label>
+            <label class="schaden-form__label" for="sf-name">Nachname <span class="schaden-form__required">*</span></label>
             <input class="schaden-form__input" type="text" id="sf-name" name="name" placeholder="Kunde" required autocomplete="family-name">
           </div>
         </div>
 
         <div class="schaden-form__group">
-          <label class="schaden-form__label" for="sf-telefon">Telefonnummer <span style="color:var(--delluxe_green)">*</span></label>
+          <label class="schaden-form__label" for="sf-telefon">Telefonnummer <span class="schaden-form__required">*</span></label>
           <input class="schaden-form__input" type="tel" id="sf-telefon" name="telefon" placeholder="+49 176 12345678" required autocomplete="tel">
         </div>
 
@@ -1216,7 +1228,7 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
         </div>
 
         <div class="schaden-form__group">
-          <label class="schaden-form__label" for="sf-adresse">Straße</label>
+          <label class="schaden-form__label" for="sf-strasse">Straße</label>
           <input class="schaden-form__input" type="text" id="sf-strasse" name="adresse" placeholder="Musterstraße 1" autocomplete="street-address">
         </div>
         <div class="schaden-form__row">
@@ -1243,7 +1255,7 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
 
         <div class="schaden-form__group">
           <label class="schaden-form__label" for="sf-mitteilung">Mitteilung</label>
-          <textarea class="schaden-form__input" id="sf-mitteilung" name="mitteilung" placeholder="Beschreiben Sie kurz den Schaden oder stellen Sie eine Frage …" rows="4" style="resize:vertical"></textarea>
+          <textarea class="schaden-form__input" id="sf-mitteilung" name="mitteilung" placeholder="Beschreiben Sie kurz den Schaden oder stellen Sie eine Frage …" rows="4"></textarea>
         </div>
 
         <button type="submit" class="btn btn--green schaden-form__submit">Anfrage absenden</button>
@@ -1257,7 +1269,7 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
       <svg viewBox="0 0 24 24" width="17" height="17" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
       WhatsApp
     </a>
-    <button class="btn btn--green" style="white-space: nowrap;" id="schadenModalOpen">Schaden checken</button>
+    <button class="btn btn--green" id="schadenModalOpen">Schaden checken</button>
   </div>
 
   <script>
@@ -1265,7 +1277,7 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
     const sustainCards = document.getElementById('sustainCards');
     const sustainDots = document.getElementById('sustainDots');
     if (sustainCards && sustainDots) {
-      const cards = sustainCards.querySelectorAll('.sustain-card');
+      const cards = sustainCards.querySelectorAll('.sustainability__card');
       cards.forEach((_, i) => {
         const dot = document.createElement('button');
         dot.className = 'dot' + (i === 0 ? ' active' : '');
@@ -1466,11 +1478,11 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
     });
 
     // Reviews: Infinite Slider
-    const reviewsTrack = document.getElementById('reviewsTrackV2');
+    const reviewsTrack = document.getElementById('reviewsTrack');
     const origReviews  = [...reviewsTrack.children];
     const reviewCount  = origReviews.length;
 
-    const rDotsEl = document.getElementById('reviewsDotsV2');
+    const rDotsEl = document.getElementById('reviewsDots');
     if (rDotsEl) {
       origReviews.forEach((_, i) => {
         const dot = document.createElement('span');
@@ -1533,8 +1545,8 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
     }));
     rAutoPlay = setInterval(rNext, 5000);
 
-    document.getElementById('reviewsPrevV2').addEventListener('click', () => { clearInterval(rAutoPlay); rPrev(); rAutoPlay = setInterval(rNext, 5000); });
-    document.getElementById('reviewsNextV2').addEventListener('click', () => { clearInterval(rAutoPlay); rNext(); rAutoPlay = setInterval(rNext, 5000); });
+    document.getElementById('reviewsPrev').addEventListener('click', () => { clearInterval(rAutoPlay); rPrev(); rAutoPlay = setInterval(rNext, 5000); });
+    document.getElementById('reviewsNext').addEventListener('click', () => { clearInterval(rAutoPlay); rNext(); rAutoPlay = setInterval(rNext, 5000); });
 
     let rTouchX = 0;
     reviewsTrack.parentElement.addEventListener('touchstart', e => { rTouchX = e.touches[0].clientX; }, { passive: true });
@@ -1582,7 +1594,7 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
     })();
 
 
-    // FAQ Variante 6: Fullwidth zentriert
+    // FAQ mobil: Akkordeon
     document.querySelectorAll('.faq-mobile__question').forEach(button => {
       button.addEventListener('click', () => {
         const item   = button.closest('.faq-mobile__item');
@@ -1595,7 +1607,7 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
       });
     });
 
-    // FAQ Variante 4: Mit Bild
+    // FAQ Desktop: Frage wählen, Bild wechseln
     const faqImg = document.getElementById('faqImg');
     document.querySelectorAll('.faq__item').forEach(item => {
       item.addEventListener('click', () => {
