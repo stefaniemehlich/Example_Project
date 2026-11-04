@@ -331,18 +331,24 @@
     .reviews__slider { position: relative; overflow: hidden; visibility: hidden; }
     .reviews__track  { display: flex; gap: var(--card-gap); will-change: transform; }
     .reviews__track.is-animating { transition: transform 0.6s cubic-bezier(0.4,0,0.2,1); }
-    .reviews__slide  { flex-shrink: 0; align-self: flex-start; transition: filter 0.5s, opacity 0.5s; filter: blur(8px); opacity: 0.45; }
+    .reviews__slide {
+      flex-shrink: 0; align-self: flex-start;
+      position: relative; overflow: hidden; height: 300px;
+      display: flex; flex-direction: column; justify-content: center; gap: 16px;
+      padding: 32px; border-radius: var(--radius);
+      filter: blur(8px); opacity: 0.45;
+      transition: filter 0.5s, opacity 0.5s;
+    }
     .no-transition .reviews__slide,
     .no-transition .slider__slide { transition: none; }
-    .no-transition .reviews__slide .review-card::before,
-    .no-transition .reviews__slide .review-card::after { transition: none !important; }
+    .no-transition .reviews__slide::before,
+    .no-transition .reviews__slide::after { transition: none !important; }
     .reviews__slide.is-active { filter: blur(0); opacity: 1; }
 
-    .review-card { border-radius: var(--radius); padding: 32px; display: flex; flex-direction: column; gap: 16px; }
-    .review-card__meta   { display: flex; align-items: center; gap: 12px; margin-top: -36px; }
-    .review-card__stars  { color: var(--gold); font-size: 13px; letter-spacing: 2px; }
-    .review-card__source { font-size: 12px; color: #e5e5e250; }
-    .review-card__quote  { font-size: 15px; color: var(--softgrey70); line-height: 1.7; font-style: italic; }
+    .reviews__meta   { display: flex; align-items: center; gap: 12px; margin-top: -36px; }
+    .reviews__stars  { color: var(--gold); font-size: 13px; letter-spacing: 2px; }
+    .reviews__source { font-size: 12px; color: #e5e5e250; }
+    .reviews__quote  { font-size: 15px; color: var(--softgrey70); line-height: 1.7; font-style: italic; }
 
     .reviews .reviews__bg {
       position: absolute;
@@ -356,13 +362,8 @@
       z-index: 0;
       pointer-events: none;
     }
-    .reviews .review-card {
-      height: 300px;
-      overflow: hidden;
-      position: relative;
-      justify-content: center;
-    }
-    .reviews .review-card::before {
+    /* Abgedunkelter Verlauf hinter dem Text */
+    .reviews__slide::before {
       content: '';
       position: absolute;
       inset: 0;
@@ -371,22 +372,23 @@
       transition: opacity 0.2s 0.2s;
       z-index: 1;
     }
-    .reviews .reviews__slide.is-active .review-card::before {
+    .reviews__slide.is-active::before {
       opacity: 1;
     }
-    .reviews .review-card::after {
+    /* Hintergrundbild der aktiven Bewertung */
+    .reviews__slide::after {
       content: '';
       position: absolute;
       inset: 0;
       opacity: 0;
     }
-    .reviews .reviews__slide.is-active .review-card::after {
+    .reviews__slide.is-active::after {
       opacity: 0.3;
       scale: 1.1;
       background: url('images/Reviews.webp') center / cover no-repeat fixed;
       transition: opacity 0.3s 0.3s;
     }
-    .reviews .review-card > * {
+    .reviews__slide > * {
       position: relative;
       z-index: 2;
     }
@@ -582,9 +584,9 @@
       .statement__inner, .section-header { gap: 32px; }
       .slider-dots { display: flex; margin-top: 16px; }
       #reviewsDotsV2 { margin-top: 0; margin-bottom: 16px; }
-      .reviews .review-card { height: 600px; }
+      .reviews__slide { height: 600px; }
       .reviews .reviews__bg { width: 100%; }
-      .reviews .reviews__slide.is-active .review-card::after { background-size: cover; }
+      .reviews__slide.is-active::after { background-size: cover; }
       .sustain-cards { display: flex !important; overflow-x: scroll; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin-top: 32px !important; gap: 0; }
       .sustain-cards::-webkit-scrollbar { display: none; }
       .sustain-card { flex: 0 0 85%; scroll-snap-align: center; border-right: none !important; border-top: 1px solid var(--softgreen_transparent50); border-bottom: 1px solid var(--softgreen_transparent50); padding: 24px !important; }
@@ -964,61 +966,51 @@
         <div class="reviews__bg"></div>
         <div class="reviews__track" id="reviewsTrackV2">
           <div class="reviews__slide">
-            <div class="review-card">
-              <span class="eyebrow">Dominik Urbaniak</span>
-              <div class="review-card__meta">
-                <span class="review-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                <span class="review-card__source" data-review-date="2025-11"></span>
-              </div>
-              <p class="review-card__quote">Hatte mir eine blöde Delle am Kofferraum beim ausparken geholt. Ich habe mich aufgrund der Rezension vom Taxifahrer und der professionellen Website für Delluxe Dellen entschieden. Ich wurde super und transparent über die Schritte und Vorgehensweise informiert. Besonders gefallen hat mir, dass sich Zeit genommen wurde und alle möglichen Szenarien durchgegangen wurden. Dadurch habe ich mich sehr gut aufgehoben gefühlt. Das ganze drum herum war TOP - genau wie das Ergebnis.</p>
+            <span class="eyebrow">Dominik Urbaniak</span>
+            <div class="reviews__meta">
+              <span class="reviews__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="reviews__source" data-review-date="2025-11"></span>
             </div>
+            <p class="reviews__quote">Hatte mir eine blöde Delle am Kofferraum beim ausparken geholt. Ich habe mich aufgrund der Rezension vom Taxifahrer und der professionellen Website für Delluxe Dellen entschieden. Ich wurde super und transparent über die Schritte und Vorgehensweise informiert. Besonders gefallen hat mir, dass sich Zeit genommen wurde und alle möglichen Szenarien durchgegangen wurden. Dadurch habe ich mich sehr gut aufgehoben gefühlt. Das ganze drum herum war TOP - genau wie das Ergebnis.</p>
           </div>
           <div class="reviews__slide">
-            <div class="review-card">
-              <span class="eyebrow">Lucas Breinlinger</span>
-              <div class="review-card__meta">
-                <span class="review-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                <span class="review-card__source" data-review-date="2026-02"></span>
-              </div>
-              <p class="review-card__quote">Sehr professionell, sehr freundlich. Alle Zusagen inkl. Preis wurden eingehalten.
-                <br><br>Ich bin aufgrund zweier Dellen zu Dellen Deluxe gekommen. Eine wurde schon vorab von einem anderen Dienstleister bearbeitet, dieser konnte sie jedoch nicht restlos entfernen.
+            <span class="eyebrow">Lucas Breinlinger</span>
+            <div class="reviews__meta">
+              <span class="reviews__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="reviews__source" data-review-date="2026-02"></span>
+            </div>
+            <p class="reviews__quote">Sehr professionell, sehr freundlich. Alle Zusagen inkl. Preis wurden eingehalten.
+              <br><br>Ich bin aufgrund zweier Dellen zu Dellen Deluxe gekommen. Eine wurde schon vorab von einem anderen Dienstleister bearbeitet, dieser konnte sie jedoch nicht restlos entfernen.
 Nach einem kurzem Besuch bei Dellen Deluxe sind beide Dellen glücklicherweise Geschichte.<br><br>Vielen Dank !</p>
-            </div>
           </div>
           <div class="reviews__slide">
-            <div class="review-card">
-              <span class="eyebrow">David Matzner</span>
-              <div class="review-card__meta">
-                <span class="review-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                <span class="review-card__source" data-review-date="2025-12"></span>
-              </div>
-              <p class="review-card__quote">Know-how und Perfektion vereint. Meine Anlaufstelle seit Jahren wenn es um kompetente Dellenreparatur geht. Ob Mega-Hagelschaden oder Parkrempler, ich wurde vom Ergebnis noch nie enttäuscht und freue mich auf lange weitere Zusammenarbeit!</p>
+            <span class="eyebrow">David Matzner</span>
+            <div class="reviews__meta">
+              <span class="reviews__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="reviews__source" data-review-date="2025-12"></span>
             </div>
+            <p class="reviews__quote">Know-how und Perfektion vereint. Meine Anlaufstelle seit Jahren wenn es um kompetente Dellenreparatur geht. Ob Mega-Hagelschaden oder Parkrempler, ich wurde vom Ergebnis noch nie enttäuscht und freue mich auf lange weitere Zusammenarbeit!</p>
           </div>
           <div class="reviews__slide">
-            <div class="review-card">
-              <span class="eyebrow">Angi Stimmelmayr</span>
-              <div class="review-card__meta">
-                <span class="review-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                <span class="review-card__source" data-review-date="2025-09"></span>
-              </div>
-              <p class="review-card__quote">Super Arbeit, überaus freundlich und hilfsbereit!!!<br>
+            <span class="eyebrow">Angi Stimmelmayr</span>
+            <div class="reviews__meta">
+              <span class="reviews__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="reviews__source" data-review-date="2025-09"></span>
+            </div>
+            <p class="reviews__quote">Super Arbeit, überaus freundlich und hilfsbereit!!!<br>
 War mit meinem 10 Jahre alten Golf bei Hr. Rizmann und seinem Mitarbeiter Andi.<br>
 Fahrzeug sollte wegen Verkauf gleich von mehreren Wehwehchen befreit werden. Parkdelle an der Türe, alte eingebrannte Vogelcodestellen am Lack, Ein bzw. Ausladespuren am Stoßfänger hinten, rostiger AHK-Kopf sowie ein alter Hagelschaden am Dach.
 Und nun zitiere ich die Worte des Käufers als er das Fahrezeug nach der Behandlung bei Delluxe Dellen GmbH bei mir abholte: Der steht ja da wie ein Neuwagen.
 Vielen Dank liebes Delluxe Dellen Team.<br>
 Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. Mehr kann man nicht sagen!!! Weiter so!!!</p>
-            </div>
           </div>
           <div class="reviews__slide">
-            <div class="review-card">
-              <span class="eyebrow">Yi Yu</span>
-              <div class="review-card__meta">
-                <span class="review-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                <span class="review-card__source" data-review-date="2025-04"></span>
-              </div>
-              <p class="review-card__quote">Kleine Delle an der Tür wurde schnell und professionell entfernt, danach ist die Delle perfekt verschwunden. Sehr freundliches Personal! Absolut zu empfehlen! Vorher besser immer anrufen um einen Termin zu bekommen, alles sehr unkompliziert gelaufen.</p>
+            <span class="eyebrow">Yi Yu</span>
+            <div class="reviews__meta">
+              <span class="reviews__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="reviews__source" data-review-date="2025-04"></span>
             </div>
+            <p class="reviews__quote">Kleine Delle an der Tür wurde schnell und professionell entfernt, danach ist die Delle perfekt verschwunden. Sehr freundliches Personal! Absolut zu empfehlen! Vorher besser immer anrufen um einen Termin zu bekommen, alles sehr unkompliziert gelaufen.</p>
           </div>
         </div>
         <button class="slider__btn slider__btn--prev" id="reviewsPrevV2" aria-label="Vorherige Bewertung">&#8249;</button>
