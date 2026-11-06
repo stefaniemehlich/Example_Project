@@ -30,22 +30,7 @@ const galerie: Slider = {
 
 // ─── Tests ──────────────────────────────────────────────────────
 
-test('Galerie: alle Bilder können geladen werden', async ({ page }) => {
-    await page.goto('/');
-
-    const urls = await bildUrls(page);
-    expect(urls.length, 'Keine Galerie-Bilder gefunden (Klasse .slider__image)').toBeGreaterThan(0);
-
-    for (const url of urls) {
-        // Server liefert die Datei? (umgeht loading="lazy", kein Scrollen nötig)
-        const antwort = await page.request.get(url);
-        expect(antwort.ok(), `Bild „${url}“ kann nicht geladen werden (Status ${antwort.status()})`).toBe(true);
-
-        // für SEO: jedes Bild hat einen alt-Text
-        // const bild = page.locator(`.slider__image[src="${url}"]`).first();
-        // await expect(bild, `Bild „${url}“ hat keinen alt-Text`).toHaveAttribute('alt', /\S/);
-    }
-});
+// Laden der Bilder und Alt-Texte prüft tests/bilder.spec.ts für die ganze Seite
 
 test('Galerie: Pfeile vor/zurück wechseln das Bild', async ({ page }) => {
     await oeffneMitAngehaltenerUhr(page);

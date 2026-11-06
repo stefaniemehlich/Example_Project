@@ -25,21 +25,9 @@ test('Bereich Leistungen: Klick auf die verschiedenen Leistungen zeigen untersch
         // Text vorhanden (genauer Inhalt wird nicht geprüft)
         await expect(panel.locator('p'), 'Text im Panel fehlt').not.toBeEmpty();
 
-        // Test, ob ein echtes Bild dargestellt wird
-        // Vortest: Bild-Element mit url(...) vorhanden? (wartet max. 5 s, klare Fehlermeldung)
+        // Hintergrundbild hinterlegt?
+        // (ob die Datei geladen werden kann, prüft tests/bilder.spec.ts für die ganze Seite)
         const bg = panel.locator('.services__bg');
         await expect(bg, 'Kein Hintergrundbild hinterlegt').toHaveAttribute('style', /url\(/);
-
-        // Bild-Adresse aus dem style lesen …
-        const style = await bg.getAttribute('style');
-
-        // Bild-URL aus dem style lesen …
-        const bildUrl = style?.match(/url\(['"]?([^'")]+)/)?.[1];
-        expect(bildUrl, 'keine Bild-URL gefunden').toBeTruthy();
-
-        // … und prüfen, ob Server die Datei wirklich liefert
-        const antwort = await page.request.get(bildUrl!);
-        expect(antwort.ok(), `Bild „${bildUrl}“ kann nicht geladen werden (Status ${antwort.status()})`).toBe(true);
-
     }
 });
