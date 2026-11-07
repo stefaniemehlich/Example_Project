@@ -18,6 +18,10 @@ export async function oeffneMitAngehaltenerUhr(page: Page) {
     // install() allein lässt die Uhr normal weiterlaufen – daher anhalten
     await page.clock.pauseAt(new Date(startzeit.getTime() + 1000));
     await page.goto('/');
+    // Einblend-Animation (.reveal) abschalten: Sie lässt die Galerie beim ersten Sichtbarwerden
+    // hochgleiten, läuft mit angehaltener Uhr in Firefox nicht zuverlässig zu Ende
+    // und ein Klick auf den sich bewegenden Pfeil kann danebengehen.
+    await page.addStyleTag({ content: '.reveal { opacity: 1 !important; transform: none !important; transition: none !important; }' });
     // kurz vorspulen, damit die Scripts die Slider sichtbar schalten
     await page.clock.runFor(100);
 }
@@ -62,7 +66,8 @@ export async function pruefeEndlosSchleife(page: Page, s: Slider, anzahl: number
         gesehen.push(await s.aktiv(page));
     }
 
-    expect(new Set(gesehen.slice(0, anzahl)).size, `${s.name}: Nicht jeder Slide wurde einmal gezeigt`).toBe(anzahl);
+    expect(new Set(gesehen.slice(0, anzahl)).size,
+        `${s.name}: Nicht jeder Slide wurde einmal gezeigt (Reihenfolge: ${gesehen.join(' → ')})`).toBe(anzahl);
     expect(gesehen[anzahl], `${s.name}: Nach einer Runde nicht wieder beim ersten Slide`).toBe(gesehen[0]);
 
     await klickePfeil(page, s.zurueck);

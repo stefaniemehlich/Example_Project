@@ -318,6 +318,7 @@
     #reviewsDots { display: flex; }
     .slider-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--white_transparent10); border: 1px solid var(--white_transparent15); cursor: pointer; transition: background 0.2s; }
     .slider-dots .dot.active { background: var(--delluxe_green); border-color: var(--delluxe_green); }
+    #reviewsDots .dot { cursor: default; } /* nicht anklickbar, nur Anzeige */
   
     /* ════════════════════════════
        NACHHALTIGKEIT
@@ -401,31 +402,20 @@
     /* ════════════════════════════
        FAQ
     ════════════════════════════ */
-    .faq__header { margin-bottom: 48px; }
-    .faq__icon { width: 28px; height: 28px; border: 1px solid var(--white_transparent15); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; color: var(--softgrey70); transition: transform 0.3s, border-color 0.2s, color 0.2s; }
-
-    /* ── FAQ mobile ── */
-    .faq-mobile { display: none; padding: var(--section-padding) 0; text-align: center; }
-    .faq-mobile__header { margin-bottom: 48px; }
-    .faq-mobile__list { display: flex; flex-direction: column; }
-    .faq-mobile__item { width: 100%; text-align: center; }
-    .faq-mobile__item + .faq-mobile__item::before { content: ''; display: block; height: 1px; width: 90%; margin: 0 auto; background: var(--softgreen_transparent50); }
-    .faq-mobile__question { width: 100%; display: flex; align-items: center; justify-content: center; gap: 20px; padding: 20px 24px;
-      background: none;
-      border: none; outline: none;
-      font-family: 'Instrument Sans', sans-serif; font-size: 18px; color: var(--delluxe_white); font-weight: 500; cursor: pointer; transition: color 0.2s; }
-    .faq-mobile__question:hover .faq__icon { border-color: var(--delluxe_green); color: var(--delluxe_green); }
-    .faq-mobile__answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; padding: 0 28px; }
-    .faq-mobile__item.faq-mobile__item--open .faq-mobile__answer { max-height: 300px; padding: 0 28px 24px; }
-    .faq-mobile__answer p { font-size: 14px; color: var(--softgrey70); line-height: 1.75; padding-top: 16px; border-top: 1px solid var(--black_transparent20); }
-
-    /* ── FAQ Desktop ── */
+    /* Desktop: Liste links, Bild rechts – Handy: siehe Media Query (max-width: 820px) */
     .faq { padding: var(--section-padding) 0; }
+    .faq__header { margin-bottom: 48px; }
     .faq__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
     .faq__list { display: flex; flex-direction: column; }
     .faq__item { padding: 20px 24px; cursor: pointer; transition: background 0.2s; }
     .faq__item + .faq__item { border-top: 1px solid var(--softgreen_transparent50); }
-    .faq__question { font-size: 16px; font-weight: 500; color: var(--softgrey70); transition: color 0.2s; }
+    .faq__question { width: 100%; display: flex; align-items: center; gap: 20px; padding: 0;
+      background: none; border: none; text-align: left;
+      font-family: inherit; font-size: 16px; font-weight: 500; color: var(--softgrey70); cursor: pointer; transition: color 0.2s; }
+    .faq__question:focus-visible { outline: 2px solid var(--delluxe_green); outline-offset: 4px; }
+    /* „+“-Symbol: nur auf dem Handy sichtbar, als CSS-Inhalt (steht damit nicht im Fragetext) */
+    .faq__question::after { content: '+'; display: none; width: 28px; height: 28px; border: 1px solid var(--white_transparent15); border-radius: 50%; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; color: var(--softgrey70); transition: border-color 0.2s, color 0.2s; }
+    .faq__question:hover::after { border-color: var(--delluxe_green); color: var(--delluxe_green); }
     .faq__item.is-active .faq__question { color: var(--delluxe_white); }
     .faq__answer { font-size: 14px; color: var(--softgrey50); line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.3s, padding 0.3s; }
     .faq__item.is-active .faq__answer { max-height: 200px; padding-top: 10px; color: var(--softgrey70); }
@@ -605,8 +595,19 @@
       .sustainability__card:last-child { flex: 0 0 85%; scroll-snap-align: center; padding: 24px; border-right: none; border-top: 1px solid var(--softgreen_transparent50); border-bottom: 1px solid var(--softgreen_transparent50); }
       .cta__box { padding: 48px 24px; }
       .subtitle { font-size: 22px; }
-      .faq-mobile { display: block; }
-      .faq { display: none; }
+      /* FAQ: Liste untereinander, zentriert, ohne Bild */
+      .faq { text-align: center; }
+      .faq__inner { display: block; }
+      .faq__visual { display: none; }
+      .faq__item { padding: 0; }
+      .faq__item + .faq__item { border-top: none; }
+      .faq__item + .faq__item::before { content: ''; display: block; height: 1px; width: 90%; margin: 0 auto; background: var(--softgreen_transparent50); }
+      .faq__question { justify-content: center; padding: 20px 24px; text-align: center; font-size: 18px; color: var(--delluxe_white); }
+      .faq__question::after { display: flex; }
+      .faq__item.is-active .faq__question::after { content: '×'; } /* offene Frage: Klick klappt sie zu */
+      .faq__answer { padding: 0 28px; }
+      .faq__item.is-active .faq__answer { max-height: 300px; padding: 0 28px 24px; }
+      .faq__answer p { line-height: 1.75; padding-top: 16px; border-top: 1px solid var(--black_transparent20); }
       .slider__btn { display: none; }
       .cta-float { left: 50%; right: auto; transform: translateX(-50%); bottom: 16px; }
       .cta-float.scrollhide { transform: translateX(-50%) translateY(15%); }
@@ -1024,8 +1025,6 @@ Nach einem kurzem Besuch bei Dellen Deluxe sind beide Dellen glücklicherweise G
               <span class="reviews__source" data-review-date="2025-09"></span>
             </div>
             <p class="reviews__quote">Super Arbeit, überaus freundlich und hilfsbereit!!!<br>
-War mit meinem 10 Jahre alten Golf bei Hr. Rizmann und seinem Mitarbeiter Andi.<br>
-Fahrzeug sollte wegen Verkauf gleich von mehreren Wehwehchen befreit werden. Parkdelle an der Türe, alte eingebrannte Vogelcodestellen am Lack, Ein bzw. Ausladespuren am Stoßfänger hinten, rostiger AHK-Kopf sowie ein alter Hagelschaden am Dach.
 Und nun zitiere ich die Worte des Käufers als er das Fahrezeug nach der Behandlung bei Delluxe Dellen GmbH bei mir abholte: Der steht ja da wie ein Neuwagen.
 Vielen Dank liebes Delluxe Dellen Team.<br>
 Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. Mehr kann man nicht sagen!!! Weiter so!!!</p>
@@ -1045,39 +1044,7 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
     </div>
   </section>
 
-  <!-- ═══ FAQ mobil ═══ -->
-  <section class="faq-mobile">
-    <div class="container">
-      <div class="faq-mobile__header reveal">
-        <span class="eyebrow">Häufige Fragen</span>
-        <h2 class="section-title">Was sie wissen sollten</h2>
-      </div>
-      <div class="faq-mobile__list reveal">
-        <div class="faq-mobile__item">
-          <button class="faq-mobile__question">Was kostet eine Dellenreparatur beim Beulendoktor?<span class="faq__icon">+</span></button>
-          <div class="faq-mobile__answer"><p>Kleine Dellen kosten 50&ndash;80&thinsp;&euro;, mittlere 80&ndash;150&thinsp;&euro;, Hagelschäden je nach Umfang 300&ndash;1.500&thinsp;&euro;. PDR ist bis zu 70&thinsp;% günstiger als konventionelle Lackierung &ndash; und der Originallack bleibt erhalten.</p></div>
-        </div>
-        <div class="faq-mobile__item">
-          <button class="faq-mobile__question">Übernimmt die Versicherung die Kosten für Hagelschäden?<span class="faq__icon">+</span></button>
-          <div class="faq-mobile__answer"><p>Ja. Die Teilkaskoversicherung übernimmt Hagelschäden in der Regel vollständig &ndash; ohne Verlust des Schadenfreiheitsrabattes. Wir unterstützen Sie bei der Abwicklung.</p></div>
-        </div>
-        <div class="faq-mobile__item">
-          <button class="faq-mobile__question">Wie lange dauert eine Dellenreparatur?<span class="faq__icon">+</span></button>
-          <div class="faq-mobile__answer"><p>Einzelne kleine Dellen sind in 1&ndash;3 Stunden behoben. Umfangreiche Hagelschäden benötigen je nach Fahrzeug 2&ndash;4 Tage. Sie erhalten in jedem Fall eine genaue Zeitangabe vor Beginn der Arbeiten.</p></div>
-        </div>
-        <div class="faq-mobile__item">
-          <button class="faq-mobile__question">Kann jede Delle ohne Lackieren repariert werden?<span class="faq__icon">+</span></button>
-          <div class="faq-mobile__answer"><p>In den meisten Fällen ja &ndash; vorausgesetzt, der Originallack ist intakt und das Metall nicht überdehnt. Ausnahmen: scharfkantige Dellen, Karosserierippen und bereits nachlackierte Stellen. Wir begutachten Ihr Fahrzeug kostenfrei.</p></div>
-        </div>
-        <div class="faq-mobile__item">
-          <button class="faq-mobile__question">Welche Gebiete rund um München bedient ihr?<span class="faq__icon">+</span></button>
-          <div class="faq-mobile__answer"><p>Unser Meisterbetrieb in Eichenau bedient München und den gesamten Münchner Westen: Germering, Puchheim, Fürstenfeldbruck, Starnberg und den Landkreis Fürstenfeldbruck im Umkreis von ca. 35&thinsp;km.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ FAQ Desktop ═══ -->
+  <!-- ═══ FAQ (Desktop und Handy) ═══ -->
   <section class="faq">
     <div class="container">
       <div class="faq__header reveal">
@@ -1087,24 +1054,24 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
       <div class="faq__inner reveal">
         <div class="faq__list">
           <div class="faq__item is-active" data-img="images/DiaShow/1.webp">
-            <div class="faq__question">Was kostet eine Dellenreparatur beim Beulendoktor?</div>
-            <div class="faq__answer">Kleine Dellen kosten 50&ndash;80&thinsp;&euro;, mittlere 80&ndash;150&thinsp;&euro;, Hagelschäden je nach Umfang 300&ndash;1.500&thinsp;&euro;. PDR ist bis zu 70&thinsp;% günstiger als konventionelle Lackierung &ndash; und der Originallack bleibt erhalten.</div>
+            <button class="faq__question" aria-expanded="true">Was kostet eine Dellenreparatur beim Beulendoktor?</button>
+            <div class="faq__answer"><p>Kleine Dellen kosten 50&ndash;80&thinsp;&euro;, mittlere 80&ndash;150&thinsp;&euro;, Hagelschäden je nach Umfang 300&ndash;1.500&thinsp;&euro;. PDR ist bis zu 70&thinsp;% günstiger als konventionelle Lackierung &ndash; und der Originallack bleibt erhalten.</p></div>
           </div>
           <div class="faq__item" data-img="images/DiaShow/2.webp">
-            <div class="faq__question">Übernimmt die Versicherung die Kosten für Hagelschäden?</div>
-            <div class="faq__answer">Ja. Die Teilkaskoversicherung übernimmt Hagelschäden in der Regel vollständig &ndash; ohne Verlust des Schadenfreiheitsrabattes. Wir unterstützen Sie bei der Abwicklung.</div>
+            <button class="faq__question" aria-expanded="false">Übernimmt die Versicherung die Kosten für Hagelschäden?</button>
+            <div class="faq__answer"><p>Ja. Die Teilkaskoversicherung übernimmt Hagelschäden in der Regel vollständig &ndash; ohne Verlust des Schadenfreiheitsrabattes. Wir unterstützen Sie bei der Abwicklung.</p></div>
           </div>
           <div class="faq__item" data-img="images/DiaShow/3.webp">
-            <div class="faq__question">Wie lange dauert eine Dellenreparatur?</div>
-            <div class="faq__answer">Einzelne kleine Dellen sind in 1&ndash;3 Stunden behoben. Umfangreiche Hagelschäden benötigen je nach Fahrzeug 2&ndash;4 Tage. Sie erhalten in jedem Fall eine genaue Zeitangabe vor Beginn der Arbeiten.</div>
+            <button class="faq__question" aria-expanded="false">Wie lange dauert eine Dellenreparatur?</button>
+            <div class="faq__answer"><p>Einzelne kleine Dellen sind in 1&ndash;3 Stunden behoben. Umfangreiche Hagelschäden benötigen je nach Fahrzeug 2&ndash;4 Tage. Sie erhalten in jedem Fall eine genaue Zeitangabe vor Beginn der Arbeiten.</p></div>
           </div>
           <div class="faq__item" data-img="images/DiaShow/4.webp">
-            <div class="faq__question">Kann jede Delle ohne Lackieren repariert werden?</div>
-            <div class="faq__answer">In den meisten Fällen ja &ndash; vorausgesetzt, der Originallack ist intakt und das Metall nicht überdehnt. Ausnahmen: scharfkantige Dellen, Karosserierippen und bereits nachlackierte Stellen. Wir begutachten Ihr Fahrzeug kostenfrei.</div>
+            <button class="faq__question" aria-expanded="false">Kann jede Delle ohne Lackieren repariert werden?</button>
+            <div class="faq__answer"><p>In den meisten Fällen ja &ndash; vorausgesetzt, der Originallack ist intakt und das Metall nicht überdehnt. Ausnahmen: scharfkantige Dellen, Karosserierippen und bereits nachlackierte Stellen. Wir begutachten Ihr Fahrzeug kostenfrei.</p></div>
           </div>
           <div class="faq__item" data-img="images/DiaShow/5.webp">
-            <div class="faq__question">Welche Gebiete rund um München bedient ihr?</div>
-            <div class="faq__answer">Unser Meisterbetrieb in Eichenau bedient München und den gesamten Münchner Westen: Germering, Puchheim, Fürstenfeldbruck, Starnberg und den Landkreis Fürstenfeldbruck im Umkreis von ca. 35&thinsp;km.</div>
+            <button class="faq__question" aria-expanded="false">Welche Gebiete rund um München bedient ihr?</button>
+            <div class="faq__answer"><p>Unser Meisterbetrieb in Eichenau bedient München und den gesamten Münchner Westen: Germering, Puchheim, Fürstenfeldbruck, Starnberg und den Landkreis Fürstenfeldbruck im Umkreis von ca. 35&thinsp;km.</p></div>
           </div>
         </div>
         <div class="faq__visual">
@@ -1415,89 +1382,104 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // Slider: Infinite Loop mit Auto-Play und Prev/Next
+    // ─── Endlos-Slider (gemeinsam für Galerie und Bewertungen) ───
+    // Vor und hinter den Original-Slides stehen je 2 Kopien – genug für die seitliche
+    // Vorschau während der Animation. Landet der Slider auf einer Kopie, springt er
+    // nach der Animation unsichtbar zum passenden Original.
     const isMobile = () => window.matchMedia('(max-width: 820px)').matches;
-
-    const sliderTrack = document.getElementById('sliderTrack');
-    const origSlides  = [...sliderTrack.children];
-    const slideCount  = origSlides.length;
-    const sliderProgressFill = document.getElementById('sliderProgressFill');
-
-    // Slides dreifach für beidseitigen nahtlosen Loop
-    origSlides.forEach(s => sliderTrack.insertBefore(s.cloneNode(true), sliderTrack.firstChild));
-    origSlides.forEach(s => sliderTrack.appendChild(s.cloneNode(true)));
-
-    let current = slideCount; // Startet in der duplizierten Mitte für beidseitigen Peek
-    let autoPlay;
-
     const GAP = 24;
     const SLIDE_RATIO = 0.8;
+    const SLIDE_ANIM_MS = 620; // etwas länger als die CSS-Animation (0.6 s)
 
-    function sContainerW() { return sliderTrack.parentElement.offsetWidth; }
-    function sSlideElemW()  { return sContainerW() * SLIDE_RATIO; }
-    function sPeek()        { return (sContainerW() - sSlideElemW()) / 2; }
-    function slideWidth()   { return sSlideElemW() + GAP; }
+    // track: Element mit den Slides, slideRatio(): Slide-Breite im Verhältnis zum Container,
+    // onChange(index): wird mit dem Index des aktiven Original-Slides aufgerufen
+    function createLoopSlider(track, slideRatio, onChange) {
+      const originals = [...track.children];
+      const count  = originals.length;
+      const clones = Math.min(2, count);
 
-    function setSlideWidths() {
-      const w = sSlideElemW() + 'px';
-      [...sliderTrack.children].forEach(s => s.style.width = w);
-    }
-    setSlideWidths();
-    window.addEventListener('resize', () => { setSlideWidths(); goTo(current, false); });
+      // Kopien in richtiger Reihenfolge: vorn die letzten, hinten die ersten Slides
+      track.prepend(...originals.slice(-clones).map(s => s.cloneNode(true)));
+      track.append(...originals.slice(0, clones).map(s => s.cloneNode(true)));
 
-    function goTo(index, animate = true) {
-      if (animate) {
-        sliderTrack.classList.add('is-animating');
-      } else {
-        sliderTrack.classList.add('no-transition');
-        sliderTrack.classList.remove('is-animating');
+      let current = clones; // Index des ersten Originals
+      let busy = false;     // während der Animation werden weitere Schritte ignoriert
+
+      const containerW = () => track.parentElement.offsetWidth;
+      const slideW     = () => containerW() * slideRatio();
+
+      function setWidths() {
+        const w = slideW() + 'px';
+        [...track.children].forEach(s => s.style.width = w);
       }
-      current = index;
-      sliderTrack.style.transform = `translateX(${sPeek() - current * slideWidth()}px)`;
-      [...sliderTrack.children].forEach((s, i) => s.classList.toggle('is-active', i === current));
-      if (!animate) requestAnimationFrame(() => requestAnimationFrame(() => sliderTrack.classList.remove('no-transition')));
-      const realIdx = ((index - slideCount) % slideCount + slideCount) % slideCount;
-      if (sliderProgressFill) sliderProgressFill.style.width = ((realIdx + 1) / slideCount * 100) + '%';
-    }
 
-    function next() {
-      current++;
-      goTo(current);
-      if (current >= slideCount * 2) {
-        setTimeout(() => { goTo(slideCount, false); }, 620);
+      function goTo(index, animate = true) {
+        if (animate) {
+          track.classList.add('is-animating');
+        } else {
+          track.classList.add('no-transition');
+          track.classList.remove('is-animating');
+        }
+        current = index;
+        const peek = (containerW() - slideW()) / 2;
+        track.style.transform = `translateX(${peek - current * (slideW() + GAP)}px)`;
+        [...track.children].forEach((s, i) => s.classList.toggle('is-active', i === current));
+        if (!animate) requestAnimationFrame(() => requestAnimationFrame(() => track.classList.remove('no-transition')));
+        onChange(((current - clones) % count + count) % count);
       }
-    }
 
-    function prev() {
-      current--;
-      goTo(current);
-      if (current <= 0) {
-        setTimeout(() => { goTo(slideCount, false); }, 620);
+      function step(direction) {
+        if (busy) return;
+        busy = true;
+        goTo(current + direction);
+        setTimeout(() => {
+          // auf einer Kopie gelandet → unsichtbar zum Original springen
+          if (current >= clones + count) goTo(current - count, false);
+          else if (current < clones)     goTo(current + count, false);
+          busy = false;
+        }, SLIDE_ANIM_MS);
       }
+
+      setWidths();
+      goTo(current, false);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        track.parentElement.style.visibility = 'visible';
+      }));
+      window.addEventListener('resize', () => { setWidths(); goTo(current, false); });
+
+      return { next: () => step(1), prev: () => step(-1) };
     }
 
-    function startAutoPlay() { if (!isMobile()) autoPlay = setInterval(next, 4000); }
+    // Wischen auf dem Handy: nach links = weiter, nach rechts = zurück
+    function addSwipe(element, onNext, onPrev) {
+      let startX = 0;
+      element.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      element.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) dx < 0 ? onNext() : onPrev();
+      }, { passive: true });
+    }
+
+    // ─── Galerie ───
+    const sliderTrack = document.getElementById('sliderTrack');
+    const sliderProgressFill = document.getElementById('sliderProgressFill');
+    const galleryCount = sliderTrack.children.length;
+
+    const { next, prev } = createLoopSlider(sliderTrack, () => SLIDE_RATIO, i => {
+      if (sliderProgressFill) sliderProgressFill.style.width = ((i + 1) / galleryCount * 100) + '%';
+    });
+
+    let autoPlay;
     function stopAutoPlay()  { clearInterval(autoPlay); }
+    // erst stoppen, damit nie zwei Intervalle gleichzeitig laufen; auf dem Handy kein Auto-Play
+    function startAutoPlay() { stopAutoPlay(); if (!isMobile()) autoPlay = setInterval(next, 4000); }
 
-    sliderTrack.classList.add('no-transition');
-    goTo(slideCount, false);
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      sliderTrack.classList.remove('no-transition');
-      sliderTrack.closest('.slider').style.visibility = 'visible';
-    }));
     startAutoPlay();
-    window.addEventListener('resize', () => { isMobile() ? stopAutoPlay() : startAutoPlay(); }, { passive: true });
+    window.addEventListener('resize', startAutoPlay, { passive: true });
 
-    document.getElementById('sliderPrev').addEventListener('click', () => { stopAutoPlay(); prev(); startAutoPlay(); });
-    document.getElementById('sliderNext').addEventListener('click', () => { stopAutoPlay(); next(); startAutoPlay(); });
-
-    // Galerie: Touch-Swipe (mobile)
-    let sTouchX = 0;
-    sliderTrack.parentElement.addEventListener('touchstart', e => { sTouchX = e.touches[0].clientX; }, { passive: true });
-    sliderTrack.parentElement.addEventListener('touchend', e => {
-      const dx = e.changedTouches[0].clientX - sTouchX;
-      if (Math.abs(dx) > 40) { stopAutoPlay(); dx < 0 ? next() : prev(); }
-    }, { passive: true });
+    document.getElementById('sliderPrev').addEventListener('click', () => { prev(); startAutoPlay(); });
+    document.getElementById('sliderNext').addEventListener('click', () => { next(); startAutoPlay(); });
+    addSwipe(sliderTrack.parentElement, () => { next(); startAutoPlay(); }, () => { prev(); startAutoPlay(); });
 
     // Reviews: Zeitangabe berechnen
     document.querySelectorAll('[data-review-date]').forEach(el => {
@@ -1512,84 +1494,32 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
       }
     });
 
-    // Reviews: Infinite Slider
+    // ─── Bewertungen ───
     const reviewsTrack = document.getElementById('reviewsTrack');
-    const origReviews  = [...reviewsTrack.children];
-    const reviewCount  = origReviews.length;
 
+    // ein Punkt pro Bewertung (vor dem Anlegen der Kopien zählen)
     const rDotsEl = document.getElementById('reviewsDots');
-    if (rDotsEl) {
-      origReviews.forEach((_, i) => {
-        const dot = document.createElement('span');
-        dot.className = 'dot' + (i === 0 ? ' active' : '');
-        rDotsEl.appendChild(dot);
-      });
-    }
+    const rDots = [...reviewsTrack.children].map(() => {
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      if (rDotsEl) rDotsEl.appendChild(dot);
+      return dot;
+    });
 
-    origReviews.forEach(s => reviewsTrack.insertBefore(s.cloneNode(true), reviewsTrack.firstChild));
-    origReviews.forEach(s => reviewsTrack.appendChild(s.cloneNode(true)));
+    const { next: rNext, prev: rPrev } = createLoopSlider(
+      reviewsTrack,
+      () => isMobile() ? 1 : SLIDE_RATIO,  // auf dem Handy volle Breite
+      i => rDots.forEach((d, j) => d.classList.toggle('active', j === i))
+    );
 
-    let rCurrent = reviewCount;
     let rAutoPlay;
     const REVIEWS_TAKT_MS = 5000; // Takt des Auto-Plays in ms
+    function rStartAutoPlay() { clearInterval(rAutoPlay); rAutoPlay = setInterval(rNext, REVIEWS_TAKT_MS); }
+    rStartAutoPlay();
 
-    function rContainerW() { return reviewsTrack.parentElement.offsetWidth; }
-    function rSlideRatio() { return window.matchMedia('(max-width: 820px)').matches ? 1 : SLIDE_RATIO; }
-    function rSlideElemW() { return rContainerW() * rSlideRatio(); }
-    function rPeek()       { return (rContainerW() - rSlideElemW()) / 2; }
-    function rSlideWidth() { return rSlideElemW() + GAP; }
-
-    function rSetWidths() {
-      const w = rSlideElemW() + 'px';
-      [...reviewsTrack.children].forEach(s => s.style.width = w);
-    }
-    rSetWidths();
-    window.addEventListener('resize', () => { rSetWidths(); rGoTo(rCurrent, false); });
-
-    function rGoTo(index, animate = true) {
-      if (animate) {
-        reviewsTrack.classList.add('is-animating');
-      } else {
-        reviewsTrack.classList.add('no-transition');
-        reviewsTrack.classList.remove('is-animating');
-      }
-      rCurrent = index;
-      reviewsTrack.style.transform = `translateX(${rPeek() - rCurrent * rSlideWidth()}px)`;
-      [...reviewsTrack.children].forEach((s, i) => s.classList.toggle('is-active', i === rCurrent));
-      if (!animate) requestAnimationFrame(() => requestAnimationFrame(() => reviewsTrack.classList.remove('no-transition')));
-      const rRealIdx = ((index - reviewCount) % reviewCount + reviewCount) % reviewCount;
-      if (rDotsEl) rDotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === rRealIdx));
-    }
-
-    function rNext() {
-      rCurrent++;
-      rGoTo(rCurrent);
-      if (rCurrent >= reviewCount * 2) setTimeout(() => rGoTo(reviewCount, false), 620);
-    }
-
-    function rPrev() {
-      rCurrent--;
-      rGoTo(rCurrent);
-      if (rCurrent <= 0) setTimeout(() => rGoTo(reviewCount, false), 620);
-    }
-
-    reviewsTrack.classList.add('no-transition');
-    rGoTo(reviewCount, false);
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      reviewsTrack.classList.remove('no-transition');
-      reviewsTrack.closest('.reviews__slider').style.visibility = 'visible';
-    }));
-    rAutoPlay = setInterval(rNext, REVIEWS_TAKT_MS);
-
-    document.getElementById('reviewsPrev').addEventListener('click', () => { clearInterval(rAutoPlay); rPrev(); rAutoPlay = setInterval(rNext, REVIEWS_TAKT_MS); });
-    document.getElementById('reviewsNext').addEventListener('click', () => { clearInterval(rAutoPlay); rNext(); rAutoPlay = setInterval(rNext, REVIEWS_TAKT_MS); });
-
-    let rTouchX = 0;
-    reviewsTrack.parentElement.addEventListener('touchstart', e => { rTouchX = e.touches[0].clientX; }, { passive: true });
-    reviewsTrack.parentElement.addEventListener('touchend', e => {
-      const dx = e.changedTouches[0].clientX - rTouchX;
-      if (Math.abs(dx) > 40) { clearInterval(rAutoPlay); dx < 0 ? rNext() : rPrev(); rAutoPlay = setInterval(rNext, REVIEWS_TAKT_MS); }
-    }, { passive: true });
+    document.getElementById('reviewsPrev').addEventListener('click', () => { rPrev(); rStartAutoPlay(); });
+    document.getElementById('reviewsNext').addEventListener('click', () => { rNext(); rStartAutoPlay(); });
+    addSwipe(reviewsTrack.parentElement, () => { rNext(); rStartAutoPlay(); }, () => { rPrev(); rStartAutoPlay(); });
 
     // Footer Akkordeon (Mobile)
     const footerAcc = document.querySelector('.footer__accordion');
@@ -1630,29 +1560,35 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
     })();
 
 
-    // FAQ mobil: Akkordeon
-    document.querySelectorAll('.faq-mobile__question').forEach(button => {
-      button.addEventListener('click', () => {
-        const item   = button.closest('.faq-mobile__item');
-        const isOpen = item.classList.contains('faq-mobile__item--open');
-        document.querySelectorAll('.faq-mobile__item').forEach(i => i.classList.remove('faq-mobile__item--open'));
-        if (!isOpen) item.classList.add('faq-mobile__item--open');
-        const icon = button.querySelector('.faq__icon');
-        document.querySelectorAll('.faq-mobile__question .faq__icon').forEach(ic => ic.textContent = '+');
-        if (!isOpen) icon.textContent = '×';
+    // FAQ – Desktop: immer genau eine Frage offen, ein Klick wechselt auch das Bild.
+    //       Handy: Akkordeon – Klick öffnet eine Frage, erneuter Klick klappt sie zu.
+    const faqImg = document.getElementById('faqImg');
+    const faqItems = [...document.querySelectorAll('.faq__item')];
+
+    // genau diesen Eintrag öffnen (null = alle zuklappen)
+    function faqOeffnen(offen) {
+      faqItems.forEach(i => {
+        i.classList.toggle('is-active', i === offen);
+        i.querySelector('.faq__question').setAttribute('aria-expanded', i === offen);
+      });
+      if (!offen) return;
+      faqImg.style.opacity = '0';
+      setTimeout(() => { faqImg.src = offen.dataset.img; faqImg.style.opacity = '1'; }, 300);
+    }
+
+    faqItems.forEach(item => {
+      item.addEventListener('click', e => {
+        if (e.target.closest('.faq__answer')) return;  // Klick in den Antworttext ändert nichts
+        if (!item.classList.contains('is-active')) faqOeffnen(item);
+        else if (isMobile()) faqOeffnen(null);         // Handy: zuklappen; Desktop: bleibt offen
       });
     });
 
-    // FAQ Desktop: Frage wählen, Bild wechseln
-    const faqImg = document.getElementById('faqImg');
-    document.querySelectorAll('.faq__item').forEach(item => {
-      item.addEventListener('click', () => {
-        document.querySelectorAll('.faq__item').forEach(i => i.classList.remove('is-active'));
-        item.classList.add('is-active');
-        faqImg.style.opacity = '0';
-        setTimeout(() => { faqImg.src = item.dataset.img; faqImg.style.opacity = '1'; }, 300);
-      });
-    });
+    // Handy: beim Laden alle zu. Wechsel zum Desktop ohne offene Frage: erste öffnen
+    if (isMobile()) faqOeffnen(null);
+    window.addEventListener('resize', () => {
+      if (!isMobile() && !faqItems.some(i => i.classList.contains('is-active'))) faqOeffnen(faqItems[0]);
+    }, { passive: true });
 
     // ═══ SCHADEN MODAL ═══
     (function () {

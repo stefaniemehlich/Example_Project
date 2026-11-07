@@ -24,20 +24,8 @@ async function schemaFaq(page: Page): Promise<FaqEintrag[]> {
     throw new Error('Kein SEO-Schema vom Typ FAQPage gefunden');
 }
 
-// FAQ aus der Mobil-Fassung lesen – ohne das „+“-Symbol im Button
-async function mobilFaq(page: Page): Promise<FaqEintrag[]> {
-    return page.locator('.faq-mobile__item').evaluateAll(eintraege => eintraege.map(e => {
-        const frage = e.querySelector('.faq-mobile__question')?.cloneNode(true) as HTMLElement | undefined;
-        frage?.querySelectorAll('.faq__icon').forEach(icon => icon.remove());
-        return {
-            frage: frage?.textContent ?? '',
-            antwort: e.querySelector('.faq-mobile__answer')?.textContent ?? '',
-        };
-    })).then(liste => liste.map(f => ({ frage: bereinigt(f.frage), antwort: bereinigt(f.antwort) })));
-}
-
-// FAQ aus der Desktop-Fassung lesen
-async function desktopFaq(page: Page): Promise<FaqEintrag[]> {
+// FAQ von der Seite lesen
+async function seitenFaq(page: Page): Promise<FaqEintrag[]> {
     return page.locator('.faq__item').evaluateAll(eintraege => eintraege.map(e => ({
         frage: e.querySelector('.faq__question')?.textContent ?? '',
         antwort: e.querySelector('.faq__answer')?.textContent ?? '',
@@ -46,7 +34,7 @@ async function desktopFaq(page: Page): Promise<FaqEintrag[]> {
 
 // ─── FAQ ────────────────────────────────────────────────────────
 
-test('FAQ: SEO-Schema, Mobil- und Desktop-FAQ sind gleich', async ({ page }) => {
+test('FAQ: SEO-Schema und FAQ auf der Seite sind gleich', async ({ page }) => {
     await page.goto('/');
 
     // Das SEO-Schema ist die Vorlage: Google verlangt, dass genau diese Fragen
@@ -54,16 +42,13 @@ test('FAQ: SEO-Schema, Mobil- und Desktop-FAQ sind gleich', async ({ page }) => 
     const schema = await schemaFaq(page);
     expect(schema.length, 'Das SEO-Schema enthält keine Fragen').toBeGreaterThan(0);
 
-    const fassungen = { 'Mobil-FAQ': await mobilFaq(page), 'Desktop-FAQ': await desktopFaq(page) };
+    const faq = await seitenFaq(page);
+    // expect.soft: Test läuft weiter, am Ende werden alle Abweichungen gemeinsam gemeldet
+    expect.soft(faq.length, `Die FAQ hat ${faq.length} Fragen, das SEO-Schema ${schema.length}`).toBe(schema.length);
 
-    for (const [name, faq] of Object.entries(fassungen)) {
-        // expect.soft: Test läuft weiter, am Ende werden alle Abweichungen gemeinsam gemeldet
-        expect.soft(faq.length, `${name} hat ${faq.length} Fragen, das SEO-Schema ${schema.length}`).toBe(schema.length);
-
-        for (let i = 0; i < Math.min(faq.length, schema.length); i++) {
-            expect.soft(faq[i].frage, `${name}, Frage Nr. ${i + 1}: Frage weicht vom SEO-Schema ab`).toBe(schema[i].frage);
-            expect.soft(faq[i].antwort, `${name}, Frage Nr. ${i + 1}: Antwort weicht vom SEO-Schema ab`).toBe(schema[i].antwort);
-        }
+    for (let i = 0; i < Math.min(faq.length, schema.length); i++) {
+        expect.soft(faq[i].frage, `Frage Nr. ${i + 1}: Frage weicht vom SEO-Schema ab`).toBe(schema[i].frage);
+        expect.soft(faq[i].antwort, `Frage Nr. ${i + 1}: Antwort weicht vom SEO-Schema ab`).toBe(schema[i].antwort);
     }
 });
 
