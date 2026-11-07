@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "writeDokuTestcases": "node scripts/writeDokuTestcases.mjs"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://stefaniemehlich@github.com/stefaniemehlich/Example_Project.git"
