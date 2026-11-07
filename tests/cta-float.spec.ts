@@ -1,0 +1,169 @@
+import { test, expect, Page, Locator } from '@playwright/test';
+
+// Schwebende CTA-Buttons unten rechts (Desktop) bzw. unten mittig (Handy):
+// "WhatsApp" und "Schaden checken"
+
+const SEKTIONEN = ['leistungen', 'galerie', 'nachhaltigkeit', 'bewertungen', 'kontakt'];
+
+// ─── Hilfsfunktionen ────────────────────────────────────────────
+
+// Sofort (ohne weiches Scrollen) an eine Stelle der Seite springen
+async function scrolleZu(page: Page, y: number) {
+    await page.evaluate(ziel => window.scrollTo({ top: ziel, behavior: 'instant' }), y);
+}
+
+async function scrolleZuSektion(page: Page, id: string) {
+    const y = await page.evaluate(
+        sektion => document.getElementById(sektion)!.getBoundingClientRect().top + window.scrollY,
+        id,
+    );
+    await scrolleZu(page, y);
+}
+
+async function scrolleGanzNachUnten(page: Page) {
+    await scrolleZu(page, await page.evaluate(() => document.documentElement.scrollHeight));
+}
+
+// Die Buttons gleiten nach dem Scrollen kurz an ihre Position (Animation).
+// Erst messen, wenn sie zwei Messungen hintereinander am selben Platz stehen.
+async function ruhigePosition(element: Locator) {
+    let vorher = '';
+    await expect.poll(async () => {
+        await element.page().waitForTimeout(100);
+        const jetzt = JSON.stringify(await element.boundingBox());
+        const ruhig = jetzt === vorher;
+        vorher = jetzt;
+        return ruhig;
+    }, { timeout: 3000 }).toBe(true);
+    return (await element.boundingBox())!;
+}
+
+// Abstand der Button-Unterkante zum unteren Bildrand
+async function abstandZumBildrand(page: Page, element: Locator) {
+    const box = await ruhigePosition(element);
+    return page.viewportSize()!.height - (box.y + box.height);
+}
+
+// ─── Tests ──────────────────────────────────────────────────────
+
+const ansichten = [
+    { name: 'Desktop', width: 1280, height: 800 },
+    { name: 'Handy',   width: 390,  height: 844 },
+];
+
+for (const a of ansichten) {
+    test.describe(`CTA-Buttons (${a.name})`, () => {
+        test.use({ viewport: { width: a.width, height: a.height } });
+
+        let whatsapp: Locator;
+        let schadenCheck: Locator;
+
+        test.beforeEach(async ({ page }) => {
+            await page.goto('/');
+            const ctaFloat = page.locator('.cta-float');
+            whatsapp     = ctaFloat.getByRole('link',   { name: 'WhatsApp' });
+            schadenCheck = ctaFloat.getByRole('button', { name: 'Schaden checken' });
+        });
+
+        // 1) Sichtbar und klickbar – oben, an jeder Sektion und ganz unten
+        test('Buttons sind an jeder Scrollposition sichtbar und klickbar', async ({ page }) => {
+            const positionen: { name: string; scrollen: () => Promise<void> }[] = [
+                { name: 'Seitenanfang', scrollen: () => scrolleZu(page, 0) },
+                ...SEKTIONEN.map(id => ({ name: `#${id}`, scrollen: () => scrolleZuSektion(page, id) })),
+                { name: 'Seitenende', scrollen: () => scrolleGanzNachUnten(page) },
+            ];
+
+            for (const p of positionen) {
+                await test.step(p.name, async () => {
+                    await p.scrollen();
+                    for (const button of [whatsapp, schadenCheck]) {
+                        await ruhigePosition(button);
+                        // komplett im sichtbaren Bereich
+                        await expect(button).toBeInViewport({ ratio: 1 });
+                        // nicht von anderen Elementen verdeckt (Klick wird nur simuliert)
+                        await button.click({ trial: true });
+                    }
+                });
+            }
+        });
+
+        // 2a) Feste Position, solange der Footer nicht im Bild ist
+        test('Buttons bleiben beim Scrollen am selben Platz', async ({ page }) => {
+            await scrolleZuSektion(page, 'leistungen');
+            const abstandOben = await abstandZumBildrand(page, schadenCheck);
+
+            await scrolleZuSektion(page, 'bewertungen');
+            const abstandWeiterUnten = await abstandZumBildrand(page, schadenCheck);
+
+            expect(abstandWeiterUnten).toBeCloseTo(abstandOben, 0);
+        });
+
+        // 2b) Am Seitenende weichen die Buttons nach oben aus und verdecken den Footer nicht
+        test('Buttons verdecken am Seitenende den Footer nicht', async ({ page }) => {
+            await scrolleZuSektion(page, 'leistungen');
+            const abstandNormal = await abstandZumBildrand(page, schadenCheck);
+
+            await scrolleGanzNachUnten(page);
+            const footerOben = (await page.getByRole('contentinfo').boundingBox())!.y;
+
+            for (const button of [whatsapp, schadenCheck]) {
+                const box = await ruhigePosition(button);
+                expect(box.y + box.height).toBeLessThanOrEqual(footerOben);
+            }
+            // und sie sind dafür tatsächlich nach oben gewandert
+            expect(await abstandZumBildrand(page, schadenCheck)).toBeGreaterThan(abstandNormal);
+        });
+
+        // 3) WhatsApp-Link
+        test('WhatsApp-Button öffnet WhatsApp in neuem Tab', async ({ page }) => {
+            await expect(whatsapp).toHaveAttribute('href', 'https://wa.me/4917612345678');
+            await expect(whatsapp).toHaveAttribute('target', '_blank');
+            await expect(whatsapp).toHaveAttribute('rel', /noopener/);
+
+            // Die echte WhatsApp-Seite nicht laden – nur prüfen, dass der neue Tab dorthin will
+            await page.context().route('https://wa.me/**', route =>
+                route.fulfill({ status: 200, contentType: 'text/html', body: 'WhatsApp (Testersatz)' }),
+            );
+            const neuerTab = page.waitForEvent('popup');
+            await whatsapp.click();
+            await expect(await neuerTab).toHaveURL('https://wa.me/4917612345678');
+        });
+
+        // 4) Overlay öffnen und schließen
+        test.describe('Schaden-checken-Overlay', () => {
+            // Achtung: Das Overlay ist immer im HTML und nur durchsichtig (opacity 0).
+            // Playwright zählt es dann trotzdem als "sichtbar" – daher die Klasse is-open prüfen.
+            const istOffen = async (page: Page) => {
+                const overlay = page.locator('#schadenModal');
+                await expect(overlay).toHaveClass(/is-open/);
+                await expect(overlay).toHaveCSS('opacity', '1');
+                await expect(overlay.getByRole('heading', { name: 'Schaden checken' })).toBeInViewport();
+            };
+            const istZu = async (page: Page) => {
+                const overlay = page.locator('#schadenModal');
+                await expect(overlay).not.toHaveClass(/is-open/);
+                await expect(overlay).toHaveCSS('opacity', '0');
+            };
+
+            test('Button öffnet das Overlay', async ({ page }) => {
+                await istZu(page);
+                await schadenCheck.click();
+                await istOffen(page);
+            });
+
+            test('Overlay schließt mit dem X', async ({ page }) => {
+                await schadenCheck.click();
+                await istOffen(page);
+                await page.locator('#schadenModalClose').click();
+                await istZu(page);
+            });
+
+            test('Overlay schließt mit der Escape-Taste', async ({ page }) => {
+                await schadenCheck.click();
+                await istOffen(page);
+                await page.keyboard.press('Escape');
+                await istZu(page);
+            });
+        });
+    });
+}
