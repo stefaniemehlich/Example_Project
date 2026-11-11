@@ -1,87 +1,116 @@
 import { expect, type Page } from '@playwright/test';
 
-// Gemeinsame Hilfsfunktionen für alle Slider (Galerie, Bewertungen)
+// Shared helper functions for all sliders (gallery, reviews)
 
-// Beschreibung eines Sliders für die gemeinsamen Prüfungen
+// Describes a slider for the shared checks
 export type Slider = {
-    name: string;                            // für Fehlermeldungen, z. B. 'Galerie'
-    weiter: string;                          // Selektor des Pfeils „weiter“
-    zurueck: string;                         // Selektor des Pfeils „zurück“
-    aktiv: (page: Page) => Promise<string>;  // Kennung des aktiven Slides (z. B. Bild-Adresse oder Name)
+    name: string;                                  // for error messages, e.g. 'Galerie'
+    next: string;                                  // accessible name of the "next" arrow, e.g. 'Nächstes Bild'
+    prev: string;                                  // accessible name of the "previous" arrow
+    getActiveId: (page: Page) => Promise<string>;  // returns what identifies the active slide (e.g. image URL or name)
+    // returns the position the indicator shows (progress bar or dots): 1 = first slide
+    getIndicatorPosition: (page: Page, slideCount: number) => Promise<number>;
 };
 
-// Seite mit angehaltener Uhr öffnen: Auto-Play und Zeitverzögerungen
-// laufen nur weiter, wenn der Test die Zeit selbst vorspult.
-export async function oeffneMitAngehaltenerUhr(page: Page) {
-    const startzeit = new Date('2026-01-01T10:00:00');
-    await page.clock.install({ time: startzeit });
-    // install() allein lässt die Uhr normal weiterlaufen – daher anhalten
-    await page.clock.pauseAt(new Date(startzeit.getTime() + 1000));
+// Time to fast-forward after a click on an arrow:
+// a bit longer than animation + jump back in the page's script (SLIDE_ANIM_MS = 620)
+const ARROW_ANIMATION_MS = 700;
+
+// Margins around the auto-play interval: check shortly before it ends and shortly after
+const BEFORE_INTERVAL_MS = 200;
+const AFTER_INTERVAL_MS = 100;
+
+// ─── Helper functions ───────────────────────────────────────────
+
+// Open the page with a paused clock: auto-play and delays
+// only continue when the test fast-forwards the time itself.
+export async function openWithPausedClock(page: Page) {
+    // any fixed date works – it only has to be the same in every run
+    const startTime = new Date('2026-01-01T10:00:00');
+    await page.clock.install({ time: startTime });
+    // install() alone lets the clock keep running – so pause it
+    await page.clock.pauseAt(new Date(startTime.getTime() + 1000));
     await page.goto('/');
-    // Einblend-Animation (.reveal) abschalten: Sie lässt die Galerie beim ersten Sichtbarwerden
-    // hochgleiten, läuft mit angehaltener Uhr in Firefox nicht zuverlässig zu Ende
-    // und ein Klick auf den sich bewegenden Pfeil kann danebengehen.
+    // Switch off the reveal animation (.reveal): it slides the gallery up when it first becomes visible,
+    // does not finish reliably in Firefox with a paused clock,
+    // and a click on the moving arrow can miss.
     await page.addStyleTag({ content: '.reveal { opacity: 1 !important; transform: none !important; transition: none !important; }' });
-    // kurz vorspulen, damit die Scripts die Slider sichtbar schalten
+    // fast-forward briefly so the scripts make the sliders visible
     await page.clock.runFor(100);
 }
 
-// Pfeil klicken und warten, bis Animation + Rücksprung fertig sind (620 ms im Code)
-export async function klickePfeil(page: Page, selektor: string) {
-    await page.locator(selektor).click();
-    await page.clock.runFor(700);
+// Click an arrow and wait until animation + jump back are done
+export async function clickArrow(page: Page, name: string) {
+    await page.getByRole('button', { name, exact: true }).click();
+    await page.clock.runFor(ARROW_ANIMATION_MS);
 }
 
-// Auto-Play-Takt aus dem Quelltext lesen. Das Muster muss genau einmal vorkommen,
-// die Millisekunden stehen in der ersten Klammer des Musters.
-export async function taktAusQuelltext(page: Page, muster: RegExp, erwartet: string) {
-    const quelltext = await (await page.request.get('/')).text();
-    const treffer = [...quelltext.matchAll(new RegExp(muster.source, 'g'))];
-    expect(treffer.length, `Kein Auto-Play-Takt im Code gefunden (erwartet: ${erwartet})`).toBeGreaterThan(0);
-    // genau eine Stelle – sonst ist unklar, welcher Takt gilt
-    expect(treffer.length,
-        `Auto-Play-Takt mehrfach im Code gefunden: ${treffer.map(t => t[0]).join(', ')}`).toBe(1);
-    return Number(treffer[0][1]);
+// Read the auto-play interval from the source code. The pattern must occur exactly once,
+// the milliseconds are in the first group of the pattern.
+// patternDescription: readable form of the pattern for the error message
+export async function readIntervalFromSource(page: Page, pattern: RegExp, patternDescription: string) {
+    const source = await (await page.request.get('/')).text();
+    const matches = [...source.matchAll(new RegExp(pattern.source, 'g'))];
+    expect(matches.length, `Kein Auto-Play-Takt im Code gefunden (erwartet: ${patternDescription})`).toBeGreaterThan(0);
+    // exactly one place – otherwise it is unclear which interval applies
+    expect(matches.length,
+        `Auto-Play-Takt mehrfach im Code gefunden: ${matches.map(match => match[0]).join(', ')}`).toBe(1);
+    return Number(matches[0][1]);
 }
 
-// „weiter“ wechselt den Slide, „zurück“ führt wieder zum vorherigen
-export async function pruefePfeile(page: Page, s: Slider) {
-    const start = await s.aktiv(page);
+// ─── Checks ─────────────────────────────────────────────────────
 
-    await klickePfeil(page, s.weiter);
-    expect(await s.aktiv(page), `${s.name}: Pfeil „weiter“ wechselt nicht`).not.toBe(start);
+// "next" changes the slide, "previous" leads back to the one before
+export async function checkArrows(page: Page, slider: Slider) {
+    const startSlide = await slider.getActiveId(page);
 
-    await klickePfeil(page, s.zurueck);
-    expect(await s.aktiv(page), `${s.name}: Pfeil „zurück“ führt nicht zum vorherigen Slide`).toBe(start);
+    await clickArrow(page, slider.next);
+    expect(await slider.getActiveId(page), `${slider.name}: Pfeil „weiter“ wechselt nicht`).not.toBe(startSlide);
+
+    await clickArrow(page, slider.prev);
+    expect(await slider.getActiveId(page), `${slider.name}: Pfeil „zurück“ führt nicht zum vorherigen Slide`).toBe(startSlide);
 }
 
-// So oft „weiter“ klicken, wie es Slides gibt: Jeder kommt genau einmal dran,
-// danach geht es von vorn los. „Zurück“ vom ersten Slide führt zum letzten.
-export async function pruefeEndlosSchleife(page: Page, s: Slider, anzahl: number) {
-    expect(anzahl, `${s.name}: Für eine Schleife braucht es mindestens 2 Slides`).toBeGreaterThan(1);
+// The indicator (progress bar or dots) shows the expected position: 1 = first slide
+async function expectIndicatorPosition(page: Page, slider: Slider, slideCount: number, expectedPosition: number) {
+    const position = await slider.getIndicatorPosition(page, slideCount);
+    // toBeCloseTo: a progress bar width like 33.3333 % does not give an exact whole number
+    expect(position, `${slider.name}: Anzeige steht nicht auf Position ${expectedPosition} von ${slideCount}`).toBeCloseTo(expectedPosition, 2);
+}
 
-    const gesehen = [await s.aktiv(page)];
-    for (let i = 0; i < anzahl; i++) {
-        await klickePfeil(page, s.weiter);
-        gesehen.push(await s.aktiv(page));
+// Click "next" as often as there are slides: each one is shown exactly once,
+// then it starts over. "Previous" from the first slide leads to the last.
+// The indicator shows the position of the active slide the whole time.
+export async function checkEndlessLoop(page: Page, slider: Slider, slideCount: number) {
+    expect(slideCount, `${slider.name}: Für eine Schleife braucht es mindestens 2 Slides`).toBeGreaterThan(1);
+
+    // the start slide plus the slide after each click: slideCount + 1 entries
+    const seenSlides = [await slider.getActiveId(page)];
+    await expectIndicatorPosition(page, slider, slideCount, 1);
+    for (let i = 0; i < slideCount; i++) {
+        await clickArrow(page, slider.next);
+        seenSlides.push(await slider.getActiveId(page));
+        // position 2 after the first click, back to 1 after the last
+        await expectIndicatorPosition(page, slider, slideCount, (i + 1) % slideCount + 1);
     }
 
-    expect(new Set(gesehen.slice(0, anzahl)).size,
-        `${s.name}: Nicht jeder Slide wurde einmal gezeigt (Reihenfolge: ${gesehen.join(' → ')})`).toBe(anzahl);
-    expect(gesehen[anzahl], `${s.name}: Nach einer Runde nicht wieder beim ersten Slide`).toBe(gesehen[0]);
+    expect(new Set(seenSlides.slice(0, slideCount)).size,
+        `${slider.name}: Nicht jeder Slide wurde einmal gezeigt (Reihenfolge: ${seenSlides.join(' → ')})`).toBe(slideCount);
+    expect(seenSlides[slideCount], `${slider.name}: Nach einer Runde nicht wieder beim ersten Slide`).toBe(seenSlides[0]);
 
-    await klickePfeil(page, s.zurueck);
-    expect(await s.aktiv(page), `${s.name}: „Zurück“ vom ersten Slide zeigt nicht den letzten`).toBe(gesehen[anzahl - 1]);
+    await clickArrow(page, slider.prev);
+    expect(await slider.getActiveId(page), `${slider.name}: „Zurück“ vom ersten Slide zeigt nicht den letzten`).toBe(seenSlides[slideCount - 1]);
+    await expectIndicatorPosition(page, slider, slideCount, slideCount);
 }
 
-// Kurz vor Ablauf des Takts noch derselbe Slide, kurz danach ein neuer.
-// Direkt nach oeffneMitAngehaltenerUhr aufrufen (dort sind schon 100 ms vergangen).
-export async function pruefeAutoplay(page: Page, s: Slider, takt: number) {
-    const start = await s.aktiv(page);
+// Shortly before the interval ends still the same slide, shortly after a new one.
+// Call right after openWithPausedClock (100 ms have already passed there).
+export async function checkAutoplay(page: Page, slider: Slider, interval: number) {
+    const startSlide = await slider.getActiveId(page);
 
-    await page.clock.runFor(takt - 200);
-    expect(await s.aktiv(page), `${s.name}: wechselt früher als nach ${takt} ms`).toBe(start);
+    await page.clock.runFor(interval - BEFORE_INTERVAL_MS);
+    expect(await slider.getActiveId(page), `${slider.name}: wechselt früher als nach ${interval} ms`).toBe(startSlide);
 
-    await page.clock.runFor(300);
-    expect(await s.aktiv(page), `${s.name}: kein automatischer Wechsel nach ${takt} ms`).not.toBe(start);
+    await page.clock.runFor(BEFORE_INTERVAL_MS + AFTER_INTERVAL_MS);
+    expect(await slider.getActiveId(page), `${slider.name}: kein automatischer Wechsel nach ${interval} ms`).not.toBe(startSlide);
 }

@@ -1,178 +1,199 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Locator } from '@playwright/test';
+import { expectedResult } from './helpers/addExpectedResult';
+import { normalizeWhitespace } from './helpers/normalizeWhitespace';
 
-const MIN_ANTWORTLAENGE = 50;
+const MIN_ANSWER_LENGTH = 50;
 
-// Leerraum (Zeilenumbrüche, Einrückungen) zu einem Leerzeichen zusammenfassen
-function bereinigt(text: string | null) {
-    return (text ?? '').replace(/\s+/g, ' ').trim();
-}
+// The button with the question text inside an FAQ entry
+const questionButton = (item: Locator) => item.getByRole('button');
 
-// ─── Verhalten ──────────────────────────────────────────────────
+// ─── Behavior ───────────────────────────────────────────────────
 
-// Desktop (ab 821 px): Liste links, Bild rechts – immer genau eine Frage offen
-// Handy (bis 820 px):  Akkordeon ohne Bild – beim Laden alle zu, erneuter Klick klappt zu
-const ansichten = [
-    { name: 'Desktop', width: 1280, height: 800, offenBeimLaden: 1, erneuterKlickSchliesst: false },
-    { name: 'Handy',   width: 390,  height: 844, offenBeimLaden: 0, erneuterKlickSchliesst: true },
+// Desktop (from 821 px): list on the left, image on the right – always exactly one question open
+// Smartphone (up to 820 px): accordion without image – all closed on load, a second click collapses
+const viewports = [
+    { name: 'Desktop', width: 1280, height: 800, openOnLoad: 1, secondClickCloses: false },
+    { name: 'Smartphone', width: 390, height: 844, openOnLoad: 0, secondClickCloses: true },
 ];
 
-for (const a of ansichten) {
-    test.describe(`FAQ (${a.name})`, () => {
-        test.use({ viewport: { width: a.width, height: a.height } });
+for (const viewport of viewports) {
+    test.describe(`FAQ (${viewport.name})`, () => {
+        test.use({ viewport: { width: viewport.width, height: viewport.height } });
 
-        test(`zu jeder Frage gibt es eine Antwort ab ${MIN_ANTWORTLAENGE} Zeichen und ein Bild`, async ({ page }) => {
+        test(`zu jeder Frage gibt es eine Antwort mit mind. ${MIN_ANSWER_LENGTH} Zeichen und ein Bild`, expectedResult(
+            `Jeder FAQ-Eintrag hat eine Frage, eine Antwort mit mind. ${MIN_ANSWER_LENGTH} Zeichen und ein Bild; nach dem Klick wird das passende Bild eingesetzt`
+        ), async ({ page }) => {
             await page.goto('/');
 
-            const eintraege = page.locator('.faq__item');
-            const anzahl = await eintraege.count();
-            expect(anzahl, 'Keine FAQ-Einträge gefunden (Klasse .faq__item)').toBeGreaterThan(0);
+            const items = page.locator('.faq__item');
+            const itemCount = await items.count();
+            expect(itemCount, 'Keine FAQ-Einträge gefunden (Klasse .faq__item)').toBeGreaterThan(0);
 
-            for (let i = 0; i < anzahl; i++) {
-                const eintrag = eintraege.nth(i);
+            for (let i = 0; i < itemCount; i++) {
+                const item = items.nth(i);
 
-                const frage = bereinigt(await eintrag.locator('.faq__question').textContent());
-                const wer = frage ? `„${frage}“` : `FAQ Nr. ${i + 1}`;
-                // expect.soft: Test läuft weiter, am Ende werden alle Fehler gemeinsam gemeldet
-                expect.soft(frage, `FAQ Nr. ${i + 1} hat keine Frage`).not.toBe('');
+                const question = normalizeWhitespace(await questionButton(item).textContent());
+                const label = question ? `„${question}“` : `FAQ Nr. ${i + 1}`;
+                // expect.soft: the test keeps running, all failures are reported together at the end
+                expect.soft(question, `FAQ Nr. ${i + 1} hat keine Frage`).not.toBe('');
 
-                const antwort = bereinigt(await eintrag.locator('.faq__answer').textContent());
-                expect.soft(antwort.length, `${wer}: Antwort zu kurz (${antwort.length} Zeichen, mind. ${MIN_ANTWORTLAENGE})`)
-                    .toBeGreaterThanOrEqual(MIN_ANTWORTLAENGE);
+                const answer = normalizeWhitespace(await item.locator('.faq__answer').textContent());
+                expect.soft(answer.length, `${label}: Antwort zu kurz (${answer.length} Zeichen, mind. ${MIN_ANSWER_LENGTH})`)
+                    .toBeGreaterThanOrEqual(MIN_ANSWER_LENGTH);
 
-                // Bild hinterlegt …
-                const bildUrl = (await eintrag.getAttribute('data-img')) ?? '';
-                expect.soft(bildUrl, `${wer}: kein Bild hinterlegt (data-img)`).not.toBe('');
+                // image is set …
+                const imageUrl = (await item.getAttribute('data-img')) ?? '';
+                expect.soft(imageUrl, `${label}: kein Bild hinterlegt (data-img)`).not.toBe('');
 
-                // … und wird nach dem Klick eingesetzt (das Script tauscht es nach 300 ms;
-                // auf dem Handy ist das Bild ausgeblendet, wird aber trotzdem gewechselt)
-                await eintrag.locator('.faq__question').click();
-                await expect.soft(page.locator('#faqImg'), `${wer}: nach dem Klick wird nicht das passende Bild eingesetzt`)
-                    .toHaveAttribute('src', bildUrl);
+                // … and is inserted after the click (the script swaps it after 300 ms;
+                // on smartphones the image is hidden but still swapped)
+                await questionButton(item).click();
+                await expect.soft(page.locator('#faqImg'), `${label}: nach dem Klick wird nicht das passende Bild eingesetzt`)
+                    .toHaveAttribute('src', imageUrl);
             }
         });
 
-        test(`beim Laden ${a.offenBeimLaden} Frage offen, nach jedem Klick genau die angeklickte`, async ({ page }) => {
+        test(`beim Laden ${viewport.openOnLoad} Frage(n) offen, nach jedem Klick nur genau die Angeklickte`, expectedResult(
+            `Beim Laden ist ${viewport.openOnLoad === 1 ? 'genau eine' : 'keine'} Frage offen; nach jedem Klick ist nur die angeklickte Frage aktiv`
+        ), async ({ page }) => {
             await page.goto('/');
 
-            const eintraege = page.locator('.faq__item');
-            const aktive = page.locator('.faq__item.is-active');
-            await expect(aktive, `Beim Laden sind nicht genau ${a.offenBeimLaden} Fragen offen`).toHaveCount(a.offenBeimLaden);
+            const items = page.locator('.faq__item');
+            const activeItems = page.locator('.faq__item.is-active');
+            await expect(activeItems, `Beim Laden sind nicht genau ${viewport.openOnLoad} Frage(n) offen`).toHaveCount(viewport.openOnLoad);
 
-            const anzahl = await eintraege.count();
-            for (let i = 0; i < anzahl; i++) {
-                await eintraege.nth(i).locator('.faq__question').click();
-                await expect(eintraege.nth(i), `FAQ Nr. ${i + 1} ist nach dem Klick nicht aktiv`).toHaveClass(/is-active/);
-                await expect(aktive, `Nach Klick auf FAQ Nr. ${i + 1} ist nicht genau eine Frage aktiv`).toHaveCount(1);
+            const itemCount = await items.count();
+            for (let i = 0; i < itemCount; i++) {
+                await questionButton(items.nth(i)).click();
+                await expect(items.nth(i), `FAQ Nr. ${i + 1} ist nach dem Klick nicht aktiv`).toHaveClass(/is-active/);
+                await expect(activeItems, `Nach Klick auf FAQ Nr. ${i + 1} ist nicht genau eine Frage aktiv`).toHaveCount(1);
             }
         });
 
-        test('Antworten sind nur bei der aktiven Frage sichtbar', async ({ page }) => {
+        test('Antworten sind nur bei der aktiven Frage sichtbar', expectedResult(
+            'Beim Laden und nach jedem Klick ist nur die Antwort der aktiven Frage sichtbar, alle anderen sind ausgeblendet'
+        ), async ({ page }) => {
             await page.goto('/');
 
-            const eintraege = page.locator('.faq__item');
-            const anzahl = await eintraege.count();
+            const items = page.locator('.faq__item');
+            const itemCount = await items.count();
 
-            // prüft alle Antworten: nur die von Nr. „offen“ ist sichtbar
-            async function nurOffen(offen: number, wann: string) {
-                for (let j = 0; j < anzahl; j++) {
-                    const antwort = eintraege.nth(j).locator('.faq__answer');
-                    if (j === offen) await expect(antwort, `${wann}: Antwort Nr. ${j + 1} ist nicht sichtbar`).toBeVisible();
-                    else             await expect(antwort, `${wann}: Antwort Nr. ${j + 1} ist sichtbar, obwohl nicht aktiv`).toBeHidden();
+            // checks all answers: only the one at index "openIndex" is visible, all others are hidden
+            async function expectOnlyAnswerVisible(openIndex: number, when: string) {
+                for (let j = 0; j < itemCount; j++) {
+                    const answer = items.nth(j).locator('.faq__answer');
+                    if (j === openIndex) await expect(answer, `${when}: Antwort Nr. ${j + 1} ist nicht sichtbar`).toBeVisible();
+                    else                 await expect(answer, `${when}: Antwort Nr. ${j + 1} ist sichtbar, obwohl nicht aktiv`).toBeHidden();
                 }
             }
 
-            // beim Laden: die Antwort der aktiven Frage
-            const startIndex = await eintraege.evaluateAll(el => el.findIndex(e => e.classList.contains('is-active')));
-            await nurOffen(startIndex, 'Beim Laden');
+            // on load: the answer of the active question
+            // (-1 if no question is open, as on smartphones: then all answers must be hidden)
+            const startIndex = await items.evaluateAll(elements => elements.findIndex(element => element.classList.contains('is-active')));
+            await expectOnlyAnswerVisible(startIndex, 'Beim Laden');
 
-            for (let i = 0; i < anzahl; i++) {
-                await eintraege.nth(i).locator('.faq__question').click();
-                await nurOffen(i, `Nach Klick auf FAQ Nr. ${i + 1}`);
+            for (let i = 0; i < itemCount; i++) {
+                await questionButton(items.nth(i)).click();
+                await expectOnlyAnswerVisible(i, `Nach Klick auf FAQ Nr. ${i + 1}`);
             }
         });
 
-        test(`erneuter Klick auf die offene Frage ${a.erneuterKlickSchliesst ? 'klappt sie zu' : 'lässt sie offen'}`, async ({ page }) => {
+        test(`erneuter Klick auf die offene Frage ${viewport.secondClickCloses ? 'klappt sie zu' : 'lässt sie offen'}`, expectedResult(
+            viewport.secondClickCloses
+                ? 'Frage klappt zu, Antwort ist ausgeblendet, keine Frage ist mehr offen'
+                : 'Frage bleibt offen, Antwort bleibt sichtbar, genau eine Frage ist offen'
+        ), async ({ page }) => {
             await page.goto('/');
 
-            const eintraege = page.locator('.faq__item');
-            expect(await eintraege.count(), 'Für diesen Test braucht es mindestens 2 Fragen').toBeGreaterThan(1);
+            const items = page.locator('.faq__item');
+            expect(await items.count(), 'Für diesen Test braucht es mindestens 2 Fragen').toBeGreaterThan(1);
 
-            // zweite Frage öffnen und dann noch einmal anklicken
-            const eintrag = eintraege.nth(1);
-            await eintrag.locator('.faq__question').click();
-            await eintrag.locator('.faq__question').click();
+            // open the second question and then click it again
+            const item = items.nth(1);
+            await questionButton(item).click();
+            await questionButton(item).click();
 
-            if (a.erneuterKlickSchliesst) {
-                await expect(eintrag, 'Frage ist nach erneutem Klick noch offen').not.toHaveClass(/is-active/);
-                await expect(eintrag.locator('.faq__answer'), 'Antwort ist nach erneutem Klick noch sichtbar').toBeHidden();
+            if (viewport.secondClickCloses) {
+                await expect(item, 'Frage ist nach erneutem Klick noch offen').not.toHaveClass(/is-active/);
+                await expect(item.locator('.faq__answer'), 'Antwort ist nach erneutem Klick noch sichtbar').toBeHidden();
                 await expect(page.locator('.faq__item.is-active'), 'Es ist noch eine Frage offen').toHaveCount(0);
             } else {
-                await expect(eintrag, 'Frage ist nach erneutem Klick nicht mehr offen').toHaveClass(/is-active/);
-                await expect(eintrag.locator('.faq__answer'), 'Antwort ist nach erneutem Klick nicht mehr sichtbar').toBeVisible();
+                await expect(item, 'Frage ist nach erneutem Klick nicht mehr offen').toHaveClass(/is-active/);
+                await expect(item.locator('.faq__answer'), 'Antwort ist nach erneutem Klick nicht mehr sichtbar').toBeVisible();
                 await expect(page.locator('.faq__item.is-active'), 'Nicht genau eine Frage offen').toHaveCount(1);
             }
         });
 
-        test('Fragen lassen sich per Tastatur öffnen', async ({ page }) => {
+        test('Fragen lassen sich per Tastatur öffnen', expectedResult(
+            'Frage ist fokussierbar und öffnet mit Enter; aria-expanded ist bei der offenen Frage "true", bei der geschlossenen "false"'
+        ), async ({ page }) => {
             await page.goto('/');
 
-            const eintraege = page.locator('.faq__item');
-            expect(await eintraege.count(), 'Für diesen Test braucht es mindestens 2 Fragen').toBeGreaterThan(1);
+            const items = page.locator('.faq__item');
+            expect(await items.count(), 'Für diesen Test braucht es mindestens 2 Fragen').toBeGreaterThan(1);
 
-            // zweite Frage mit der Tastatur ansteuern und mit Enter öffnen
-            const frage = eintraege.nth(1).locator('.faq__question');
-            await frage.focus();
-            await expect(frage, 'Frage lässt sich nicht mit der Tastatur ansteuern').toBeFocused();
+            // set the focus on the second question and open it with Enter
+            const question = questionButton(items.nth(1));
+            await question.focus();
+            await expect(question, 'Frage lässt sich nicht fokussieren').toBeFocused();
             await page.keyboard.press('Enter');
 
-            await expect(eintraege.nth(1), 'Frage ist nach Enter nicht aktiv').toHaveClass(/is-active/);
-            // Screenreader erfahren über aria-expanded, welche Frage offen ist
-            await expect(frage, 'aria-expanded der geöffneten Frage ist nicht "true"').toHaveAttribute('aria-expanded', 'true');
-            await expect(eintraege.nth(0).locator('.faq__question'), 'aria-expanded der geschlossenen Frage ist nicht "false"')
+            await expect(items.nth(1), 'Frage ist nach Enter nicht aktiv').toHaveClass(/is-active/);
+            // screen readers learn from aria-expanded which question is open
+            await expect(question, 'aria-expanded der geöffneten Frage ist nicht "true"').toHaveAttribute('aria-expanded', 'true');
+            await expect(questionButton(items.nth(0)), 'aria-expanded der geschlossenen Frage ist nicht "false"')
                 .toHaveAttribute('aria-expanded', 'false');
         });
     });
 }
 
-test('FAQ: jedes Bild wird nur bei einer Frage verwendet', async ({ page }) => {
+// ─── Content ────────────────────────────────────────────────────
+
+test('FAQ: jedes Bild wird nur bei einer Frage verwendet', expectedResult(
+    'Kein Bild (data-img) ist bei mehr als einer Frage hinterlegt'
+), async ({ page }) => {
     await page.goto('/');
 
-    const bilder = await page.locator('.faq__item').evaluateAll(el => el.map(e => e.getAttribute('data-img') ?? ''));
-    const doppelt = [...new Set(bilder.filter((b, i) => bilder.indexOf(b) !== i))];
-    expect(doppelt, 'Diese Bilder werden bei mehreren Fragen verwendet').toEqual([]);
+    const imageUrls = await page.locator('.faq__item').evaluateAll(faqItems => faqItems.map(item => item.getAttribute('data-img') ?? ''));
+    const duplicates = [...new Set(imageUrls.filter((imageUrl, i) => imageUrls.indexOf(imageUrl) !== i))];
+    expect(duplicates, 'Diese Bilder werden bei mehreren Fragen verwendet').toEqual([]);
 });
 
-// ─── Antworten werden nicht abgeschnitten ───────────────────────
+// ─── Answers are not cut off ────────────────────────────────────
 
-// offene Antworten sind höchstens 300 px (Handy) bzw. 200 px (Desktop) hoch –
-// geprüft wird jeweils an den engsten Stellen
-const breiten = [320, 390, 820, 821, 1280, 1920];
+// open answers are at most 300 px (smartphone) or 200 px (desktop) high –
+// checked at the narrowest width of each layout
+//
+// more widths need to be added if the font size ever scales with the viewport (e.g. clamp)
+const widths = [320, 821];
 
-for (const breite of breiten) {
-    test.describe(`FAQ bei ${breite} px`, () => {
-        test.use({ viewport: { width: breite, height: 900 } });
+for (const width of widths) {
+    test.describe(`FAQ bei ${width} px`, () => {
+        test.use({ viewport: { width, height: 900 } });
 
-        test('keine Antwort wird abgeschnitten', async ({ page }) => {
+        test('keine Antwort wird abgeschnitten', expectedResult(
+            'Jede geöffnete Antwort passt vollständig in ihre Box, nichts wird abgeschnitten'
+        ), async ({ page }) => {
             await page.goto('/');
 
-            const eintraege = page.locator('.faq__item');
-            const anzahl = await eintraege.count();
+            const items = page.locator('.faq__item');
+            const itemCount = await items.count();
 
-            for (let i = 0; i < anzahl; i++) {
-                const eintrag = eintraege.nth(i);
-                const frage = bereinigt(await eintrag.locator('.faq__question').textContent());
-                const antwort = eintrag.locator('.faq__answer');
+            for (let i = 0; i < itemCount; i++) {
+                const item = items.nth(i);
+                const question = normalizeWhitespace(await questionButton(item).textContent());
+                const answer = item.locator('.faq__answer');
 
-                await eintrag.locator('.faq__question').click();
-                // so lange messen, bis die Aufklapp-Animation fertig ist:
-                // was nicht in die Box passt, ist abgeschnitten
+                await questionButton(item).click();
+                // keep measuring until the expand animation is done:
+                // whatever does not fit into the box is cut off (1 px is allowed for rounding)
                 await expect.soft
-                    .poll(() => antwort.evaluate(el => el.scrollHeight - el.clientHeight),
-                        { message: `Antwort zu „${frage}“ wird abgeschnitten (zu lang für die maximale Höhe)` })
+                    .poll(() => answer.evaluate(element => element.scrollHeight - element.clientHeight),
+                        { message: `Antwort zu „${question}“ wird abgeschnitten (zu lang für die maximale Höhe)` })
                     .toBeLessThanOrEqual(1);
             }
         });
     });
 }
 
-// Gleichheit von SEO-Schema und FAQ prüft tests/seo.spec.ts
+// tests/seo.spec.ts checks that the SEO schema and the FAQ match

@@ -1,146 +1,207 @@
 import { test, expect, type Page } from '@playwright/test';
+import { expectedResult } from './helpers/addExpectedResult';
+import { normalizeWhitespace } from './helpers/normalizeWhitespace';
 import {
-    type Slider, oeffneMitAngehaltenerUhr, taktAusQuelltext,
-    pruefePfeile, pruefeEndlosSchleife, pruefeAutoplay,
+    type Slider, openWithPausedClock, readIntervalFromSource,
+    checkArrows, checkEndlessLoop, checkAutoplay,
 } from './helpers/slider';
 
-const MIN_TEXTLAENGE = 50;
+const MIN_TEXT_LENGTH = 50;
 
-// ─── Hilfsfunktionen nur für die Bewertungen ────────────────────
+// ─── Helper functions for the reviews only ──────────────────────
 
-// Name in der gerade aktiven Bewertung
-async function aktiverName(page: Page) {
-    const name = page.locator('.reviews__slide.is-active .reviews__name');
-    await expect(name, 'Nicht genau eine aktive Bewertung').toHaveCount(1);
-    return ((await name.textContent()) ?? '').trim();
+// Name in the currently active review
+async function getActiveName(page: Page) {
+    const nameElement = page.locator('.reviews__slide.is-active .reviews__name');
+    await expect(nameElement, 'Nicht genau eine aktive Bewertung').toHaveCount(1);
+    return ((await nameElement.textContent()) ?? '').trim();
 }
 
-// Alle Namen, jeder nur einmal (das Script legt Kopien der Slides an)
-async function alleNamen(page: Page) {
-    const namen = await page.locator('.reviews__name').allTextContents();
-    return [...new Set(namen.map(n => n.trim()))];
+// All names, each only once (the script creates copies of the slides)
+async function getAllNames(page: Page) {
+    const names = await page.locator('.reviews__name').allTextContents();
+    return [...new Set(names.map(name => name.trim()))];
 }
 
-const bewertungen: Slider = {
+// Position of the active dot above the reviews: 1 = first dot
+async function getActiveDotPosition(page: Page, reviewCount: number) {
+    const dotStates = await page.locator('#reviewsDots .dot')
+        .evaluateAll(dots => dots.map(dot => dot.classList.contains('active')));
+    expect(dotStates.length, 'Anzahl der Punkte passt nicht zur Anzahl der Bewertungen').toBe(reviewCount);
+    expect(dotStates.filter(isActive => isActive).length, 'Nicht genau ein aktiver Punkt').toBe(1);
+    return dotStates.indexOf(true) + 1;
+}
+
+// ─── Test data ──────────────────────────────────────────────────
+
+// Describes the reviews slider for the shared checks in helpers/slider.ts
+const reviewsSlider: Slider = {
     name: 'Bewertungen',
-    weiter: '#reviewsNext',
-    zurueck: '#reviewsPrev',
-    aktiv: aktiverName,
+    next: 'Nächste Bewertung',
+    prev: 'Vorherige Bewertung',
+    getActiveId: getActiveName,
+    getIndicatorPosition: getActiveDotPosition,
 };
 
-// ─── Inhalt ─────────────────────────────────────────────────────
+// Text shown next to the stars, depending on how long ago the review was written
+const timeTexts = [
+    { monthsLater: 0, text: 'diesen Monat' },
+    { monthsLater: 1, text: 'vor 1 Monat' },
+    { monthsLater: 11, text: 'vor 11 Monaten' },
+    { monthsLater: 12, text: 'vor 1 Jahr' },
+    { monthsLater: 24, text: 'vor 2 Jahren' },
+];
+
+// ─── Content ────────────────────────────────────────────────────
 
 test.describe('Bewertungen: Inhalt', () => {
-    // ohne JavaScript steht nur im DOM, was in der HTML-Datei steht – also keine Slide-Kopien
+    // without JavaScript the DOM only contains what is in the HTML file – so no slide copies
     test.use({ javaScriptEnabled: false });
 
-    test(`jede Bewertung hat Name, 1–5 Sterne, Text ab ${MIN_TEXTLAENGE} Zeichen und gültiges Datum`, async ({ page }) => {
+    test(`jede Bewertung hat Name, 1–5 Sterne, Text ab ${MIN_TEXT_LENGTH} Zeichen und gültiges Datum`, expectedResult(
+        `Jede Bewertung hat einen Namen, 1–5 Sterne, einen Text ab ${MIN_TEXT_LENGTH} Zeichen und ein Datum im Format JJJJ-MM, das nicht in der Zukunft liegt`
+    ), async ({ page }) => {
         await page.goto('/');
 
-        const karten = page.locator('.reviews__slide');
-        const anzahl = await karten.count();
-        expect(anzahl, 'Keine Bewertungen gefunden (Klasse .reviews__slide)').toBeGreaterThan(0);
+        const cards = page.locator('.reviews__slide');
+        const cardCount = await cards.count();
+        expect(cardCount, 'Keine Bewertungen gefunden (Klasse .reviews__slide)').toBeGreaterThan(0);
 
-        // aktueller Monat als JJJJ-MM, zum Vergleich mit dem Bewertungsdatum
-        const jetzt = new Date();
-        const aktuellerMonat = `${jetzt.getFullYear()}-${String(jetzt.getMonth() + 1).padStart(2, '0')}`;
+        // current month as YYYY-MM, to compare with the review date
+        const now = new Date();
+        const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
 
-        for (let i = 0; i < anzahl; i++) {
-            const karte = karten.nth(i);
+        for (let i = 0; i < cardCount; i++) {
+            const card = cards.nth(i);
 
-            // Name
-            const name = ((await karte.locator('.reviews__name').textContent()) ?? '').trim();
-            const wer = name || `Bewertung Nr. ${i + 1}`;
-            // expect.soft: Test läuft weiter, am Ende werden alle Fehler gemeinsam gemeldet
+            const name = ((await card.locator('.reviews__name').textContent()) ?? '').trim();
+            const label = name || `Bewertung Nr. ${i + 1}`;
+            // expect.soft: the test keeps running, all failures are reported together at the end
             expect.soft(name, `Bewertung Nr. ${i + 1} hat keinen Namen`).not.toBe('');
 
-            // Sterne: nur ★, mindestens 1, höchstens 5
-            const sterne = ((await karte.locator('.reviews__stars').textContent()) ?? '').trim();
-            expect.soft(sterne, `${wer}: Sterne müssen 1–5 × ★ sein, gefunden: „${sterne}“`).toMatch(/^★{1,5}$/);
+            // Stars: only ★, at least 1, at most 5
+            const stars = ((await card.locator('.reviews__stars').textContent()) ?? '').trim();
+            expect.soft(stars, `${label}: Sterne müssen 1–5 × ★ sein, gefunden: „${stars}“`).toMatch(/^★{1,5}$/);
 
-            // Text: Zeilenumbrüche und Einrückungen zu einem Leerzeichen zusammenfassen
-            const text = ((await karte.locator('.reviews__quote').textContent()) ?? '').replace(/\s+/g, ' ').trim();
-            expect.soft(text.length, `${wer}: Text zu kurz (${text.length} Zeichen, mind. ${MIN_TEXTLAENGE})`)
-                .toBeGreaterThanOrEqual(MIN_TEXTLAENGE);
+            // Text: long enough
+            const text = normalizeWhitespace(await card.locator('.reviews__quote').textContent());
+            expect.soft(text.length, `${label}: Text zu kurz (${text.length} Zeichen, mind. ${MIN_TEXT_LENGTH})`)
+                .toBeGreaterThanOrEqual(MIN_TEXT_LENGTH);
 
-            // Datum: Format JJJJ-MM und nicht in der Zukunft
-            const datum = (await karte.locator('.reviews__source').getAttribute('data-review-date')) ?? '';
-            expect.soft(datum, `${wer}: Datum muss im Format JJJJ-MM sein, gefunden: „${datum}“`)
+            // Date: format YYYY-MM and not in the future
+            const date = (await card.locator('.reviews__source').getAttribute('data-review-date')) ?? '';
+            expect.soft(date, `${label}: Datum muss im Format JJJJ-MM sein, gefunden: „${date}“`)
                 .toMatch(/^\d{4}-(0[1-9]|1[0-2])$/);
-            expect.soft(datum <= aktuellerMonat, `${wer}: Datum ${datum} liegt in der Zukunft`).toBe(true);
+            // comparing the texts is enough: YYYY-MM sorts alphabetically in the same order as by date
+            expect.soft(date <= currentMonth, `${label}: Datum ${date} liegt in der Zukunft`).toBe(true);
         }
     });
 
-    test('kein Name kommt doppelt vor', async ({ page }) => {
+    // The slider tests recognize the active review by its name, so the names must also be unique for them
+    test('kein Name kommt doppelt vor', expectedResult(
+        'Jeder Name steht nur einmal auf der Seite'
+    ), async ({ page }) => {
         await page.goto('/');
 
-        const namen = (await page.locator('.reviews__name').allTextContents()).map(n => n.trim());
-        const doppelt = namen.filter((n, i) => namen.indexOf(n) !== i);
-        expect(doppelt, 'Diese Bewertungen stehen mehrfach auf der Seite').toEqual([]);
+        const names = (await page.locator('.reviews__name').allTextContents()).map(name => name.trim());
+        const duplicates = names.filter((name, i) => names.indexOf(name) !== i);
+        expect(duplicates, 'Diese Bewertungen stehen mehrfach auf der Seite').toEqual([]);
     });
 });
 
+// ─── Time text ──────────────────────────────────────────────────
+
+// The script turns the review date (data-review-date) into a text like "vor 3 Monaten".
+// The browser clock is set to a fixed day, a given number of months after the first review.
+for (const timeText of timeTexts) {
+    test(`Bewertungen: Zeitangabe ${timeText.monthsLater} Monat(e) nach der Bewertung`, expectedResult(
+        `Neben den Sternen steht „${timeText.text}“`
+    ), async ({ page }) => {
+        await page.goto('/');
+
+        // date of the first review, e.g. '2025-11'
+        const reviewDate = (await page.locator('[data-review-date]').first().getAttribute('data-review-date')) ?? '';
+        expect(reviewDate, 'Datum der ersten Bewertung nicht im Format JJJJ-MM').toMatch(/^\d{4}-(0[1-9]|1[0-2])$/);
+        const [year, month] = reviewDate.split('-').map(Number);
+
+        // the 15th of the month, monthsLater months after the review (Date counts months from 0)
+        await page.clock.setFixedTime(new Date(year, month - 1 + timeText.monthsLater, 15));
+        await page.reload();
+
+        // every review with this date shows the same text, including the slide copies
+        const timeElement = page.locator(`.reviews__source[data-review-date="${reviewDate}"]`).first();
+        await expect(timeElement, `Falsche Zeitangabe für das Datum ${reviewDate}`).toHaveText(timeText.text);
+    });
+}
+
 // ─── Slider ─────────────────────────────────────────────────────
 
-test('Bewertungen: Pfeile vor/zurück wechseln die Bewertung', async ({ page }) => {
-    await oeffneMitAngehaltenerUhr(page);
-    await pruefePfeile(page, bewertungen);
+test('Bewertungen: Pfeile vor/zurück wechseln die Bewertung', expectedResult(
+    '„Weiter“ zeigt eine andere Bewertung, „zurück“ wieder die vorherige'
+), async ({ page }) => {
+    await openWithPausedClock(page);
+    await checkArrows(page, reviewsSlider);
 });
 
-test('Bewertungen: Endlos-Schleife in beide Richtungen', async ({ page }) => {
-    await oeffneMitAngehaltenerUhr(page);
-    const anzahl = (await alleNamen(page)).length;
-    await pruefeEndlosSchleife(page, bewertungen, anzahl);
+test('Bewertungen: Endlos-Schleife in beide Richtungen', expectedResult(
+    'Jede Bewertung erscheint genau einmal, danach wieder die erste; „zurück“ von der ersten Bewertung zeigt die letzte; dabei ist immer genau der Punkt an der Position der Bewertung aktiv'
+), async ({ page }) => {
+    await openWithPausedClock(page);
+    const cardCount = (await getAllNames(page)).length;
+    await checkEndlessLoop(page, reviewsSlider, cardCount);
 });
 
-test('Bewertungen: Wechsel automatisch im eingestellten Takt', async ({ page }) => {
-    const takt = await taktAusQuelltext(page, /const\s+REVIEWS_TAKT_MS\s*=\s*(\d+)/, 'const REVIEWS_TAKT_MS = <ms>');
-    await oeffneMitAngehaltenerUhr(page);
-    await pruefeAutoplay(page, bewertungen, takt);
+test('Bewertungen: Wechsel automatisch im eingestellten Takt', expectedResult(
+    'Bewertung bleibt bis kurz vor Ablauf des im Code eingestellten Takts stehen und wechselt danach automatisch'
+), async ({ page }) => {
+    const interval = await readIntervalFromSource(page, /const\s+REVIEWS_TAKT_MS\s*=\s*(\d+)/, 'const REVIEWS_TAKT_MS = <ms>');
+    await openWithPausedClock(page);
+    await checkAutoplay(page, reviewsSlider, interval);
 });
 
-// ─── Nichts abgeschnitten ───────────────────────────────────────
+// ─── Nothing cut off ────────────────────────────────────────────
 
-// Bildschirmbreiten, jeweils an den Grenzen des Layouts
-// (bis 820 px: Mobil-Layout mit 600 px hohen Karten, ab 821 px: Desktop mit 300 px)
-const bildschirme = [
-    { name: 'Handy klein',          width: 320,  height: 640 },
-    { name: 'Handy',                width: 390,  height: 844 },
-    { name: 'letzte Mobil-Breite',  width: 820,  height: 1180 },
+// cards are 600 px high up to 820 px (smartphone layout) and 300 px high from 821 px (desktop) –
+// checked at the narrowest width of each layout
+//
+// more widths need to be added if the font size ever scales with the viewport (e.g. clamp)
+const viewports = [
+    { name: 'Smartphone klein',     width: 320,  height: 640 },
     { name: 'erste Desktop-Breite', width: 821,  height: 900 },
-    { name: 'Laptop',               width: 1280, height: 800 },
-    { name: 'Desktop breit',        width: 1920, height: 1080 },
 ];
 
-for (const b of bildschirme) {
-    test.describe(`Bewertungen bei ${b.width} px (${b.name})`, () => {
-        test.use({ viewport: { width: b.width, height: b.height } });
+for (const viewport of viewports) {
+    test.describe(`Bewertungen bei ${viewport.width} px (${viewport.name})`, () => {
+        test.use({ viewport: { width: viewport.width, height: viewport.height } });
 
-        test('kein Inhalt einer Karte wird abgeschnitten', async ({ page }) => {
+        test('kein Inhalt einer Karte wird abgeschnitten', expectedResult(
+            'Name, Sterne und Text jeder Bewertung liegen vollständig innerhalb der Karte'
+        ), async ({ page }) => {
             await page.goto('/');
-            // erst messen, wenn die echte Schrift geladen ist (font-display: swap)
+            // only measure once the real font has loaded (font-display: swap)
             await page.evaluate(() => document.fonts.ready);
 
-            const fehler = await page.locator('.reviews__slide').evaluateAll(karten => {
-                const meldungen: string[] = [];
-                for (const karte of karten) {
-                    const rahmen = karte.getBoundingClientRect();
-                    const name = karte.querySelector('.reviews__name')?.textContent?.trim() || '(ohne Name)';
+            const errors = await page.locator('.reviews__slide').evaluateAll(cards => {
+                const messages: string[] = [];
+                for (const card of cards) {
+                    const cardRect = card.getBoundingClientRect();
+                    const name = card.querySelector('.reviews__name')?.textContent?.trim() || '(ohne Name)';
 
-                    // jedes Element der Karte (Name, Sterne, Text) muss ganz drin liegen
-                    for (const teil of Array.from(karte.children)) {
-                        const box = teil.getBoundingClientRect();
-                        const obenRaus  = Math.round(rahmen.top - box.top);
-                        const untenRaus = Math.round(box.bottom - rahmen.bottom);
-                        if (obenRaus > 1)  meldungen.push(`${name}: „${teil.className}“ oben ${obenRaus} px abgeschnitten`);
-                        if (untenRaus > 1) meldungen.push(`${name}: „${teil.className}“ unten ${untenRaus} px abgeschnitten`);
+                    // every element of the card (name, stars, text) must lie completely inside
+                    // (1 px is allowed for rounding)
+                    for (const part of Array.from(card.children)) {
+                        const partRect = part.getBoundingClientRect();
+                        const overflowTop    = Math.round(cardRect.top - partRect.top);
+                        const overflowBottom = Math.round(partRect.bottom - cardRect.bottom);
+                        if (overflowTop > 1)    messages.push(`${name}: „${part.className}“ oben ${overflowTop} px abgeschnitten`);
+                        if (overflowBottom > 1) messages.push(`${name}: „${part.className}“ unten ${overflowBottom} px abgeschnitten`);
                     }
                 }
-                // Kopien der Slides liefern dieselben Meldungen – doppelte entfernen
-                return [...new Set(meldungen)];
+                // slide copies produce the same messages – remove duplicates
+                return [...new Set(messages)];
             });
 
-            expect(fehler, 'Inhalt von Bewertungskarten wird abgeschnitten').toEqual([]);
+            expect(errors, 'Inhalt von Bewertungskarten wird abgeschnitten').toEqual([]);
         });
     });
 }

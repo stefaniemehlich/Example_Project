@@ -1,53 +1,29 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
+import { expectedResult } from './helpers/addExpectedResult';
+import { type AnchorLink, checkAnchorLink } from './helpers/checkAnchorLink';
+import { checkLogoLink } from './helpers/checkLogoLink';
 
-//Nachhaltigkeit
-test('Footer-Nachhaltigkeit korrekt verlinkt', async ({ page }) => {
-  await page.goto('/');
-  
-  // Link im Footer suchen
-  const footer = page.getByRole('contentinfo');
-  const link = footer.getByRole('link', { name: 'Nachhaltigkeit' });
+// ─── Test data ──────────────────────────────────────────────────
 
-  // korrekte Verlinkung im html
-  await expect(link).toHaveAttribute('href', '#nachhaltigkeit');
-  await link.click();
-  // veränderte URL nach Klick
-  await expect(page).toHaveURL(/#nachhaltigkeit$/);
-  // im sichtbaren Teil der Seite?
-  await expect(page.locator('#nachhaltigkeit')).toBeInViewport();
+// links to be checked
+const footerLinks: AnchorLink[] = [
+    { name: 'Nachhaltigkeit', href: '#nachhaltigkeit' },
+    { name: 'Galerie', href: '#galerie' },
+    { name: 'Bewertungen', href: '#bewertungen' },
+];
+
+// ─── Tests ──────────────────────────────────────────────────────
+
+for (const link of footerLinks) {
+    test(`Footer: ${link.name} korrekt verlinkt`, expectedResult(
+        `Link führt auf ${link.href}; nach dem Klick endet die URL auf ${link.href} und der Abschnitt ist im sichtbaren Bereich`
+    ), async ({ page }) => {
+        await checkAnchorLink(page.getByRole('contentinfo'), link);
+    });
+}
+
+test('Footer: Logo führt zum Seitenanfang', expectedResult(
+    'Link führt auf #; nach dem Klick endet die URL auf # und die Seite steht wieder ganz oben'
+), async ({ page }) => {
+    await checkLogoLink(page.getByRole('contentinfo'));
 });
-
-//Galerie
-test('Footer-Galerie korrekt verlinkt', async ({ page }) => {
-  await page.goto('/');
-  
-  // Link im Footer suchen
-  const footer = page.getByRole('contentinfo');
-  const link = footer.getByRole('link', { name: 'galerie' });
-
-  // korrekte Verlinkung im html
-  await expect(link).toHaveAttribute('href', '#galerie');
-  await link.click();
-  // veränderte URL nach Klick
-  await expect(page).toHaveURL(/#galerie$/);
-  // im sichtbaren Teil der Seite?
-  await expect(page.locator('#galerie')).toBeInViewport();
-});
-
-//Galerie
-test('Footer-Bewertungen korrekt verlinkt', async ({ page }) => {
-  await page.goto('/');
-  
-  // Link im Footer suchen
-  const footer = page.getByRole('contentinfo');
-  const link = footer.getByRole('link', { name: 'bewertungen' });
-
-  // korrekte Verlinkung im html
-  await expect(link).toHaveAttribute('href', '#bewertungen');
-  await link.click();
-  // veränderte URL nach Klick
-  await expect(page).toHaveURL(/#bewertungen$/);
-  // im sichtbaren Teil der Seite?
-  await expect(page.locator('#bewertungen')).toBeInViewport();
-});
-

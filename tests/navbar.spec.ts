@@ -1,70 +1,31 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
+import { expectedResult } from './helpers/addExpectedResult';
+import { type AnchorLink, checkAnchorLink } from './helpers/checkAnchorLink';
+import { checkLogoLink } from './helpers/checkLogoLink';
 
-//Leistungen
-test('Navbar-Leistungen korrekt verlinkt', async ({ page }) => {
-  await page.goto('/');
-  
-  // Link in der Hauptnavigation suchen
-  const nav = page.getByRole('navigation', { name: 'Hauptnavigation' });
-  const link = nav.getByRole('link', { name: 'Leistungen' });
+// ─── Test data ──────────────────────────────────────────────────
 
-  // korrekte Verlinkung im html
-  await expect(link).toHaveAttribute('href', '#leistungen');
-  await link.click();
-  // veränderte URL nach Klick
-  await expect(page).toHaveURL(/#leistungen$/);
-  // im sichtbaren Teil der Seite?
-  await expect(page.locator('#leistungen')).toBeInViewport();
+// links to be checked
+const navbarLinks: AnchorLink[] = [
+    { name: 'Leistungen', href: '#leistungen' },
+    { name: 'Nachhaltigkeit', href: '#nachhaltigkeit' },
+    { name: 'Galerie', href: '#galerie' },
+    { name: 'Kontakt', href: '#kontakt' },
+];
+
+// ─── Tests ──────────────────────────────────────────────────────
+
+for (const link of navbarLinks) {
+    test(`Navbar: ${link.name} korrekt verlinkt`, expectedResult(
+        `Link führt auf ${link.href}; nach dem Klick endet die URL auf ${link.href} und der Abschnitt ist im sichtbaren Bereich`
+    ), async ({ page }) => {
+        await checkAnchorLink(page.getByRole('navigation', { name: 'Hauptnavigation' }), link);
+    });
+}
+
+// The logo sits in the header, outside the main navigation
+test('Navbar: Logo führt zum Seitenanfang', expectedResult(
+    'Link führt auf #; nach dem Klick endet die URL auf # und die Seite steht wieder ganz oben'
+), async ({ page }) => {
+    await checkLogoLink(page.getByRole('banner'));
 });
-
-//Nachhaltigkeit
-test('Navbar-Nachhaltigkeit korrekt verlinkt', async ({ page }) => {
-  await page.goto('/');
-  
-  // Link in der Hauptnavigation suchen
-  const nav = page.getByRole('navigation', { name: 'Hauptnavigation' });
-  const link = nav.getByRole('link', { name: 'Nachhaltigkeit' });
-
-  // korrekte Verlinkung im html
-  await expect(link).toHaveAttribute('href', '#nachhaltigkeit');
-  await link.click();
-  // veränderte URL nach Klick
-  await expect(page).toHaveURL(/#nachhaltigkeit$/);
-  // im sichtbaren Teil der Seite?
-  await expect(page.locator('#nachhaltigkeit')).toBeInViewport();
-});
-
-//Galerie
-test('Navbar-Galerie korrekt verlinkt', async ({ page }) => {
-  await page.goto('/');
-  
-  // Link in der Hauptnavigation suchen
-  const nav = page.getByRole('navigation', { name: 'Hauptnavigation' });
-  const link = nav.getByRole('link', { name: 'Galerie' });
-
-  // korrekte Verlinkung im html
-  await expect(link).toHaveAttribute('href', '#galerie');
-  await link.click();
-  // veränderte URL nach Klick
-  await expect(page).toHaveURL(/#galerie$/);
-  // im sichtbaren Teil der Seite?
-  await expect(page.locator('#galerie')).toBeInViewport();
-});
-
-test('Navbar-Kontakt korrekt verlinkt', async ({ page }) => {
-  await page.goto('/');
-  
-  // Link in der Hauptnavigation suchen
-  const nav = page.getByRole('navigation', { name: 'Hauptnavigation' });
-  const link = nav.getByRole('link', { name: 'Kontakt' });
-
-  // korrekte Verlinkung im html
-  await expect(link).toHaveAttribute('href', '#kontakt');
-  await link.click();
-  // veränderte URL nach Klick
-  await expect(page).toHaveURL(/#kontakt$/);
-  // im sichtbaren Teil der Seite?
-  await expect(page.locator('#kontakt')).toBeInViewport();
-});
-
-

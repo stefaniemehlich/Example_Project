@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="images/Logo/Icon_passend.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Delluxe-Dellen GmbH – Lackfreie Dellenreparatur Eichenau bei München</title>
-  <meta name="description" content="Meisterbetrieb für lackfreie Dellenreparatur (PDR) in Eichenau bei München. Hagelschaden, Smart Repair, Leasingrückgabe. ★ 5.0 Google. Jetzt anfragen." />
+  <title>Dellen Company – Dellenreparatur Leipzig | Beispielprojekt</title>
+  <meta name="description" content="Meisterbetrieb für lackfreie Dellenreparatur (PDR) in Leipzig. Hagelschaden, Smart Repair, Leasingrückgabe. ★ 5.0 Google. Jetzt anfragen." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,17 +16,17 @@
   {
     "@context": "https://schema.org",
     "@type": "AutoRepair",
-    "@id": "https://www.delluxe-dellen.de/#business",
-    "name": "Delluxe-Dellen GmbH",
-    "description": "Meisterbetrieb für lackfreie Dellenreparatur (PDR) in Eichenau bei München",
-    "url": "https://www.delluxe-dellen.de",
-    "telephone": "+498141890855",
+    "@id": "https://www.dellen-company.example/#business",
+    "name": "Beispielprojekt",
+    "description": "Meisterbetrieb für lackfreie Dellenreparatur (PDR) in Leipzig",
+    "url": "https://www.dellen-company.example",
+    "telephone": "+4934512345",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Ringstraße 19",
-      "addressLocality": "Eichenau",
-      "postalCode": "82223",
-      "addressRegion": "Bayern",
+      "streetAddress": "Straße 10",
+      "addressLocality": "Leipzig",
+      "postalCode": "06123",
+      "addressRegion": "Sachsen",
       "addressCountry": "DE"
     },
     "geo": { "@type": "GeoCoordinates", "latitude": 48.174, "longitude": 11.254 },
@@ -54,7 +54,7 @@
       { "@type": "Question", "name": "Übernimmt die Versicherung die Kosten für Hagelschäden?", "acceptedAnswer": { "@type": "Answer", "text": "Ja. Die Teilkaskoversicherung übernimmt Hagelschäden in der Regel vollständig – ohne Verlust des Schadenfreiheitsrabattes. Wir unterstützen Sie bei der Abwicklung." } },
       { "@type": "Question", "name": "Wie lange dauert eine Dellenreparatur?", "acceptedAnswer": { "@type": "Answer", "text": "Einzelne kleine Dellen sind in 1–3 Stunden behoben. Umfangreiche Hagelschäden benötigen je nach Fahrzeug 2–4 Tage. Sie erhalten in jedem Fall eine genaue Zeitangabe vor Beginn der Arbeiten." } },
       { "@type": "Question", "name": "Kann jede Delle ohne Lackieren repariert werden?", "acceptedAnswer": { "@type": "Answer", "text": "In den meisten Fällen ja – vorausgesetzt, der Originallack ist intakt und das Metall nicht überdehnt. Ausnahmen: scharfkantige Dellen, Karosserierippen und bereits nachlackierte Stellen. Wir begutachten Ihr Fahrzeug kostenfrei." } },
-      { "@type": "Question", "name": "Welche Gebiete rund um München bedient ihr?", "acceptedAnswer": { "@type": "Answer", "text": "Unser Meisterbetrieb in Eichenau bedient München und den gesamten Münchner Westen: Germering, Puchheim, Fürstenfeldbruck, Starnberg und den Landkreis Fürstenfeldbruck im Umkreis von ca. 35 km." } }
+      { "@type": "Question", "name": "Welche Gebiete rund um Leipzig bedient ihr?", "acceptedAnswer": { "@type": "Answer", "text": "Unser Meisterbetrieb bedient den Großraum Halle-Leipzig." } }
     ]
   }
   </script>
@@ -63,14 +63,14 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --delluxe_green:        #6cd141;
+      --dellen_green:        #6cd141;
       --softgreen:            #dcffe8fa;
       --softgreen_transparent50: #dcffe850;
-      --delluxe_black:        #0c0c0c;
-      --delluxe_black_transparent55:        #0c0c0c55;
-      --delluxe_black_transparent85:        #0c0c0c85;
-      --delluxe_black_transparentC0: #0c0c0cc0;
-      --delluxe_white:        #f5f5f2;
+      --dellen_black:        #0c0c0c;
+      --dellen_black_transparent55:        #0c0c0c55;
+      --dellen_black_transparent85:        #0c0c0c85;
+      --dellen_black_transparentC0: #0c0c0cc0;
+      --dellen_white:        #f5f5f2;
       --gold:                 #f5c518;
       --mediumgrey:           #444444;
       --softgrey80:           #F5F5F2CC;
@@ -90,8 +90,8 @@
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--delluxe_black);
-      color: var(--delluxe_white);
+      background: var(--dellen_black);
+      color: var(--dellen_white);
       font-family: 'Instrument Sans', sans-serif;
       font-size: 16px;
       line-height: 1.6;
@@ -111,7 +111,7 @@
       font-size: 11px;
       letter-spacing: 0.24em;
       text-transform: uppercase;
-      color: var(--delluxe_green); font-weight: 600;
+      color: var(--dellen_green); font-weight: 600;
 
       margin-bottom: 16px;
     }
@@ -120,9 +120,9 @@
 
     .section-header { display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; }
     .section-header .btn { align-self: flex-end; }
-    .section-title { font-family: 'Bodoni Moda', serif; font-weight: 300; font-size: clamp(32px, 3.8vw, 52px); line-height: 1.1; letter-spacing: -.05em; color: var(--delluxe_white); }
+    .section-title { font-family: 'Bodoni Moda', serif; font-weight: 300; font-size: clamp(32px, 3.8vw, 52px); line-height: 1.1; letter-spacing: -.05em; color: var(--dellen_white); }
     .section-text { font-size: 15px; color: var(--softgrey80); line-height: 1.75; margin-bottom: 16px; }
-    .subtitle { font-family: 'Bodoni Moda', serif; font-size: 30px; font-weight: 400; color: var(--delluxe_white); line-height: 1; margin-bottom: 16px;}
+    .subtitle { font-family: 'Bodoni Moda', serif; font-size: 30px; font-weight: 400; color: var(--dellen_white); line-height: 1; margin-bottom: 16px;}
 
 
     /* ── SCROLL REVEAL ── */
@@ -142,16 +142,16 @@
       cursor: pointer; text-decoration: none; border: none;
       transition: opacity 0.2s, transform 0.2s;
     }
-    .btn:hover { color: var(--delluxe_white); box-shadow: 0 3px 12px var(--white_transparent10); transform: translateY(-1px); }
-    .btn--green   { background: var(--softgreen); color: var(--delluxe_black); position: relative; }
+    .btn:hover { color: var(--dellen_white); box-shadow: 0 3px 12px var(--white_transparent10); transform: translateY(-1px); }
+    .btn--green   { background: var(--softgreen); color: var(--dellen_black); position: relative; }
     .btn--green::before {
       content: '';
       position: absolute;
       inset: 4px; /* Abstand nach außen */
       border-radius: inherit; /* übernimmt den border-radius vom Elternelement */
-      border: 2px solid var(--delluxe_black);
+      border: 2px solid var(--dellen_black);
     }
-    .btn--green:hover { color: var(--delluxe_black)}
+    .btn--green:hover { color: var(--dellen_black)}
     .btn--secondary { background: var(--black_transparent20); color: var(--softgreen); border: 1px solid var(--white_transparent15); backdrop-filter: blur(8px); } 
     /* ════════════════════════════
        NAVIGATION
@@ -172,7 +172,7 @@
       opacity: 0; transition: opacity 0.55s ease;
       pointer-events: none; z-index: -1;
     }
-    .navbar.navbar--scrolled { background: linear-gradient(to bottom, var(--delluxe_black_transparent85) 0%, transparent 100%); }
+    .navbar.navbar--scrolled { background: linear-gradient(to bottom, var(--dellen_black_transparent85) 0%, transparent 100%); }
     .navbar.navbar--scrolled::after { opacity: 1; }
 
     /* Desktop Navbar-Layout */
@@ -185,11 +185,11 @@
     .navbar__logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
     .navbar__links { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 32px; }
     .navbar__links a { font-size: 15px; color: var(--softgrey70); text-decoration: none; transition: color 0.2s; }
-    .navbar__links a:hover { color: var(--delluxe_white); }
+    .navbar__links a:hover { color: var(--dellen_white); }
     .navbar__right { display: flex; align-items: center; gap: 18px; flex-shrink: 0; }
     .navbar__social { display: flex; align-items: center; gap: 14px; }
     .navbar__social a { color: var(--softgrey70); text-decoration: none; transition: color 0.2s; display: flex; align-items: center; }
-    .navbar__social a:hover { color: var(--delluxe_white); }
+    .navbar__social a:hover { color: var(--dellen_white); }
 
     /* ════════════════════════════
        HERO
@@ -204,15 +204,15 @@
        Kombination von scale() + opacity-Animation erzeugt GPU-Compositing-Spalt. */
     .hero__bg {
       position: absolute; inset: 0;
-      background: var(--delluxe_black_transparent85) url('images/Dellenreparatur.webp') center/cover no-repeat;
+      background: var(--dellen_black_transparent85) url('images/Dellenreparatur.webp') center/cover no-repeat;
       transform: scale(1.06); /* Nicht ändern – verhindert weiße Ränder bei voller Viewport-Breite */
     }
     .hero__overlay {
       position: absolute; inset: 0;
       /* Radialer statt vertikaler linearer Verlauf, weil der lineare eine sichtbare Linie erzeugt */
       background:
-        linear-gradient(to right, var(--delluxe_black) 0%, transparent 30%, transparent 70%, var(--delluxe_black) 100%),
-        radial-gradient(ellipse 150% 90% at center, transparent 0%, var(--delluxe_black) 50%);
+        linear-gradient(to right, var(--dellen_black) 0%, transparent 30%, transparent 70%, var(--dellen_black) 100%),
+        radial-gradient(ellipse 150% 90% at center, transparent 0%, var(--dellen_black) 50%);
     }
     .hero__content {
       position: relative; z-index: 2;
@@ -222,15 +222,15 @@
       content: '';
       position: absolute; inset: -80px 0px -40px -80px;
       backdrop-filter: blur(8px) saturate(1.3);
-      mask-image: radial-gradient(ellipse 50% 70% at 30% 55%, var(--delluxe_black) 30%, transparent 75%);
-      -webkit-mask-image: radial-gradient(ellipse 50% 70% at 30% 55%, var(--delluxe_black) 30%, transparent 75%);
+      mask-image: radial-gradient(ellipse 50% 70% at 30% 55%, var(--dellen_black) 30%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 50% 70% at 30% 55%, var(--dellen_black) 30%, transparent 75%);
       pointer-events: none; z-index: -1;
-      background: var(--delluxe_black_transparentC0);
+      background: var(--dellen_black_transparentC0);
     }
     .hero__eyebrow {
       display: block; font-size: 11px; font-weight: 500;
       letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--delluxe_green); margin-bottom: 20px;
+      color: var(--dellen_green); margin-bottom: 20px;
       font-family: 'Instrument Sans', sans-serif; /* Browser-H1-Standard überschreiben */
     }
     .hero__title {
@@ -241,10 +241,10 @@
       font-weight: 500;
       margin-bottom: 20px;
     }
-    .hero__title-line1 { display: block; color: var(--delluxe_white);}
+    .hero__title-line1 { display: block; color: var(--dellen_white);}
     .hero__title-line2 {
       display: block; font-style: italic;
-      background: linear-gradient(to right, var(--softgreen) 0%, var(--delluxe_green) 50%);
+      background: linear-gradient(to right, var(--softgreen) 0%, var(--dellen_green) 50%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -263,16 +263,16 @@
     .statement__title {
       font-family: 'Bodoni Moda', serif;
       font-size: clamp(28px, 3.2vw, 44px);
-      font-weight: 300; line-height: 1.25; color: var(--delluxe_white);
+      font-weight: 300; line-height: 1.25; color: var(--dellen_white);
       max-width: var(--max-width); width: 100%; text-align: center;
     }
     .statement__title strong { font-weight: 600; }
-    .statement__title italic_green { font-style: italic; color: var(--delluxe_green); }
+    .statement__title italic_green { font-style: italic; color: var(--dellen_green); }
 
     /* Hintergrundbild in den FAQ-Tab-Antworten */
     .services__bg {
       position: absolute; inset: 0;
-      background-image: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), var(--bg-image);
+      background-image: linear-gradient(180deg, var(--dellen_black) 7%, var(--dellen_black_transparent55) 50%, var(--dellen_black) 93%), var(--bg-image);
       /* Verlauf 2px höher als die Box, damit am unteren Rand keine helle Naht entsteht */
       background-size: 100% calc(100% + 2px), cover; background-position: center; background-repeat: no-repeat;
       transition: filter 0.4s, opacity 0.4s; z-index: 0;
@@ -280,7 +280,7 @@
     /* Leichter horizontaler Verlauf: links dunkler, damit der Text besser lesbar ist */
     .services__answer .services__bg::after {
       content: ''; position: absolute; inset: -1px; pointer-events: none;
-      background: linear-gradient(90deg, var(--delluxe_black) 5%, transparent 15%, transparent 85%, var(--delluxe_black) 95%);
+      background: linear-gradient(90deg, var(--dellen_black) 5%, transparent 15%, transparent 85%, var(--dellen_black) 95%);
     }
 
     /* ════════════════════════════
@@ -291,23 +291,23 @@
     .slider { position: relative; overflow: hidden; visibility: hidden; }
     .slider__track { display: flex; height: clamp(260px, 55vw, 480px); gap: var(--card-gap); will-change: transform; align-items: center; }
     .slider__track.is-animating { transition: transform 0.6s cubic-bezier(0.4,0,0.2,1); }
-    .slider__slide { height: 80%; position: relative; flex-shrink: 0; border-radius: var(--radius); overflow: hidden; background: var(--delluxe_black); transition: filter 0.5s, opacity 0.5s, height 0.5s; filter: blur(8px); opacity: 0.45; }
+    .slider__slide { height: 80%; position: relative; flex-shrink: 0; border-radius: var(--radius); overflow: hidden; background: var(--dellen_black); transition: filter 0.5s, opacity 0.5s, height 0.5s; filter: blur(8px); opacity: 0.45; }
     .slider__slide.is-active { height: 100%; filter: blur(0); opacity: 1;}
     .slider__image   { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
     .slider__overlay {
       position: absolute; inset: 0; pointer-events: none;
-      background: linear-gradient(180deg, var(--delluxe_black) 0%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 100%);
+      background: linear-gradient(180deg, var(--dellen_black) 0%, var(--dellen_black_transparent55) 50%, var(--dellen_black) 100%);
     }
 
     .slider__btn {
       position: absolute; top: 50%; transform: translateY(-50%);
       width: 44px; height: 44px;
-      background: var(--delluxe_black_transparent55); border: 1px solid var(--black_transparent20);
-      border-radius: 50%; color: var(--delluxe_white); font-size: 18px;
+      background: var(--dellen_black_transparent55); border: 1px solid var(--black_transparent20);
+      border-radius: 50%; color: var(--dellen_white); font-size: 18px;
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: background 0.2s; z-index: 10; backdrop-filter: blur(8px);
     }
-    .slider__btn:hover { background: var(--delluxe_black_transparent85); }
+    .slider__btn:hover { background: var(--dellen_black_transparent85); }
     .slider__btn--prev { left: 16px; }
     .slider__btn--next { right: 16px; }
 
@@ -317,7 +317,7 @@
     .slider-dots { display: none; justify-content: center; gap: 8px; }
     #reviewsDots { display: flex; }
     .slider-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--white_transparent10); border: 1px solid var(--white_transparent15); cursor: pointer; transition: background 0.2s; }
-    .slider-dots .dot.active { background: var(--delluxe_green); border-color: var(--delluxe_green); }
+    .slider-dots .dot.active { background: var(--dellen_green); border-color: var(--dellen_green); }
     #reviewsDots .dot { cursor: default; } /* nicht anklickbar, nur Anzeige */
   
     /* ════════════════════════════
@@ -362,7 +362,7 @@
       width: 80%;
       left: 50%;
       transform: translateX(-50%);
-      background: linear-gradient(180deg, var(--delluxe_black) 0%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 100%),
+      background: linear-gradient(180deg, var(--dellen_black) 0%, var(--dellen_black_transparent55) 50%, var(--dellen_black) 100%),
                   url('images/Reviews.webp') center / cover no-repeat;
       border-radius: var(--radius);
       z-index: 0;
@@ -373,7 +373,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, var(--delluxe_black) 0%, var(--delluxe_black_transparentC0) 50%, var(--delluxe_black) 100%);
+      background: linear-gradient(180deg, var(--dellen_black) 0%, var(--dellen_black_transparentC0) 50%, var(--dellen_black) 100%);
       opacity: 0;
       transition: opacity 0.2s 0.2s;
       z-index: 1;
@@ -412,24 +412,24 @@
     .faq__question { width: 100%; display: flex; align-items: center; gap: 20px; padding: 0;
       background: none; border: none; text-align: left;
       font-family: inherit; font-size: 16px; font-weight: 500; color: var(--softgrey70); cursor: pointer; transition: color 0.2s; }
-    .faq__question:focus-visible { outline: 2px solid var(--delluxe_green); outline-offset: 4px; }
+    .faq__question:focus-visible { outline: 2px solid var(--dellen_green); outline-offset: 4px; }
     /* „+“-Symbol: nur auf dem Handy sichtbar, als CSS-Inhalt (steht damit nicht im Fragetext) */
     .faq__question::after { content: '+'; display: none; width: 28px; height: 28px; border: 1px solid var(--white_transparent15); border-radius: 50%; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; color: var(--softgrey70); transition: border-color 0.2s, color 0.2s; }
-    .faq__question:hover::after { border-color: var(--delluxe_green); color: var(--delluxe_green); }
-    .faq__item.is-active .faq__question { color: var(--delluxe_white); }
+    .faq__question:hover::after { border-color: var(--dellen_green); color: var(--dellen_green); }
+    .faq__item.is-active .faq__question { color: var(--dellen_white); }
     .faq__answer { font-size: 14px; color: var(--softgrey50); line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.3s, padding 0.3s; }
     .faq__item.is-active .faq__answer { max-height: 200px; padding-top: 10px; color: var(--softgrey70); }
     .faq__visual { position: sticky; top: 120px; border-radius: var(--radius); overflow: hidden; height: 400px; isolation: isolate; }
     .faq__visual img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s; display: block; }
-    .faq__visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--delluxe_black) 7%, var(--delluxe_black_transparent55) 50%, var(--delluxe_black) 93%), linear-gradient(90deg, var(--delluxe_black) 0%, transparent 10%, transparent 90%, var(--delluxe_black) 100%); pointer-events: none; }
+    .faq__visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--dellen_black) 7%, var(--dellen_black_transparent55) 50%, var(--dellen_black) 93%), linear-gradient(90deg, var(--dellen_black) 0%, transparent 10%, transparent 90%, var(--dellen_black) 100%); pointer-events: none; }
 
     /* ── LEISTUNGEN: Tab-Layout ── */
     .services { padding: var(--section-padding) 0; }
     .services__nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
     .services__tab { padding: 10px 20px; border-radius: 999px; border: 1px solid var(--white_transparent10); background: none; color: var(--softgrey70); font-size: 15px; font-family: 'Instrument Sans', sans-serif; cursor: pointer; transition: all 0.2s; }
     .services__tab:hover {color: var(--softgreen); box-shadow: 0 3px 12px var(--white_transparent10); transform: translateY(-1px);}
-    .services__tab.is-active { background: var(--softgreen); color: var(--delluxe_black); border-color: transparent; font-weight: 600; position: relative; }
-    .services__tab.is-active::before { content: ''; position: absolute; inset: 4px; border-radius: inherit; border: 2px solid var(--delluxe_black); }
+    .services__tab.is-active { background: var(--softgreen); color: var(--dellen_black); border-color: transparent; font-weight: 600; position: relative; }
+    .services__tab.is-active::before { content: ''; position: absolute; inset: 4px; border-radius: inherit; border: 2px solid var(--dellen_black); }
     .services__panel { display: none; }
     .services__panel.is-active { display: block; }
     .services__answer { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; font-size: 16px; color: var(--softgrey80); line-height: 1.8; padding: 40px; border-radius: var(--radius); position: relative; overflow: hidden; }
@@ -449,7 +449,7 @@
     /* ════════════════════════════
        FOOTER
     ════════════════════════════ */
-    .footer { background: var(--delluxe_black); border-top: 1px solid var(--black_transparent20); padding: 0 0 24px; }
+    .footer { background: var(--dellen_black); border-top: 1px solid var(--black_transparent20); padding: 0 0 24px; }
     .footer__table { width: 100%; border-collapse: collapse; table-layout: fixed; }
     .footer__table th, .footer__table td { vertical-align: top; padding-right: 40px; }
     .footer__table th:first-child, .footer__table td:first-child { width: 35%; }
@@ -460,7 +460,7 @@
     .footer__col-title  { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mediumgrey); margin-bottom: 16px; }
     .footer__links      { list-style: none; display: flex; flex-direction: column; font-size: 15px; color: var(--softgrey70); line-height: 1.75; }
     .footer__links a    { color: inherit; text-decoration: none; transition: color 0.2s; }
-    .footer__links a:hover { color: var(--delluxe_white); }
+    .footer__links a:hover { color: var(--dellen_white); }
     .footer__accordion  { display: none; } /* nur Mobile, siehe RESPONSIVE */
     .footer__bottom       { border-top: 1px solid var(--black_transparent20); padding-top: 36px; display: flex; align-items: center; justify-content: center; }
     .footer__copyright    { font-size: 12px; color: var(--mediumgrey); }
@@ -484,7 +484,7 @@
     }
     .navbar__hamburger .bar {
       display: block; width: 20px; height: 1.5px;
-      background: var(--delluxe_white); border-radius: 2px;
+      background: var(--dellen_white); border-radius: 2px;
       transition: transform 0.25s, opacity 0.25s;
     }
     .navbar__mobile-panel {
@@ -501,7 +501,7 @@
       padding: 8px 0; border-bottom: 1px solid var(--white_transparent10); transition: color 0.2s;
     }
     .navbar__mobile-link:last-child { border-bottom: none; }
-    .navbar__mobile-link:active { color: var(--delluxe_white); }
+    .navbar__mobile-link:active { color: var(--dellen_white); }
 
     /* ════════════════════════════
        RESPONSIVE
@@ -560,7 +560,7 @@
         display: flex; align-items: center;
         padding: 4px 10px 4px 14px;
         background: var(--softgreen);
-        border: 2px solid var(--delluxe_black);
+        border: 2px solid var(--dellen_black);
         border-right: none;
         box-shadow: 0 0 0 2px var(--softgreen);
         border-radius: 999px 0 0 999px;
@@ -571,7 +571,7 @@
       .navbar__mobile-social { display: flex; align-items: center; gap: 14px; }
       .navbar__mobile-social a { color: var(--softgrey70); display: flex; align-items: center; transition: color 0.2s; }
       .navbar__hamburger { padding: 0; }
-      .navbar__hamburger .bar { background: var(--delluxe_black); }
+      .navbar__hamburger .bar { background: var(--dellen_black); }
 
       .navbar__mobile-bar.is-open .navbar__mobile-pill-ghost { display: none; }
       .navbar__mobile-bar.is-open .navbar__hamburger .bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
@@ -602,7 +602,7 @@
       .faq__item { padding: 0; }
       .faq__item + .faq__item { border-top: none; }
       .faq__item + .faq__item::before { content: ''; display: block; height: 1px; width: 90%; margin: 0 auto; background: var(--softgreen_transparent50); }
-      .faq__question { justify-content: center; padding: 20px 24px; text-align: center; font-size: 18px; color: var(--delluxe_white); }
+      .faq__question { justify-content: center; padding: 20px 24px; text-align: center; font-size: 18px; color: var(--dellen_white); }
       .faq__question::after { display: flex; }
       .faq__item.is-active .faq__question::after { content: '×'; } /* offene Frage: Klick klappt sie zu */
       .faq__answer { padding: 0 28px; }
@@ -664,10 +664,10 @@
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: color 0.2s, background 0.2s;
     }
-    .schaden-modal__close:hover { color: var(--delluxe_white); background: var(--white_transparent10); }
+    .schaden-modal__close:hover { color: var(--dellen_white); background: var(--white_transparent10); }
 
     .schaden-modal__title {
-      font-size: 22px; font-weight: 700; color: var(--delluxe_white);
+      font-size: 22px; font-weight: 700; color: var(--dellen_white);
       margin: 0 0 4px;
       padding-right: 40px; /* Platz für das X */
     }
@@ -680,7 +680,7 @@
     .schaden-modal__success[hidden] { display: none; }
     .schaden-modal__success-icon {
       width: 56px; height: 56px; border-radius: 50%; margin-bottom: 20px;
-      border: 2px solid var(--delluxe_green); color: var(--delluxe_green);
+      border: 2px solid var(--dellen_green); color: var(--dellen_green);
       display: flex; align-items: center; justify-content: center; font-size: 26px;
     }
     .schaden-modal__success .btn { align-self: center; }
@@ -699,15 +699,15 @@
     .schaden-form__input {
       background: #1e1e1e; border: 1px solid var(--white_transparent15);
       border-radius: 8px; padding: 11px 14px;
-      font-size: 15px; color: var(--delluxe_white);
+      font-size: 15px; color: var(--dellen_white);
       font-family: 'Instrument Sans', sans-serif;
       outline: none; transition: border-color 0.2s;
       width: 100%;
     }
     textarea.schaden-form__input { resize: vertical; }
-    .schaden-form__required { color: var(--delluxe_green); }
+    .schaden-form__required { color: var(--dellen_green); }
     .schaden-form__input::placeholder { color: var(--mediumgrey); }
-    .schaden-form__input:focus { border-color: var(--delluxe_green); }
+    .schaden-form__input:focus { border-color: var(--dellen_green); }
     .schaden-form__input.is-invalid { border-color: var(--error); }
     .schaden-form__error { font-size: 12px; color: var(--error); }
     .schaden-form__error:empty { display: none; }
@@ -721,7 +721,7 @@
       transition: border-color 0.2s, background 0.2s;
       position: relative;
     }
-    .schaden-form__upload:hover { border-color: var(--delluxe_green); background: #202020; }
+    .schaden-form__upload:hover { border-color: var(--dellen_green); background: #202020; }
     .schaden-form__upload input[type="file"] {
       position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
     }
@@ -753,7 +753,7 @@
   <header class="navbar" id="navbar">
     <div class="navbar__inner">
     <a class="navbar__logo" href="#">
-      <img src="images/Logo/logo-delluxe-dellen-gruen-weiss-passend.png" alt="Delluxe-Dellen GmbH Logo" height="36" />
+      <img src="images/Logo/logo-dellen-company-gruen-weiss-passend.png" alt="Dellen Company Logo" height="36" />
     </a>
     <nav class="navbar__links" aria-label="Hauptnavigation">
       <a href="#leistungen">Leistungen</a>
@@ -779,10 +779,10 @@
   <div class="navbar__mobile-bar" id="navMobileBar">
     <div class="navbar__mobile-pill-left">
       <a class="navbar__mobile-icon" href="#">
-        <img src="images/Logo/Icon_91px_hoch.png" alt="Delluxe-Dellen Icon" height="30" />
+        <img src="images/Logo/Icon_91px_hoch.png" alt="Dellen Company Icon" height="30" />
       </a>
       <a class="navbar__mobile-logo" href="#">
-        <img src="images/Logo/logo-delluxe-dellen-gruen-weiss-passend.png" alt="Delluxe-Dellen GmbH Logo" height="30" />
+        <img src="images/Logo/logo-dellen-company-gruen-weiss-passend.png" alt="Dellen Company Logo" height="30" />
       </a>
     </div>
     <div class="navbar__mobile-pill">
@@ -827,7 +827,7 @@
       <div class="hero__subtitle">
         <span>Lackfreie <br class="mobile-only">Dellenreparatur</span>
         <span class="hero__subtitle-dot"></span>
-        <span>Eichenau <br class="mobile-only">bei München</span>
+        <span>Leipzig</span>
         <span class="hero__subtitle-dot"></span>
         <span><span class="hero__subtitle-star">&#9733;</span> 4.9 <br class="mobile-only">auf Google</span>
       </div>
@@ -839,7 +839,7 @@
     <div class="container">
       <div class="statement__inner">
         <div class="reveal">
-          <span class="eyebrow eyebrow--center">Warum Delluxe-Dellen</span>
+          <span class="eyebrow eyebrow--center">Warum Dellen Company</span>
           <h2 class="statement__title">
             Ihr Originallack ist <strong>unersetzlich.</strong><br>
             Konventionelle Reparaturen greifen in<br>Material und Oberfläche ein. Wir sind<br>die <italic_green>schonende Alternative.</italic_green>
@@ -855,7 +855,7 @@
       <div class="section-header reveal">
         <div>
           <span class="eyebrow">Leistungen</span>
-          <h2 class="section-title">Lackfreie<br>Dellenreparatur<br>in München</h2>
+          <h2 class="section-title">Lackfreie<br>Dellenreparatur<br>in Leipzig</h2>
         </div>
         <p class="section-text">Meisterbetrieb für PDR &ndash; klare Prozesse, hochwertige Werkzeuge und Präzision vom Einzelauftrag bis zum Hagelschaden.</p>
       </div>
@@ -865,8 +865,6 @@
           <button class="services__tab" data-tab="st2">Hagelschaden</button>
           <button class="services__tab" data-tab="st3">Smart Repair</button>
           <button class="services__tab" data-tab="st4">Leasingrückgabe</button>
-          <button class="services__tab" data-tab="st5">Hagelschaden II</button>
-          <button class="services__tab" data-tab="st6">Smart Repair II</button>
         </nav>
         <div class="services__panel is-active" id="st1">
           <div class="services__answer">
@@ -892,18 +890,6 @@
             <p class="section-text">Optische Aufbereitung vor Rückgabe &ndash; Minderwerte und Nachzahlungen vermeiden.</p>
           </div>
         </div>
-        <div class="services__panel" id="st5">
-          <div class="services__answer">
-            <div class="services__bg" style="--bg-image: url('images/DiaShow/5.webp');"></div>
-            <p class="section-text">Strukturierte Instandsetzung nach Hagelereignissen mit professioneller Versicherungsabwicklung.</p>
-          </div>
-        </div>
-        <div class="services__panel" id="st6">
-          <div class="services__answer">
-            <div class="services__bg" style="--bg-image: url('images/DiaShow/3.webp');"></div>
-            <p class="section-text">Gezielte Reparatur kleiner Schäden mit sauberem Finish und wirtschaftlichem Ergebnis.</p>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -913,16 +899,16 @@
     <div class="container">
       <div class="gallery__header reveal">
         <span class="eyebrow">Einblicke</span>
-        <h2 class="section-title">Unsere Werkstatt<br>in Eichenau</h2>
+        <h2 class="section-title">Unsere Werkstatt<br>in Leipzig</h2>
       </div>
       <div class="slider reveal">
         <div class="slider__track" id="sliderTrack">
           <div class="slider__slide">
-            <img class="slider__image" src="images/DiaShow/1.webp" alt="Dellenentfernung München – Delluxe-Dellen GmbH" loading="lazy" />
+            <img class="slider__image" src="images/DiaShow/1.webp" alt="Dellenentfernung Leipzig – Dellen Company" loading="lazy" />
             <div class="slider__overlay"></div>
           </div>
           <div class="slider__slide">
-            <img class="slider__image" src="images/DiaShow/2.webp" alt="Lackfreie Dellenreparatur Eichenau – Delluxe-Dellen" loading="lazy" />
+            <img class="slider__image" src="images/DiaShow/2.webp" alt="Lackfreie Dellenreparatur Leipzig – Dellen Company" loading="lazy" />
             <div class="slider__overlay"></div>
           </div>
           <div class="slider__slide">
@@ -930,7 +916,7 @@
             <div class="slider__overlay"></div>
           </div>
           <div class="slider__slide">
-            <img class="slider__image" src="images/DiaShow/4.webp" alt="Mobiler Dellenservice München – Delluxe-Dellen" loading="lazy" />
+            <img class="slider__image" src="images/DiaShow/4.webp" alt="Mobiler Dellenservice Leipzig – Dellen Company" loading="lazy" />
             <div class="slider__overlay"></div>
           </div>
         </div>
@@ -993,49 +979,47 @@
         <div class="reviews__bg"></div>
         <div class="reviews__track" id="reviewsTrack">
           <div class="reviews__slide">
-            <span class="eyebrow reviews__name">Dominik Urbaniak</span>
+            <span class="eyebrow reviews__name">Jonas W.</span>
             <div class="reviews__meta">
               <span class="reviews__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-              <span class="reviews__source" data-review-date="2025-11"></span>
+              <span class="reviews__source" data-review-date="2025-10"></span>
             </div>
-            <p class="reviews__quote">Hatte mir eine blöde Delle am Kofferraum beim ausparken geholt. Ich habe mich aufgrund der Rezension vom Taxifahrer und der professionellen Website für Delluxe Dellen entschieden. Ich wurde super und transparent über die Schritte und Vorgehensweise informiert. Besonders gefallen hat mir, dass sich Zeit genommen wurde und alle möglichen Szenarien durchgegangen wurden. Dadurch habe ich mich sehr gut aufgehoben gefühlt. Das ganze drum herum war TOP - genau wie das Ergebnis.</p>
+            <p class="reviews__quote">Nach einem Parkrempler hatte ich eine deutliche Delle in der Beifahrertür. Bei Dellen Company wurde mir vorab genau erklärt, was möglich ist und was es kostet. Die Reparatur war am selben Tag erledigt, vom Schaden ist nichts mehr zu sehen. Klare Empfehlung.</p>
           </div>
           <div class="reviews__slide">
-            <span class="eyebrow reviews__name">Lucas Breinlinger</span>
+            <span class="eyebrow reviews__name">Miriam A.</span>
             <div class="reviews__meta">
               <span class="reviews__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-              <span class="reviews__source" data-review-date="2026-02"></span>
+              <span class="reviews__source" data-review-date="2026-01"></span>
             </div>
-            <p class="reviews__quote">Sehr professionell, sehr freundlich. Alle Zusagen inkl. Preis wurden eingehalten.
-              <br><br>Ich bin aufgrund zweier Dellen zu Dellen Deluxe gekommen. Eine wurde schon vorab von einem anderen Dienstleister bearbeitet, dieser konnte sie jedoch nicht restlos entfernen.
-Nach einem kurzem Besuch bei Dellen Deluxe sind beide Dellen glücklicherweise Geschichte.<br><br>Vielen Dank !</p>
+            <p class="reviews__quote">Freundlicher Empfang, ehrliche Beratung und ein fairer Preis.
+              <br><br>Mein Wagen hatte nach einem Hagelschauer mehrere kleine Dellen auf der Motorhaube. Das Team von Dellen Company hat alle ohne Lackieren entfernt.<br><br>Ich bin sehr zufrieden!</p>
           </div>
           <div class="reviews__slide">
-            <span class="eyebrow reviews__name">David Matzner</span>
+            <span class="eyebrow reviews__name">Thomas K.</span>
             <div class="reviews__meta">
               <span class="reviews__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-              <span class="reviews__source" data-review-date="2025-12"></span>
+              <span class="reviews__source" data-review-date="2026-03"></span>
             </div>
-            <p class="reviews__quote">Know-how und Perfektion vereint. Meine Anlaufstelle seit Jahren wenn es um kompetente Dellenreparatur geht. Ob Mega-Hagelschaden oder Parkrempler, ich wurde vom Ergebnis noch nie enttäuscht und freue mich auf lange weitere Zusammenarbeit!</p>
+            <p class="reviews__quote">Ich komme seit Jahren hierher, wenn am Auto etwas ausgebeult werden muss. Die Arbeit ist jedes Mal sauber und pünktlich fertig, und der vereinbarte Preis wird eingehalten.</p>
           </div>
           <div class="reviews__slide">
-            <span class="eyebrow reviews__name">Angi Stimmelmayr</span>
+            <span class="eyebrow reviews__name">Lena H.</span>
             <div class="reviews__meta">
               <span class="reviews__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-              <span class="reviews__source" data-review-date="2025-09"></span>
+              <span class="reviews__source" data-review-date="2025-08"></span>
             </div>
-            <p class="reviews__quote">Super Arbeit, überaus freundlich und hilfsbereit!!!<br>
-Und nun zitiere ich die Worte des Käufers als er das Fahrezeug nach der Behandlung bei Delluxe Dellen GmbH bei mir abholte: Der steht ja da wie ein Neuwagen.
-Vielen Dank liebes Delluxe Dellen Team.<br>
-Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. Mehr kann man nicht sagen!!! Weiter so!!!</p>
+            <p class="reviews__quote">Vor der Leasingrückgabe hatte ich Sorge wegen zweier Dellen am Kotflügel.<br>
+Dellen Company hat beide so entfernt, dass der Gutachter nichts beanstandet hat.<br>
+Schnelle Terminvergabe und sehr nette Betreuung. Vielen Dank!</p>
           </div>
           <div class="reviews__slide">
-            <span class="eyebrow reviews__name">Yi Yu</span>
+            <span class="eyebrow reviews__name">Emre K.</span>
             <div class="reviews__meta">
               <span class="reviews__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-              <span class="reviews__source" data-review-date="2025-04"></span>
+              <span class="reviews__source" data-review-date="2025-06"></span>
             </div>
-            <p class="reviews__quote">Kleine Delle an der Tür wurde schnell und professionell entfernt, danach ist die Delle perfekt verschwunden. Sehr freundliches Personal! Absolut zu empfehlen! Vorher besser immer anrufen um einen Termin zu bekommen, alles sehr unkompliziert gelaufen.</p>
+            <p class="reviews__quote">Kleine Delle an der Heckklappe, kurzer Anruf, Termin zwei Tage später. Nach einer Stunde war alles erledigt und die Stelle ist nicht mehr zu erkennen. Unkompliziert und professionell.</p>
           </div>
         </div>
         <button class="slider__btn slider__btn--prev" id="reviewsPrev" aria-label="Vorherige Bewertung">&#8249;</button>
@@ -1070,8 +1054,8 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
             <div class="faq__answer"><p>In den meisten Fällen ja &ndash; vorausgesetzt, der Originallack ist intakt und das Metall nicht überdehnt. Ausnahmen: scharfkantige Dellen, Karosserierippen und bereits nachlackierte Stellen. Wir begutachten Ihr Fahrzeug kostenfrei.</p></div>
           </div>
           <div class="faq__item" data-img="images/DiaShow/5.webp">
-            <button class="faq__question" aria-expanded="false">Welche Gebiete rund um München bedient ihr?</button>
-            <div class="faq__answer"><p>Unser Meisterbetrieb in Eichenau bedient München und den gesamten Münchner Westen: Germering, Puchheim, Fürstenfeldbruck, Starnberg und den Landkreis Fürstenfeldbruck im Umkreis von ca. 35&thinsp;km.</p></div>
+            <button class="faq__question" aria-expanded="false">Welche Gebiete rund um Leipzig bedient ihr?</button>
+            <div class="faq__answer"><p>Unser Meisterbetrieb bedient den Großraum Halle-Leipzig.</p></div>
           </div>
         </div>
         <div class="faq__visual">
@@ -1098,7 +1082,7 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
       <table class="footer__table">
         <thead>
           <tr>
-            <th><a href="#" class="footer__logo"><img src="images/Logo/logo-delluxe-dellen-gruen-weiss-passend.png" alt="Delluxe-Dellen GmbH Logo" height="30" loading="lazy" /></a></th>
+            <th><a href="#" class="footer__logo"><img src="images/Logo/logo-dellen-company-gruen-weiss-passend.png" alt="Dellen Company Logo" height="30" loading="lazy" /></a></th>
             <th><div class="footer__col-title">Leistungen</div></th>
             <th><div class="footer__col-title">Unternehmen</div></th>
             <th><div class="footer__col-title">Standorte</div></th>
@@ -1107,7 +1091,7 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
         </thead>
         <tbody>
           <tr>
-            <td><p class="section-text footer__address">Meisterbetrieb für lackfreie Dellenreparatur in Eichenau bei München<br>Ringstraße 19  ·  82223 Eichenau<br>08141 123 4567</p></td>
+            <td><p class="section-text footer__address">Meisterbetrieb für lackfreie Dellenreparatur in Leipzig<br>Straße 10  ·  06123 Leipzig<br>+49 345 12345</p></td>
             <td><ul class="footer__links">
               <li>Dellenreparatur</li>
               <li>Hagelschaden</li>
@@ -1121,10 +1105,10 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
               <li>Kontakt & Anfahrt</li>
             </ul></td>
             <td><ul class="footer__links">
-              <li>München</li>
-              <li>Starnberg</li>
-              <li>Fürstenfeldbruck</li>
-              <li>Augsburg</li>
+              <li>Leipzig</li>
+              <li>Halle (Saale)</li>
+              <li>Magdeburg</li>
+              <li>Berlin</li>
             </ul></td>
             <td><ul class="footer__links">
             <li>Telefon</li>
@@ -1157,10 +1141,10 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
         <div>
           <button class="footer__acc-trigger">Standorte</button>
           <div class="footer__acc-content"><ul class="footer__links">
-            <li>München</li>
-            <li>Starnberg</li>
-            <li>Fürstenfeldbruck</li>
-            <li>Augsburg</li>
+            <li>Leipzig</li>
+            <li>Halle (Saale)</li>
+            <li>Magdeburg</li>
+            <li>Berlin</li>
           </ul></div>
         </div>
         <div>
@@ -1223,12 +1207,12 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
         <div class="schaden-form__row">
           <div class="schaden-form__group">
             <label class="schaden-form__label" for="sf-plz">PLZ</label>
-            <input class="schaden-form__input" type="text" id="sf-plz" name="plz" placeholder="82223" inputmode="numeric" maxlength="5" aria-describedby="sf-plz-error" autocomplete="postal-code">
+            <input class="schaden-form__input" type="text" id="sf-plz" name="plz" placeholder="12345" inputmode="numeric" maxlength="5" aria-describedby="sf-plz-error" autocomplete="postal-code">
             <p class="schaden-form__error" id="sf-plz-error" aria-live="polite"></p>
           </div>
           <div class="schaden-form__group">
             <label class="schaden-form__label" for="sf-ort">Ort</label>
-            <input class="schaden-form__input" type="text" id="sf-ort" name="ort" placeholder="Eichenau" maxlength="50" aria-describedby="sf-ort-error" autocomplete="address-level2">
+            <input class="schaden-form__input" type="text" id="sf-ort" name="ort" placeholder="Leipzig" maxlength="50" aria-describedby="sf-ort-error" autocomplete="address-level2">
             <p class="schaden-form__error" id="sf-ort-error" aria-live="polite"></p>
           </div>
         </div>
@@ -1470,9 +1454,10 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
     });
 
     let autoPlay;
+    const GALLERY_TAKT_MS = 4000; // Takt des Auto-Plays in ms
     function stopAutoPlay()  { clearInterval(autoPlay); }
     // erst stoppen, damit nie zwei Intervalle gleichzeitig laufen; auf dem Handy kein Auto-Play
-    function startAutoPlay() { stopAutoPlay(); if (!isMobile()) autoPlay = setInterval(next, 4000); }
+    function startAutoPlay() { stopAutoPlay(); if (!isMobile()) autoPlay = setInterval(next, GALLERY_TAKT_MS); }
 
     startAutoPlay();
     window.addEventListener('resize', startAutoPlay, { passive: true });
@@ -1709,6 +1694,7 @@ Wirklich erstklassige Arbeit und dazu noch menschlich 1A. Besser geht es nicht. 
             if (input.value !== input.value.trim()) {
               input.value = input.value.trim();
               validate(input);
+              updateCounter();   // gekürzter Text löst kein input-Ereignis aus
             }
             input.dataset.touched = 'true';
             showError(input);

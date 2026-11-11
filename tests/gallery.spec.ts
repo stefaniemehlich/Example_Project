@@ -1,51 +1,69 @@
 import { test, expect, type Page } from '@playwright/test';
+import { expectedResult } from './helpers/addExpectedResult';
 import {
-    type Slider, oeffneMitAngehaltenerUhr, taktAusQuelltext,
-    pruefePfeile, pruefeEndlosSchleife, pruefeAutoplay,
+    type Slider, openWithPausedClock, readIntervalFromSource,
+    checkArrows, checkEndlessLoop, checkAutoplay,
 } from './helpers/slider';
 
-// ─── Hilfsfunktionen nur für die Galerie ────────────────────────
+// ─── Helper functions for the gallery only ──────────────────────
 
-// Bild-Adresse des gerade aktiven Bildes
-async function aktiveSrc(page: Page) {
-    const aktivesBild = page.locator('.slider__slide.is-active .slider__image');
-    await expect(aktivesBild, 'Nicht genau ein aktives Bild').toHaveCount(1);
-    return (await aktivesBild.getAttribute('src')) ?? '';
+// Image URL of the currently active image
+async function getActiveImageUrl(page: Page) {
+    const activeImage = page.locator('.slider__slide.is-active .slider__image');
+    await expect(activeImage, 'Nicht genau ein aktives Bild').toHaveCount(1);
+    return (await activeImage.getAttribute('src')) ?? '';
 }
 
-// Alle Bild-Adressen der Galerie, jede nur einmal
-// (das Script legt Kopien der Slides an, daher doppelte entfernen)
-async function bildUrls(page: Page) {
-    const srcs = await page.locator('.slider__image')
-        .evaluateAll(bilder => bilder.map(b => b.getAttribute('src') ?? ''));
-    return [...new Set(srcs.filter(s => s !== ''))];
+// All image URLs of the gallery, each only once
+// (the script creates copies of the slides, so remove duplicates)
+async function getImageUrls(page: Page) {
+    const imageUrls = await page.locator('.slider__image')
+        .evaluateAll(images => images.map(image => image.getAttribute('src') ?? ''));
+    return [...new Set(imageUrls.filter(imageUrl => imageUrl !== ''))];
 }
 
-const galerie: Slider = {
+// Position the progress bar shows: filled to 2/4 with 4 images means position 2
+async function getProgressPosition(page: Page, imageCount: number) {
+    // width the script has set (e.g. '50%'), not the width in the middle of the animation
+    const width = await page.locator('#sliderProgressFill').evaluate(fill => (fill as HTMLElement).style.width);
+    expect(width, 'Fortschrittsbalken hat keine Breite in Prozent').toMatch(/^[\d.]+%$/);
+    return parseFloat(width) / 100 * imageCount;
+}
+
+// ─── Test data ──────────────────────────────────────────────────
+
+// Describes the gallery slider for the shared checks in helpers/slider.ts
+const gallerySlider: Slider = {
     name: 'Galerie',
-    weiter: '#sliderNext',
-    zurueck: '#sliderPrev',
-    aktiv: aktiveSrc,
+    next: 'Nächstes Bild',
+    prev: 'Vorheriges Bild',
+    getActiveId: getActiveImageUrl,
+    getIndicatorPosition: getProgressPosition,
 };
 
 // ─── Tests ──────────────────────────────────────────────────────
 
-// Laden der Bilder und Alt-Texte prüft tests/bilder.spec.ts für die ganze Seite
+// tests/images.spec.ts checks image loading for the whole page, tests/seo.spec.ts the alt texts
 
-test('Galerie: Pfeile vor/zurück wechseln das Bild', async ({ page }) => {
-    await oeffneMitAngehaltenerUhr(page);
-    await pruefePfeile(page, galerie);
+test('Galerie: Pfeile vor/zurück wechseln das Bild', expectedResult(
+    '„Weiter“ zeigt ein anderes Bild, „zurück“ wieder das vorherige'
+), async ({ page }) => {
+    await openWithPausedClock(page);
+    await checkArrows(page, gallerySlider);
 });
 
-test('Galerie: Endlos-Schleife in beide Richtungen', async ({ page }) => {
-    await oeffneMitAngehaltenerUhr(page);
-    const anzahl = (await bildUrls(page)).length;
-    await pruefeEndlosSchleife(page, galerie, anzahl);
+test('Galerie: Endlos-Schleife in beide Richtungen', expectedResult(
+    'Jedes Bild erscheint genau einmal, danach wieder das erste; „zurück“ vom ersten Bild zeigt das letzte; der Fortschrittsbalken ist dabei immer passend zur Position des Bildes gefüllt'
+), async ({ page }) => {
+    await openWithPausedClock(page);
+    const imageCount = (await getImageUrls(page)).length;
+    await checkEndlessLoop(page, gallerySlider, imageCount);
 });
 
-test('Galerie: Bildwechsel automatisch im eingestellten Takt', async ({ page }) => {
-    // (nur die Galerie – der Bewertungs-Slider nutzt "rNext" und passt nicht)
-    const takt = await taktAusQuelltext(page, /setInterval\(\s*next\s*,\s*(\d+)\s*\)/, 'setInterval(next, <ms>)');
-    await oeffneMitAngehaltenerUhr(page);
-    await pruefeAutoplay(page, galerie, takt);
+test('Galerie: Bildwechsel automatisch im eingestellten Takt', expectedResult(
+    'Bild bleibt bis kurz vor Ablauf des im Code eingestellten Takts stehen und wechselt danach automatisch'
+), async ({ page }) => {
+    const interval = await readIntervalFromSource(page, /const\s+GALLERY_TAKT_MS\s*=\s*(\d+)/, 'const GALLERY_TAKT_MS = <ms>');
+    await openWithPausedClock(page);
+    await checkAutoplay(page, gallerySlider, interval);
 });
