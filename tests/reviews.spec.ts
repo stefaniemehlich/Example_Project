@@ -27,8 +27,8 @@ async function getAllNames(page: Page) {
 async function getActiveDotPosition(page: Page, reviewCount: number) {
     const dotStates = await page.locator('#reviewsDots .dot')
         .evaluateAll(dots => dots.map(dot => dot.classList.contains('active')));
-    expect(dotStates.length, 'Anzahl der Punkte passt nicht zur Anzahl der Bewertungen').toBe(reviewCount);
-    expect(dotStates.filter(isActive => isActive).length, 'Nicht genau ein aktiver Punkt').toBe(1);
+    expect(dotStates, 'Anzahl der Punkte passt nicht zur Anzahl der Bewertungen').toHaveLength(reviewCount);
+    expect(dotStates.filter(isActive => isActive), 'Nicht genau ein aktiver Punkt').toHaveLength(1);
     return dotStates.indexOf(true) + 1;
 }
 

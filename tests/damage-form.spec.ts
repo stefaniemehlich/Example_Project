@@ -177,6 +177,7 @@ type TestStep = {
 async function expectInvalidSubmit(page: Page, missingRequiredFields: InputField[], focusedField?: InputField) {
     // Abort if required fields are missing but no cursor position is given
     if (!focusedField) throw new Error('Testschritt ohne focusedField, obwohl Pflichtfelder fehlen');
+
     // Message only at the empty required fields, no hint at any other field
     await test.step(`Meldungen und Cursor-Position korrekt`, async () => {
         for (const field of ALL_FIELDS) {
@@ -188,6 +189,7 @@ async function expectInvalidSubmit(page: Page, missingRequiredFields: InputField
         }
         await expect(fieldInput(page, focusedField), 'Cursor im ersten fehlenden Pflichtfeld').toBeFocused();
     });
+
     await expect(thankYouHeading(page), 'Danke-Ansicht wird nicht angezeigt').toBeHidden();
     await expect(overlay(page), 'Schaden-Formular bleibt geöffnet').toHaveClass(/is-open/);
 }
@@ -215,6 +217,7 @@ async function runScenario(page: Page, steps: TestStep[]) {
             }
             await fillFields(page, step.fields, step.values);
         });
+
         await submit(page);
 
         if (missingRequiredFields.length === 0) {
@@ -242,6 +245,7 @@ function validationTests(testCases: ValidationTest[], field: InputField) {
 
                 if (testCase.errorMessage) {
                     const errorMessage = testCase.errorMessage;
+
                     await test.step('Fehlermeldung und rote Markierung', async () => {
                         await expect(fieldError(page, field), 'Meldung unter dem Feld').toHaveText(errorMessage);
                         await expect(fieldInput(page, field), 'Feld rot markiert').toHaveClass(/is-invalid/);
@@ -275,6 +279,7 @@ function correctionTest(field: Exclude<InputField, 'upload'>, invalidInput: stri
             });
 
             await fillFields(page, [field]);   // overwrite with the valid value from VALID_INPUTS
+
             await test.step('kein Hinweis und keine rote Markierung', async () => {
                 await expect(fieldError(page, field), 'keine Meldung').toBeEmpty();
                 await expect(fieldInput(page, field), 'Feld nicht rot markiert').not.toHaveClass(/is-invalid/);
@@ -673,6 +678,7 @@ function uploadValidationTests(testCases: UploadValidationTest[]) {
                 const uploadArea = page.locator('#sfUploadArea');
                 if (testCase.errorMessage) {
                     const errorMessage = testCase.errorMessage;
+
                     await test.step('Fehlermeldung und rote Markierung', async () => {
                         await expect(fieldError(page, 'upload'), 'Meldung unter dem Upload-Bereich').toHaveText(errorMessage);
                         await expect(uploadArea, 'Upload-Bereich rot markiert').toHaveClass(/is-invalid/);
@@ -765,6 +771,7 @@ test.describe('Schaden-Formular: Danke-Ansicht schließen und erneut öffnen', (
                 await expect(fieldError(page, field), `keine Meldung bei "${FIELD_LABEL[field]}"`).toBeEmpty();
             }
         });
+
         await expect(messageCounter(page), 'Zähler steht wieder auf 0').toHaveText('0 / 1000');
         await expect(fileNames(page), 'kein Dateiname mehr angezeigt').toBeEmpty();
     });
@@ -777,12 +784,14 @@ test.describe('Schaden-Formular: Danke-Ansicht schließen und erneut öffnen', (
         await page.keyboard.press('Escape');
         await expect(overlay(page), 'Overlay ist geschlossen').not.toHaveClass(/is-open/);
         await openOverlay(page);
+
         await test.step('alle Felder haben vorherigen Wert', async () => {
             for (const field of ALL_FIELDS) {
                 if (field === 'upload') continue;
                 await expect(fieldInput(page, field), `"${FIELD_LABEL[field]}" entspricht dem Wert vor dem Schließen`).toHaveValue(VALID_INPUTS[field]);
             }
         });
+
         await expect(messageCounter(page), 'Zähler zeigt weiterhin die Länge der Nachricht').toHaveText(`${VALID_INPUTS.message.length} / 1000`);
         await expect(fileNames(page), 'ausgewählte Datei entspricht der Vorherigen').toHaveText(VALID_INPUTS.upload.name);
     });

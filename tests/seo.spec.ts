@@ -154,7 +154,7 @@ test('SEO: FAQ-Schema und FAQ auf der Seite sind gleich', expectedResult(
 
     const pageFaq = await readPageFaq(page);
     // expect.soft: the test keeps running, all differences are reported together at the end
-    expect.soft(pageFaq.length, `Die FAQ hat ${pageFaq.length} Fragen, das SEO-Schema ${schemaFaq.length}`).toBe(schemaFaq.length);
+    expect.soft(pageFaq, `Die FAQ hat ${pageFaq.length} Fragen, das SEO-Schema ${schemaFaq.length}`).toHaveLength(schemaFaq.length);
 
     for (let i = 0; i < Math.min(pageFaq.length, schemaFaq.length); i++) {
         expect.soft(pageFaq[i].question, `Frage Nr. ${i + 1}: Frage weicht vom SEO-Schema ab`).toBe(schemaFaq[i].question);

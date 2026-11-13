@@ -1,8 +1,8 @@
 # Testfälle
 
-Automatisch erzeugt am 12.11.2026 mit `npm run writeDokuTestcases` – nicht von Hand bearbeiten.
+Automatisch erzeugt am 13.11.2026 mit `npm run writeDokuTestcases` – nicht von Hand bearbeiten.
 
-241 Testfälle, davon 0 ohne erwartetes Ergebnis.
+242 Testfälle, davon 0 ohne erwartetes Ergebnis.
 
 | Testdatei | Testfall | Erwartetes Ergebnis |
 |---|---|---|
@@ -185,14 +185,15 @@ Automatisch erzeugt am 12.11.2026 mit `npm run writeDokuTestcases` – nicht von
 | damage-form.spec.ts | Schaden-Formular: Anzeige der Dateinamen › Upload: Dateinamen – Auswahl entfernt | Im Upload-Bereich steht kein Dateiname mehr |
 | damage-form.spec.ts | Schaden-Formular: Danke-Ansicht schließen und erneut öffnen › „Schließen“ in der Danke-Ansicht schließt das Overlay | Overlay ist geschlossen, Seite ist wieder scrollbar |
 | damage-form.spec.ts | Schaden-Formular: Danke-Ansicht schließen und erneut öffnen › Formular ist nach dem Absenden beim erneuten Öffnen leer | Formular statt Danke-Ansicht sichtbar; alle Felder leer, keine Meldungen, Zähler auf „0 / 1000“, kein Dateiname |
+| damage-form.spec.ts | Schaden-Formular: Danke-Ansicht schließen und erneut öffnen › Befülltes Formular ist nach dem Schließen beim erneuten Öffnen weiterhin befüllt | Formular sichtbar; alle Felder, Zähler und Dateiname wie vor dem Schließen |
 | faq.spec.ts | FAQ: jedes Bild wird nur bei einer Frage verwendet | Kein Bild (data-img) ist bei mehr als einer Frage hinterlegt |
 | faq.spec.ts | FAQ (Desktop) › zu jeder Frage gibt es eine Antwort mit mind. 50 Zeichen und ein Bild | Jeder FAQ-Eintrag hat eine Frage, eine Antwort mit mind. 50 Zeichen und ein Bild; nach dem Klick wird das passende Bild eingesetzt |
-| faq.spec.ts | FAQ (Desktop) › beim Laden 1 Frage(n) offen, nach jedem Klick nur genau die Angeklickte | Beim Laden ist genau eine Frage offen; nach jedem Klick ist nur die angeklickte Frage aktiv |
+| faq.spec.ts | FAQ (Desktop) › beim Laden 1 Frage(n) offen, nach jedem Klick nur genau die angeklickte | Beim Laden ist genau eine Frage offen; nach jedem Klick ist nur die angeklickte Frage aktiv |
 | faq.spec.ts | FAQ (Desktop) › Antworten sind nur bei der aktiven Frage sichtbar | Beim Laden und nach jedem Klick ist nur die Antwort der aktiven Frage sichtbar, alle anderen sind ausgeblendet |
 | faq.spec.ts | FAQ (Desktop) › erneuter Klick auf die offene Frage lässt sie offen | Frage bleibt offen, Antwort bleibt sichtbar, genau eine Frage ist offen |
 | faq.spec.ts | FAQ (Desktop) › Fragen lassen sich per Tastatur öffnen | Frage ist fokussierbar und öffnet mit Enter; aria-expanded ist bei der offenen Frage "true", bei der geschlossenen "false" |
 | faq.spec.ts | FAQ (Smartphone) › zu jeder Frage gibt es eine Antwort mit mind. 50 Zeichen und ein Bild | Jeder FAQ-Eintrag hat eine Frage, eine Antwort mit mind. 50 Zeichen und ein Bild; nach dem Klick wird das passende Bild eingesetzt |
-| faq.spec.ts | FAQ (Smartphone) › beim Laden 0 Frage(n) offen, nach jedem Klick nur genau die Angeklickte | Beim Laden ist keine Frage offen; nach jedem Klick ist nur die angeklickte Frage aktiv |
+| faq.spec.ts | FAQ (Smartphone) › beim Laden 0 Frage(n) offen, nach jedem Klick nur genau die angeklickte | Beim Laden ist keine Frage offen; nach jedem Klick ist nur die angeklickte Frage aktiv |
 | faq.spec.ts | FAQ (Smartphone) › Antworten sind nur bei der aktiven Frage sichtbar | Beim Laden und nach jedem Klick ist nur die Antwort der aktiven Frage sichtbar, alle anderen sind ausgeblendet |
 | faq.spec.ts | FAQ (Smartphone) › erneuter Klick auf die offene Frage klappt sie zu | Frage klappt zu, Antwort ist ausgeblendet, keine Frage ist mehr offen |
 | faq.spec.ts | FAQ (Smartphone) › Fragen lassen sich per Tastatur öffnen | Frage ist fokussierbar und öffnet mit Enter; aria-expanded ist bei der offenen Frage "true", bei der geschlossenen "false" |

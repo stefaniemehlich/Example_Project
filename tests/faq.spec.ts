@@ -53,7 +53,7 @@ for (const viewport of viewports) {
             }
         });
 
-        test(`beim Laden ${viewport.openOnLoad} Frage(n) offen, nach jedem Klick nur genau die Angeklickte`, expectedResult(
+        test(`beim Laden ${viewport.openOnLoad} Frage(n) offen, nach jedem Klick nur genau die angeklickte`, expectedResult(
             `Beim Laden ist ${viewport.openOnLoad === 1 ? 'genau eine' : 'keine'} Frage offen; nach jedem Klick ist nur die angeklickte Frage aktiv`
         ), async ({ page }) => {
             await page.goto('/');

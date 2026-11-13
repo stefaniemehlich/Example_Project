@@ -35,6 +35,7 @@ test('Startseite: lädt ohne JavaScript-Fehler und ohne fehlgeschlagene Anfragen
     await page.goto('/');
     await scrollThroughPage(page);
     // wait until the lazy images have finished loading
+    // eslint-disable-next-line playwright/no-networkidle -- statische Seite ohne Hintergrund-Anfragen; hier soll jede begonnene Anfrage abgewartet werden
     await page.waitForLoadState('networkidle');
 
     expect(errors, 'Fehler beim Laden der Seite').toEqual([]);

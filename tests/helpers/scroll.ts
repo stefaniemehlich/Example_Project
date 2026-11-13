@@ -28,6 +28,7 @@ export async function scrollThroughPage(page: Page) {
     for (let y = 0; y < pageHeight; y += viewportHeight) {
         await scrollToY(page, y);
         // short pause so the browser notices the new position and requests the images now in view
+        // eslint-disable-next-line playwright/no-wait-for-timeout -- bewusste kurze Pause, siehe Kommentar oben
         await page.waitForTimeout(100);
     }
 }

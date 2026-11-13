@@ -53,8 +53,8 @@ export async function readIntervalFromSource(page: Page, pattern: RegExp, patter
     const matches = [...source.matchAll(new RegExp(pattern.source, 'g'))];
     expect(matches.length, `Kein Auto-Play-Takt im Code gefunden (erwartet: ${patternDescription})`).toBeGreaterThan(0);
     // exactly one place – otherwise it is unclear which interval applies
-    expect(matches.length,
-        `Auto-Play-Takt mehrfach im Code gefunden: ${matches.map(match => match[0]).join(', ')}`).toBe(1);
+    expect(matches,
+        `Auto-Play-Takt mehrfach im Code gefunden: ${matches.map(match => match[0]).join(', ')}`).toHaveLength(1);
     return Number(matches[0][1]);
 }
 

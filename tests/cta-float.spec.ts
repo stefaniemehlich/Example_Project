@@ -18,6 +18,7 @@ const WHATSAPP_URL = 'https://wa.me/4917612345678';
 async function waitForFinalPosition(element: Locator) {
     let previousPosition = '';
     await expect.poll(async () => {
+        // eslint-disable-next-line playwright/no-wait-for-timeout -- bewusste kurze Pause, siehe Kommentar oben
         await element.page().waitForTimeout(100);
         const currentPosition = JSON.stringify(await element.boundingBox());
         const positionUnchanged = currentPosition === previousPosition;

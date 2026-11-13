@@ -30,7 +30,7 @@ test('Bilder: alle <img>-Bilder können geladen werden', expectedResult(
 
     const imageUrls = await page.locator('img').evaluateAll(images => images.map(image => image.getAttribute('src') ?? ''));
     expect(imageUrls.length, 'Keine <img>-Bilder auf der Seite gefunden').toBeGreaterThan(0);
-    expect(imageUrls.filter(imageUrl => imageUrl.trim() === '').length, 'Es gibt <img> ohne src').toBe(0);
+    expect(imageUrls.filter(imageUrl => imageUrl.trim() === ''), 'Es gibt <img> ohne src').toHaveLength(0);
 
     // Images that are only inserted by JavaScript (e.g. FAQ: data-img)
     const scriptInsertedUrls = await page.locator('[data-img]')
